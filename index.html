@@ -2,70 +2,37 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>CIFRAFLOW STUDIO PREMIUM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIFRA FLOW STUDIO PREMIUM - VS + PEDE AÍ</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0a0a0a">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="icon-192.png">
 <style>
-:root{--gold:#d4af37;--gold2:#ffd700;--black:#0a0a0a}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:Inter,sans-serif;min-height:100vh;background:radial-gradient(ellipse at top,#1a1a1a 0%,#000 70%)}
-.header{margin:10px;padding:15px;background:linear-gradient(180deg,#1e1e1e,#0a0a0a);border:2px solid #333;border-radius:12px;display:flex;justify-content:space-between;align-items:center}
-.header h1{font-family:Orbitron,sans-serif;font-weight:900;font-size:22px;line-height:1.1;background:linear-gradient(180deg,#fff,#a0a0a0,#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
-.badge{width:75px;height:75px;background:radial-gradient(circle,#2a2a2a 20%,#000 100%);border:3px solid #d4af37;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(212,175,55,.4)}
-.badge span:last-child{font-size:9px;color:#d4af37;font-weight:900}
-.subtitle{text-align:center;color:#aaa;font-size:13px;letter-spacing:3px;margin:15px 0;font-weight:600}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 12px}
-.btn{background:linear-gradient(145deg,#1f1f1f,#0f0f0f);border:2px solid #333;border-radius:14px;padding:14px 6px;min-height:105px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 5px 15px rgba(0,0,0,.6)}
-.btn.gold{border-color:#d4af37;box-shadow:0 0 15px rgba(212,175,55,.3)}
-.btn.add{border-color:#ffd700;box-shadow:0 0 25px rgba(255,215,0,.5)}
-.icon{font-size:34px;margin-bottom:6px}
-.btn.add .icon{color:#ffd700;font-size:42px}
-.label{font-size:9.5px;font-weight:800;text-align:center;line-height:1.15;color:#e0e0e0;text-transform:uppercase}
-.knobs{margin:18px 12px;background:linear-gradient(180deg,#1a1a1a,#0e0e0e);border:2px solid #2a2a2a;border-radius:12px;padding:15px 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.knob{width:58px;height:58px;background:radial-gradient(circle at 30% 30%,#d4af37 0%,#8b6914 40%,#3d2e0a 100%);border-radius:50%;border:2px solid #5a4a1a;position:relative}
-.knob::after{content:'';position:absolute;top:6px;left:50%;width:3px;height:14px;background:#fff;border-radius:2px;transform:translateX(-50%)}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;align-items:center;justify-content:center;padding:20px}
-.modal.show{display:flex}
-.modal-box{background:#111;border:2px solid #d4af37;border-radius:16px;padding:20px;width:100%;max-width:400px}
+body{margin:0;font-family:Arial, sans-serif;background:#000;color:#fff;text-align:center}
+header{padding:20px;background:linear-gradient(90deg,#000,#222);border-bottom:3px solid #FFD700}
+h1{color:#FFD700;margin:0;font-size:28px;letter-spacing:1px}
+h2{color:#fff;font-size:16px;margin:5px 0 0 0}
+.logo{font-size:50px;margin:20px 0}
+.card{background:#111;border:1px solid #FFD700;border-radius:15px;padding:20px;margin:20px}
+.btn{background:#FFD700;color:#000;padding:15px 30px;border:none;border-radius:30px;font-weight:bold;font-size:18px;width:90%;margin:10px}
+.note{color:#aaa;font-size:13px;margin-top:20px}
 </style>
 </head>
 <body>
-<div class="header">
-<h1>CIFRAFLOW<br>STUDIO<br>PREMIUM</h1>
-<div class="badge"><span>👑</span><span>PREMIUM</span></div>
+<header>
+<h1>CIFRA FLOW STUDIO PREMIUM</h1>
+<h2>VS • PEDE AÍ • A • E • D • TABLET</h2>
+</header>
+<div class="logo">🎸 VS 📱</div>
+<div class="card">
+<h3>Seu Estúdio de Cifras Está no Ar!</h3>
+<p>Toque, crie VS e receba pedidos ao vivo</p>
+<button class="btn" onclick="alert('CIFRA FLOW STUDIO PREMIUM ativo! Em breve: Player de VS + Pedidos')">▶️ INICIAR VS</button>
+<button class="btn" onclick="alert('PEDE AÍ ativado!')">🎵 PEDE AÍ</button>
 </div>
-<div class="subtitle">MENU PRINCIPAL • TELA INICIAL</div>
-<div class="grid">
-<div class="btn" onclick="openModal('agenda')"><div class="icon">📅</div><div class="label">AGENDA</div></div>
-<div class="btn" onclick="openModal('musicos')"><div class="icon">👥</div><div class="label">CADASTRO<br>MUSICOS</div></div>
-<div class="btn" onclick="openModal('pix')"><div class="icon">💲</div><div class="label">MEU PIX</div></div>
-<div class="btn" onclick="openModal('pedeai')"><div class="icon">🎤</div><div class="label">PEDE AI</div></div>
-<div class="btn" onclick="openModal('repertorio')"><div class="icon">🎵</div><div class="label">MEU<br>REPERTORIO</div></div>
-<div class="btn" onclick="backup()"><div class="icon">☁️</div><div class="label">BACKUP<br>RESTAURAR</div></div>
-<div class="btn" onclick="openModal('minhas')"><div class="icon">📖</div><div class="label" style="font-size:8px">MINHAS CIFRAS<br>COM VS PLAYBACK</div></div>
-<div class="btn add gold" onclick="openModal('add')"><div class="icon">+</div><div class="label">ADICIONAR CIFRA<br>NOVA</div></div>
-<div class="btn" onclick="openModal('editar')"><div class="icon">✏️</div><div class="label">EDITAR<br>CIFRAS</div></div>
-<div class="btn gold" onclick="shareApp()"><div class="icon">🔗</div><div class="label">COMPARTILHAR</div></div>
-<div class="btn gold" onclick="installApp()"><div class="icon">⬇️</div><div class="label">INSTALAR APP</div></div>
-<div class="btn gold" onclick="openModal('player')"><div class="icon">🎧</div><div class="label">PLAYER<br>PREMIUM</div></div>
-</div>
-<div class="knobs">
-<div style="text-align:center"><div style="font-size:9px;color:#aaa">VOLUME</div><div class="knob"></div><div style="font-size:9px;color:#aaa;margin-top:6px">VOLUME</div></div>
-<div style="text-align:center"><div style="font-size:9px;color:#aaa">PITCH</div><div class="knob"></div><div style="font-size:9px;color:#aaa;margin-top:6px">PITCH</div></div>
-<div style="text-align:center"><div style="font-size:9px;color:#aaa">GRAVE</div><div class="knob"></div><div style="font-size:9px;color:#aaa;margin-top:6px">GRAVE</div></div>
-<div style="text-align:center"><div style="font-size:9px;color:#aaa">REVERB</div><div class="knob"></div><div style="font-size:9px;color:#aaa;margin-top:6px">REVERB</div></div>
-</div>
-<div style="text-align:center;font-size:8px;color:#555;padding:8px 0 20px;letter-spacing:2px">PRO TUNER • ANALOG • PREMIUM AMPLIFIER ENGINE</div>
-<div class="modal" id="modal"><div class="modal-box"><h2 id="modalTitle">CIFRAFLOW</h2><div id="modalContent"></div><button onclick="closeModal()" style="background:#d4af37;color:#000;border:none;padding:10px 16px;border-radius:8px;font-weight:800;margin-top:10px">FECHAR</button></div></div>
+<p class="note">Instale no celular: Menu do Chrome > Adicionar à tela inicial<br> takitakisom-dev.github.io/CIFRA-FLOW-STUDIO-PREMIUM/</p>
 <script>
-let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
-function installApp(){if(deferredPrompt)deferredPrompt.prompt();else alert('Chrome > 3 pontinhos > Instalar app');}
-function shareApp(){if(navigator.share)navigator.share({title:'CIFRAFLOW STUDIO PREMIUM',url:location.href});else{ navigator.clipboard.writeText(location.href);alert('Link copiado!');}}
-function backup(){const d=localStorage.getItem('cifraflow')||'{}';const b=new Blob([d],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='cifraflow-backup.json';a.click();}
-function openModal(t){const m=document.getElementById('modal');m.classList.add('show');document.getElementById('modalTitle').innerText=t.toUpperCase();document.getElementById('modalContent').innerHTML='<p>Função '+t+' Premium ativa!</p><input placeholder=Digite... style=width:100%;padding:10px;background:#000;color:#fff;border:1px solid #333;border-radius:8px;margin-top:10px>';}
-function closeModal(){document.getElementById('modal').classList.remove('show');}
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
 </script>
 </body>
 </html>
