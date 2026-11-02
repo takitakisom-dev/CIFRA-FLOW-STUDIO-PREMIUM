@@ -2,35 +2,62 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CIFRA FLOW STUDIO PREMIUM - VS + PEDE AÍ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CIFRAFLOW STUDIO PREMIUM</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0a0a0a">
 <link rel="icon" href="icon-192.png">
 <style>
-body{margin:0;font-family:Arial, sans-serif;background:#000;color:#fff;text-align:center}
-header{padding:20px;background:linear-gradient(90deg,#000,#222);border-bottom:3px solid #FFD700}
-h1{color:#FFD700;margin:0;font-size:28px;letter-spacing:1px}
-h2{color:#fff;font-size:16px;margin:5px 0 0 0}
-.logo{font-size:50px;margin:20px 0}
-.card{background:#111;border:1px solid #FFD700;border-radius:15px;padding:20px;margin:20px}
-.btn{background:#FFD700;color:#000;padding:15px 30px;border:none;border-radius:30px;font-weight:bold;font-size:18px;width:90%;margin:10px}
-.note{color:#aaa;font-size:13px;margin-top:20px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial}
+body{background:#0a0a0a;color:#fff;overflow-x:hidden}
+header{background:linear-gradient(180deg,#1a1a1a,#000);padding:15px;text-align:center;border-bottom:3px solid #FFD700;position:sticky;top:0;z-index:10}
+header h1{color:#FFD700;font-size:22px;letter-spacing:1px;line-height:1.1}
+header h1 span{color:#fff;font-size:13px;display:block;letter-spacing:3px;margin-top:4px}
+.amp{background:#111;border:2px solid #222;border-radius:15px;margin:12px;padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center}
+.knob{width:50px;height:50px;background:radial-gradient(#333,#111);border:2px solid #FFD700;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center}
+.knob-label{font-size:9px;color:#aaa;margin-top:4px;letter-spacing:1px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px}
+.btn{background:linear-gradient(145deg,#1e1e1e,#121212);border:1px solid #2a2a2a;border-radius:14px;padding:14px 5px;text-align:center;transition:0.2s}
+.btn:active{transform:scale(0.95);border-color:#FFD700}
+.btn .icon{font-size:26px}
+.btn .label{font-size:9px;margin-top:6px;color:#ddd;font-weight:bold;line-height:1.1;letter-spacing:0.5px}
+.btn.premium{border-color:#FFD700;background:linear-gradient(145deg,#2a2200,#111)}
+.player-bar{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:2px solid #FFD700;padding:10px 15px;display:flex;justify-content:space-between;align-items:center}
 </style>
 </head>
 <body>
 <header>
-<h1>CIFRA FLOW STUDIO PREMIUM</h1>
-<h2>VS • PEDE AÍ • A • E • D • TABLET</h2>
+<h1>CIFRAFLOW<span>STUDIO PREMIUM • VS • PEDE AÍ • A • E • D • TABLET</span></h1>
 </header>
-<div class="logo">🎸 VS 📱</div>
-<div class="card">
-<h3>Seu Estúdio de Cifras Está no Ar!</h3>
-<p>Toque, crie VS e receba pedidos ao vivo</p>
-<button class="btn" onclick="alert('CIFRA FLOW STUDIO PREMIUM ativo! Em breve: Player de VS + Pedidos')">▶️ INICIAR VS</button>
-<button class="btn" onclick="alert('PEDE AÍ ativado!')">🎵 PEDE AÍ</button>
+
+<div class="amp">
+<div><div class="knob">●</div><div class="knob-label">VOLUME</div></div>
+<div><div class="knob">●</div><div class="knob-label">PITCH</div></div>
+<div><div class="knob">●</div><div class="knob-label">GRAVE</div></div>
+<div><div class="knob">●</div><div class="knob-label">REVERB</div></div>
 </div>
-<p class="note">Instale no celular: Menu do Chrome > Adicionar à tela inicial<br> takitakisom-dev.github.io/CIFRA-FLOW-STUDIO-PREMIUM/</p>
+
+<div class="grid">
+<div class="btn" onclick="alert('AGENDA')"><div class="icon">📅</div><div class="label">AGENDA</div></div>
+<div class="btn" onclick="alert('CADASTRO MUSICOS')"><div class="icon">👥</div><div class="label">CADASTRO MUSICOS</div></div>
+<div class="btn" onclick="alert('MEU PIX: seu pix aqui')"><div class="icon">💲</div><div class="label">MEU PIX</div></div>
+<div class="btn premium" onclick="alert('PEDE AI ativado! QR Code na tela')"><div class="icon">🎤</div><div class="label">PEDE AI</div></div>
+<div class="btn" onclick="alert('MEU REPERTORIO')"><div class="icon">🎵</div><div class="label">MEU REPERTORIO</div></div>
+<div class="btn" onclick="alert('BACKUP')"><div class="icon">☁️</div><div class="label">BACKUP RESTAURAR</div></div>
+<div class="btn premium" onclick="alert('MINHAS CIFRAS COM VS PLAYBACK')"><div class="icon">📖</div><div class="label">MINHAS CIFRAS COM VS PLAYBACK</div></div>
+<div class="btn" onclick="alert('ADICIONAR CIFRA NOVA')"><div class="icon">➕</div><div class="label">ADICIONAR CIFRA NOVA</div></div>
+<div class="btn" onclick="alert('EDITAR CIFRAS')"><div class="icon">✏️</div><div class="label">EDITAR CIFRAS</div></div>
+<div class="btn" onclick="navigator.share?navigator.share({title:'CIFRAFLOW',url:location.href}):alert('Link copiado: '+location.href)"><div class="icon">🔗</div><div class="label">COMPARTILHAR</div></div>
+<div class="btn" onclick="alert('Para instalar: Menu do Chrome > Adicionar à tela inicial')"><div class="icon">⬇️</div><div class="label">INSTALAR APP</div></div>
+<div class="btn premium" onclick="alert('PLAYER PREMIUM')"><div class="icon">🎧</div><div class="label">PLAYER PREMIUM</div></div>
+</div>
+
+<div style="height:80px"></div>
+<div class="player-bar">
+<div>🎸 CIFRAFLOW PREMIUM</div>
+<div style="color:#FFD700">VS ● AO VIVO</div>
+</div>
+
 <script>
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
 </script>
