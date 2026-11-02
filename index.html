@@ -6,59 +6,101 @@
 <title>CIFRAFLOW STUDIO PREMIUM</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a0a0a">
-<link rel="icon" href="icon-192.png">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial}
-body{background:#0a0a0a;color:#fff;overflow-x:hidden}
-header{background:linear-gradient(180deg,#1a1a1a,#000);padding:15px;text-align:center;border-bottom:3px solid #FFD700;position:sticky;top:0;z-index:10}
-header h1{color:#FFD700;font-size:22px;letter-spacing:1px;line-height:1.1}
-header h1 span{color:#fff;font-size:13px;display:block;letter-spacing:3px;margin-top:4px}
-.amp{background:#111;border:2px solid #222;border-radius:15px;margin:12px;padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center}
-.knob{width:50px;height:50px;background:radial-gradient(#333,#111);border:2px solid #FFD700;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center}
-.knob-label{font-size:9px;color:#aaa;margin-top:4px;letter-spacing:1px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px}
-.btn{background:linear-gradient(145deg,#1e1e1e,#121212);border:1px solid #2a2a2a;border-radius:14px;padding:14px 5px;text-align:center;transition:0.2s}
-.btn:active{transform:scale(0.95);border-color:#FFD700}
-.btn .icon{font-size:26px}
-.btn .label{font-size:9px;margin-top:6px;color:#ddd;font-weight:bold;line-height:1.1;letter-spacing:0.5px}
-.btn.premium{border-color:#FFD700;background:linear-gradient(145deg,#2a2200,#111)}
-.player-bar{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:2px solid #FFD700;padding:10px 15px;display:flex;justify-content:space-between;align-items:center}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial}
+body{background:#000;color:#fff;background:radial-gradient(ellipse at top,#1a1a1a 0%, #000 70%);min-height:100vh;padding-bottom:90px}
+.header{margin:10px;border:2px solid #333;border-radius:12px;background:linear-gradient(180deg,#2a2a2a,#111);padding:14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 20px #000}
+.header h1{font-size:26px;line-height:0.9;font-weight:900;color:#d0d0d0;text-shadow:0 2px 0 #000}
+.badge{width:78px;height:78px;background:radial-gradient(circle at 30% 30%,#FFE55C,#FFD700 40%,#8a6d00);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid #000;font-size:9px;color:#000;font-weight:900;box-shadow:0 0 15px rgba(0,0,0,0.8)}
+.subtitle{text-align:center;color:#777;font-size:11px;letter-spacing:4px;margin:14px 0 10px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 10px}
+.card{background:linear-gradient(145deg,#1e1e1e,#0f0f0f);border:1.5px solid #2a2a2a;border-radius:12px;padding:14px 4px;text-align:center;cursor:pointer;box-shadow:inset 0 1px 0 #333, 0 4px 10px #000;transition:0.15s}
+.card:active{transform:scale(0.94);border-color:#FFD700}
+.card .ico{font-size:32px}
+.card .txt{font-size:9px;margin-top:6px;font-weight:800;color:#ccc;line-height:1.1;letter-spacing:0.3px}
+.card.gold{border-color:#5a4a00;background:linear-gradient(145deg,#2a2200,#151100);box-shadow:0 0 12px rgba(255,215,0,0.25), inset 0 1px 0 #6a5a00}
+.amp{margin:15px 10px 10px;border:2px solid #2a2a2a;border-radius:12px;background:linear-gradient(180deg,#1a1a1a,#0a0a0a);padding:14px 8px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center;box-shadow:inset 0 1px 0 #333}
+.knob{width:46px;height:46px;background:radial-gradient(circle at 30% 30%,#f0d060,#b89600);border-radius:50%;margin:2px auto;border:2px solid #111;box-shadow:0 3px 6px #000;position:relative}
+.knob::after{content:'';position:absolute;top:5px;left:50%;width:2px;height:10px;background:#000;transform:translateX(-50%)}
+.kl{font-size:8px;color:#888;margin:4px 0;font-weight:700;letter-spacing:0.5px}
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;z-index:99;overflow:auto;padding:15px}
+.modal.active{display:block}
+.box{background:#151515;border:1px solid #333;border-radius:14px;padding:15px;margin:20px auto;max-width:480px}
+.box h2{color:#FFD700;margin-bottom:10px;font-size:18px}
+input,textarea,select{width:100%;background:#0a0a0a;border:1px solid #333;border-radius:8px;color:#fff;padding:12px;margin:6px 0;font-size:14px}
+.btn{background:#FFD700;color:#000;border:none;padding:12px;border-radius:30px;font-weight:900;width:100%;margin-top:8px;cursor:pointer}
+.btn2{background:#222;color:#fff;border:1px solid #444;padding:10px;border-radius:8px;width:100%;margin-top:6px}
+.cifra-item{background:#111;border:1px solid #222;border-radius:10px;padding:10px;margin:6px 0;display:flex;justify-content:space-between;align-items:center}
+.pro{font-size:10px;color:#666;text-align:center;margin-top:8px}
 </style>
 </head>
 <body>
-<header>
-<h1>CIFRAFLOW<span>STUDIO PREMIUM • VS • PEDE AÍ • A • E • D • TABLET</span></h1>
-</header>
+<div class="header">
+<h1>CIFRAFLOW<br>STUDIO<br>PREMIUM</h1>
+<div class="badge">👑<br>PREMIUM</div>
+</div>
+<div class="subtitle">MENU PRINCIPAL TELA INICIAL</div>
+<div class="grid">
+<div class="card" onclick="openM('agenda')"><div class="ico">📅</div><div class="txt">AGENDA</div></div>
+<div class="card" onclick="openM('musicos')"><div class="ico">👥</div><div class="txt">CADASTRO<br>MUSICOS</div></div>
+<div class="card" onclick="openM('pix')"><div class="ico">💲</div><div class="txt">MEU PIX</div></div>
+<div class="card" onclick="openM('pede')"><div class="ico">🎤</div><div class="txt">PEDE AI</div></div>
+<div class="card" onclick="openM('repertorio')"><div class="ico">🎵</div><div class="txt">MEU REPERTORIO</div></div>
+<div class="card" onclick="openM('backup')"><div class="ico">☁️</div><div class="txt">BACKUP<br>RESTAURAR</div></div>
+<div class="card" onclick="openM('cifras')"><div class="ico">📖</div><div class="txt">MINHAS CIFRAS<br>COM VS PLAYBACK</div></div>
+<div class="card gold" onclick="openM('add')"><div class="ico">➕</div><div class="txt">ADICIONAR CIFRA<br>NOVA</div></div>
+<div class="card" onclick="openM('cifras')"><div class="ico">✏️</div><div class="txt">EDITAR CIFRAS</div></div>
+<div class="card" onclick="shareApp()"><div class="ico">🔗</div><div class="txt">COMPARTILHAR</div></div>
+<div class="card" onclick="installApp()"><div class="ico">⬇️</div><div class="txt">INSTALAR APP</div></div>
+<div class="card" onclick="openM('player')"><div class="ico">🎧</div><div class="txt">PLAYER<br>PREMIUM</div></div>
+</div>
 
 <div class="amp">
-<div><div class="knob">●</div><div class="knob-label">VOLUME</div></div>
-<div><div class="knob">●</div><div class="knob-label">PITCH</div></div>
-<div><div class="knob">●</div><div class="knob-label">GRAVE</div></div>
-<div><div class="knob">●</div><div class="knob-label">REVERB</div></div>
+<div><div class="kl">VOLUME</div><input type="range" id="vol" min="0" max="100" value="80" style="width:46px"><div class="knob"></div><div class="kl">VOLUME</div></div>
+<div><div class="knob"></div><div class="kl">PITCH</div></div>
+<div><div class="knob"></div><div class="kl">GRAVE</div></div>
+<div><div class="kl">REVERB</div><div class="knob"></div><div class="kl">REVERB</div></div>
 </div>
+<div class="pro">PRO TUNER • ANALOG • PREMIUM AMPLIFIER ENGINE</div>
 
-<div class="grid">
-<div class="btn" onclick="alert('AGENDA')"><div class="icon">📅</div><div class="label">AGENDA</div></div>
-<div class="btn" onclick="alert('CADASTRO MUSICOS')"><div class="icon">👥</div><div class="label">CADASTRO MUSICOS</div></div>
-<div class="btn" onclick="alert('MEU PIX: seu pix aqui')"><div class="icon">💲</div><div class="label">MEU PIX</div></div>
-<div class="btn premium" onclick="alert('PEDE AI ativado! QR Code na tela')"><div class="icon">🎤</div><div class="label">PEDE AI</div></div>
-<div class="btn" onclick="alert('MEU REPERTORIO')"><div class="icon">🎵</div><div class="label">MEU REPERTORIO</div></div>
-<div class="btn" onclick="alert('BACKUP')"><div class="icon">☁️</div><div class="label">BACKUP RESTAURAR</div></div>
-<div class="btn premium" onclick="alert('MINHAS CIFRAS COM VS PLAYBACK')"><div class="icon">📖</div><div class="label">MINHAS CIFRAS COM VS PLAYBACK</div></div>
-<div class="btn" onclick="alert('ADICIONAR CIFRA NOVA')"><div class="icon">➕</div><div class="label">ADICIONAR CIFRA NOVA</div></div>
-<div class="btn" onclick="alert('EDITAR CIFRAS')"><div class="icon">✏️</div><div class="label">EDITAR CIFRAS</div></div>
-<div class="btn" onclick="navigator.share?navigator.share({title:'CIFRAFLOW',url:location.href}):alert('Link copiado: '+location.href)"><div class="icon">🔗</div><div class="label">COMPARTILHAR</div></div>
-<div class="btn" onclick="alert('Para instalar: Menu do Chrome > Adicionar à tela inicial')"><div class="icon">⬇️</div><div class="label">INSTALAR APP</div></div>
-<div class="btn premium" onclick="alert('PLAYER PREMIUM')"><div class="icon">🎧</div><div class="label">PLAYER PREMIUM</div></div>
-</div>
-
-<div style="height:80px"></div>
-<div class="player-bar">
-<div>🎸 CIFRAFLOW PREMIUM</div>
-<div style="color:#FFD700">VS ● AO VIVO</div>
-</div>
+<!-- MODAIS -->
+<div id="m-agenda" class="modal" onclick="closeM(event)"><div class="box"><h2>📅 AGENDA</h2><input id="ag-data" type="date"><input id="ag-local" placeholder="Local / Evento"><input id="ag-valor" placeholder="Valor R$"><button class="btn" onclick="saveAgenda()">Salvar Show</button><div id="ag-list"></div><button class="btn2" onclick="closeAll()">Fechar</button></div></div>
+<div id="m-musicos" class="modal" onclick="closeM(event)"><div class="box"><h2>👥 CADASTRO MÚSICOS</h2><input id="mu-nome" placeholder="Nome"><input id="mu-inst" placeholder="Instrumento"><input id="mu-cont" placeholder="WhatsApp"><button class="btn" onclick="saveMusico()">Salvar Músico</button><div id="mu-list"></div><button class="btn2" onclick="closeAll()">Fechar</button></div></div>
+<div id="m-pix" class="modal" onclick="closeM(event)"><div class="box"><h2>💲 MEU PIX</h2><input id="pix-key" placeholder="Sua chave PIX"><button class="btn" onclick="savePix()">Salvar PIX</button><div id="pix-show" style="margin-top:15px;text-align:center;font-size:18px;color:#FFD700"></div><button class="btn2" onclick="closeAll()">Fechar</button></div></div>
+<div id="m-pede" class="modal" onclick="closeM(event)"><div class="box"><h2>🎤 PEDE AÍ - AO VIVO</h2><p style="font-size:12px;color:#aaa">Mostre esse link pro público pedir música:</p><div id="pede-link" style="background:#000;padding:10px;border-radius:8px;font-size:11px;word-break:break-all;margin:10px 0"></div><div id="pede-lista"></div><button class="btn2" onclick="closeAll()">Fechar</button></div></div>
+<div id="m-cifras" class="modal" onclick="closeM(event)"><div class="box"><h2>📖 MINHAS CIFRAS COM VS</h2><div id="cifra-list"></div><button class="btn2" onclick="closeAll()">Fechar</button></div></div>
+<div id="m-add" class="modal" onclick="closeM(event)"><div class="box"><h2>➕ ADICIONAR CIFRA NOVA</h2><input id="c-tit" placeholder="Título da música"><input id="c-art" placeholder="Artista"><select id="c-tom"><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select><textarea id="c-letra" rows="6" placeholder="Cifra com acordes..."></textarea><input id="c-vs" placeholder="Link do VS Playback (YouTube/MP3)"><button class="btn" onclick="saveCifra()">Salvar Cifra</button><button class="btn2" onclick="closeAll()">Cancelar</button></div></div>
+<div id="m-player" class="modal" onclick="closeM(event)"><div class="box"><h2>🎧 PLAYER PREMIUM</h2><audio id="audio" controls style="width:100%;margin:10px 0"></audio><div id="player-info" style="color:#aaa;font-size:12px">Nenhuma música selecionada</div><div id="player-list"></div><button class="btn2" onclick="closeAll()">Fechar</button></div></div>
+<div id="m-repertorio" class="modal" onclick="closeM(event)"><div class="box"><h2>🎵 MEU REPERTÓRIO - 195 MÚSICAS FIXAS</h2><div id="rep-list"></div><button class="btn2" onclick="closeAll()">Fechar</button></div></div>
+<div id="m-backup" class="modal" onclick="closeM(event)"><div class="box"><h2>☁️ BACKUP / RESTAURAR</h2><button class="btn" onclick="exportData()">⬆️ EXPORTAR BACKUP</button><input type="file" id="importFile" accept=".json" style="margin-top:10px"><button class="btn2" onclick="importData()">⬇️ IMPORTAR BACKUP</button><button class="btn2" onclick="closeAll()">Fechar</button></div></div>
 
 <script>
+let db=JSON.parse(localStorage.getItem('cf_db')||'{"cifras":[],"agenda":[],"musicos":[],"pix":""}');
+function save(){localStorage.setItem('cf_db',JSON.stringify(db));render();}
+function openM(id){document.getElementById('m-'+id).classList.add('active');render();if(id=='pede'){document.getElementById('pede-link').innerText=location.href+'?pede=1'}}
+function closeAll(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('active'))}
+function closeM(e){if(e.target.classList.contains('modal')) closeAll()}
+function saveCifra(){let c={id:Date.now(),tit:document.getElementById('c-tit').value,art:document.getElementById('c-art').value,tom:document.getElementById('c-tom').value,letra:document.getElementById('c-letra').value,vs:document.getElementById('c-vs').value};if(!c.tit)return alert('Título obrigatório');db.cifras.push(c);save();closeAll();document.getElementById('c-tit').value='';alert('Cifra salva!')}
+function saveAgenda(){db.agenda.push({data:document.getElementById('ag-data').value,local:document.getElementById('ag-local').value,valor:document.getElementById('ag-valor').value});save()}
+function saveMusico(){db.musicos.push({nome:document.getElementById('mu-nome').value,inst:document.getElementById('mu-inst').value,cont:document.getElementById('mu-cont').value});save()}
+function savePix(){db.pix=document.getElementById('pix-key').value;save();document.getElementById('pix-show').innerHTML='PIX: <b>'+db.pix+'</b>';}
+function render(){
+ let cl=document.getElementById('cifra-list');if(cl)cl.innerHTML=db.cifras.map(c=>`<div class=cifra-item><div><b>${c.tit}</b><br><small>${c.art} - Tom ${c.tom}</small></div><div><button onclick="playCifra(${c.id})">▶️</button> <button onclick="delCifra(${c.id})">🗑️</button></div></div>`).join('')||'Nenhuma cifra ainda';
+ let pl=document.getElementById('player-list');if(pl)pl.innerHTML=db.cifras.map(c=>`<div class=cifra-item><div>${c.tit}</div><button onclick="playCifra(${c.id})">Tocar</button></div>`).join('');
+ let al=document.getElementById('ag-list');if(al)al.innerHTML=db.agenda.map(a=>`<div class=cifra-item>${a.data} - ${a.local} - R$${a.valor}</div>`).join('');
+ let ml=document.getElementById('mu-list');if(ml)ml.innerHTML=db.musicos.map(m=>`<div class=cifra-item>${m.nome} - ${m.inst} - ${m.cont}</div>`).join('');
+ let rl=document.getElementById('rep-list');if(rl)rl.innerHTML=db.cifras.map(c=>`• ${c.tit} - ${c.art} [${c.tom}]<br>`).join('')||'Vazio. Adicione cifras.';
+ if(db.pix)document.getElementById('pix-show').innerHTML='PIX: <b>'+db.pix+'</b>';
+}
+function playCifra(id){let c=db.cifras.find(x=>x.id==id);if(!c)return;document.getElementById('player-info').innerText=c.tit+' - '+c.art;let aud=document.getElementById('audio');if(c.vs){aud.src=c.vs;aud.play()}openM('player')}
+function delCifra(id){if(confirm('Apagar?')){db.cifras=db.cifras.filter(c=>c.id!=id);save()}}
+function shareApp(){if(navigator.share){navigator.share({title:'CIFRAFLOW STUDIO PREMIUM',url:location.href})}else{prompt('Copie o link:',location.href)}}
+let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e});function installApp(){if(deferredPrompt){deferredPrompt.prompt()}else alert('No Chrome: Menu ⋮ > Adicionar à tela inicial > Instalar')}
+function exportData(){let blob=new Blob([JSON.stringify(db)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cifraflow-backup.json';a.click()}
+function importData(){let f=document.getElementById('importFile').files[0];if(!f)return;let r=new FileReader();r.onload=e=>{db=JSON.parse(e.target.result);save();alert('Backup restaurado!')};r.readAsText(f)}
+document.getElementById('vol')?.addEventListener('input',e=>{document.getElementById('audio').volume=e.target.value/100})
+render();
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
 </script>
 </body>
