@@ -1,24 +1,22 @@
 {
-  "name": "CifraFlow Studio Premium",
-  "short_name": "CifraFlow Premium",
-  "description": "CIFRAFLOW STUDIO PREMIUM - Agenda, Cifras com VS Playback, Player Premium",
-  "start_url": "./index.html",
+  "name": "CIFRA FLOW STUDIO PREMIUM",
+  "short_name": "CIFRA FLOW",
+  "description": "VS + PEDE AÍ - Estúdio Premium de Cifras",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/138/138817.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/138/138817.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
