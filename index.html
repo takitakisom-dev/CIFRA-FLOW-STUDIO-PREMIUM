@@ -1,101 +1,147 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CIFRAFLOW V201 - PREVIA APROVADA</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}body{background:#050507;color:#fff}
-.top{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:10px;background:#0f0f12;border-bottom:1px solid #222}
-.hamb{width:38px;height:38px;border-radius:10px;background:#1a1a1e;border:1px solid #2a2a2e;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
-.ibtn{width:36px;height:36px;border-radius:50%;background:#1a1a1e;border:1px solid #333;display:flex;align-items:center;justify-content:center;position:relative}
-.drawer{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:90;display:none}.drawer.on{display:block}
-.dbox{width:88%;max-width:360px;height:100%;background:#141418;border-right:2px solid #222;overflow:auto;padding:12px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.card{background:#1d1d23;border:1.5px solid #2e2e36;border-radius:12px;min-height:85px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;text-align:center;line-height:1.3}.card.gold{border-color:#8a6a00}
-.main{padding:10px}.now{background:#1c1c22;border:1px solid #2a2a30;border-radius:12px;padding:10px;text-align:center}
-.wave-small{height:36px;background:#000;border-radius:8px;margin:8px 0;border:1px solid #222;display:flex;align-items:center}
-.controls-top{display:flex;justify-content:space-between;align-items:center;background:#0e0e12;border:1px solid #222;border-radius:10px;padding:8px;margin:8px 0}
-.tom-btn{width:32px;height:32px;border-radius:50%;background:#2a2a30;border:1px solid #444;color:#FFD700;font-weight:900;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.tom-val{background:#000;border:1px solid #333;border-radius:8px;padding:4px 8px;color:#00B0FF;font-weight:900;font-size:12px;min-width:52px;text-align:center}
-.scroll-btn{width:28px;height:28px;border-radius:6px;background:#1a1a1e;border:1px solid #333;color:#fff;font-size:12px;cursor:pointer}
-.cifra-container{background:#000;border:1px solid #222;border-radius:12px;padding:12px;max-height:52vh;overflow:auto;position:relative}
-.cifra-container.fullscreen{position:fixed;inset:0;z-index:9999;max-height:100vh;border-radius:0;padding:0;background:#000;display:flex;flex-direction:column}
-.cifra-container.fullscreen .full-top{display:flex!important}
-.cifra-container.fullscreen #renderArea{flex:1;overflow:auto;padding:20px 14px 40px}
-.cifra-container.fullscreen .chord{font-size:19px!important}
-.cifra-container.fullscreen .lyric{font-size:21px!important;line-height:1.4!important}
-body.full-active .top,body.full-active .wave-small,body.full-active .play-ctrl,body.full-active .knobs,body.full-active .now,body.full-active .controls-top,body.full-active .add-btn{display:none!important}
-body.full-active{background:#000}
-.full-top{display:none;justify-content:space-between;align-items:center;padding:10px 12px;background:#0a0a0a;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
-.full-btn{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:8px;background:#1a1a1e;border:1px solid #333;color:#fff;font-size:14px;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center}
-.chord-line{display:block;margin-bottom:2px}.chord-wrap{display:inline-block;position:relative;margin-right:8px;padding-top:16px}
-.chord{position:absolute;top:0;left:0;color:#00B0FF;font-weight:900;font-size:13px;white-space:nowrap}
-.lyric{color:#FFFFFF;font-size:15px;font-weight:500}
-.play-ctrl{display:flex;justify-content:space-around;margin:10px 0;background:#111;border:1px solid #222;border-radius:12px;padding:10px}
-.kbtn{width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#f3d97a,#8a6300);border:2px solid #000;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
-.knobs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:#0f0f12;border:1px solid #222;border-radius:12px;padding:8px;margin-top:8px}
-.knob{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#f3d97a,#8a6300);border:2px solid #000;margin:0 auto}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:100;display:none;padding:10px;overflow:auto}.modal.on{display:block}
-.mbox{background:#1e1e24;border:1px solid #333;border-radius:16px;padding:16px;max-width:560px;margin:20px auto}
-input,textarea,select{width:100%;background:#0a0a0e;border:1px solid #2a2a32;border-radius:8px;color:#fff;padding:11px;margin:6px 0}
-.btnG{background:linear-gradient(180deg,#FFD700,#8a6a00);color:#000;border:none;padding:12px;border-radius:24px;font-weight:900;width:100%;margin-top:8px}
-.btnS{background:#1a1a20;color:#aaa;border:1px solid #333;padding:10px;border-radius:8px;width:100%;margin-top:6px}
-.menu-link{padding:12px 8px;border-bottom:1px solid #222;font-size:13px;display:flex;justify-content:space-between}
-</style></head><body>
-<!-- V201 - TELA PRINCIPAL E PLAYER, MENU DENTRO DO HAMBURGUER -->
-<div class="top"><div class="hamb" onclick="document.getElementById('drawer').classList.add('on')">☰</div><b style="font-size:10px;color:#888">CIFRAFLOW STUDIO - V201</b><div style="display:flex;gap:6px"><div class="ibtn" onclick="openM('notif')">🔔</div><div class="ibtn">⚙️</div></div></div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CIFRAFLOW STUDIO - V202</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f1f5f9;color:#111;padding-bottom:90px}
+  header{background:#2563EB;color:#fff;padding:14px 16px 12px;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+  header h1{font-size:19px;letter-spacing:.5px}
+  header p{font-size:12px;opacity:.9;margin-top:2px}
+  .top-info{background:#fff;margin:12px 12px 0;padding:14px;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .top-info h2{font-size:20px;color:#1e3a8a}
+  .top-info p{font-size:14px;color:#475569;margin-top:4px}
+  .top-info b{color:#2563EB}
+  .song{background:#fff;margin:12px;border-radius:14px;padding:18px 16px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow-x:auto}
+  .line{margin-bottom:18px;white-space:pre-wrap;line-height:1.25}
+  .chord-line{font-size:var(--size);font-weight:700;color:#2563EB;min-height:1.25em;white-space:pre}
+  .lyric-line{font-size:var(--size);font-weight:700;color:#111111;white-space:pre-wrap}
+  .controls{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e2e8f0;padding:10px 10px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;justify-content:center;z-index:20}
+  .controls button{flex:1;max-width:160px;border:0;border-radius:999px;padding:12px 8px;font-size:14px;font-weight:700;cursor:pointer}
+  .btn-blue{background:#2563EB;color:#fff}
+  .btn-gray{background:#e2e8f0;color:#111}
+  .btn-dark{background:#111827;color:#fff}
+  #editor{display:none;position:fixed;inset:0;background:#fff;z-index:50;padding:16px;overflow:auto}
+  #editor textarea{width:100%;height:62vh;border:1px solid #cbd5e1;border-radius:12px;padding:12px;font-family:monospace;font-size:14px}
+  #editor button{width:100%;padding:14px;border:0;border-radius:999px;font-weight:800;margin-top:10px}
+  .hint{font-size:12px;color:#64748b;text-align:center;padding:8px 16px}
+</style>
+</head>
+<body style="--size:18px">
 
-<div id="drawer" class="drawer" onclick="if(event.target==this)this.classList.remove('on')"><div class="dbox">
-<div style="display:flex;justify-content:space-between;align-items:center"><b>PREMIUM</b><span onclick="document.getElementById('drawer').classList.remove('on')" style="font-size:24px;cursor:pointer">✕</span></div>
-<div style="color:#555;font-size:8px;margin:10px 0;text-align:center">MENU 12 BOTOES DENTRO - SO APARECE NO ☰</div>
-<div class="grid">
-<div class="card">📅<br>AGENDA</div><div class="card">👥<br>CADASTRO<br>MUSICOS</div><div class="card">💲<br>MEU PIX</div>
-<div class="card">🎤<br>PEDE AI</div><div class="card">🎵<br>MEU<br>REPERTORIO</div><div class="card">☁️<br>BACKUP<br>RESTAURAR</div>
-<div class="card gold" onclick="openM('cifras');closeD()">📖<br>MINHAS CIFRAS<br>COM VS</div><div class="card gold" onclick="openM('add');closeD()">➕<br>ADICIONAR<br>CIFRA NOVA</div><div class="card">✏️<br>EDITAR<br>CIFRAS</div>
-<div class="card">🔗<br>COMPARTILHAR</div><div class="card">⬇️<br>INSTALAR</div><div class="card">🎧<br>PLAYER<br>PREMIUM</div>
-</div>
-<div style="margin-top:14px">
-<div class="menu-link"><span>🏠 Início</span><span>›</span></div>
-<div class="menu-link"><span>👤 Minha Conta</span><span>›</span></div>
-<div class="menu-link"><span>⭐ Assinatura Premium</span><span>›</span></div>
-<div class="menu-link"><span>⚙️ Configurações</span><span>›</span></div>
-<div class="menu-link"><span>❓ Ajuda</span><span>›</span></div>
-<div class="menu-link"><span>ℹ️ Sobre</span><span>›</span></div>
-</div>
-</div></div>
+<header>
+  <h1>CIFRAFLOW STUDIO - V202</h1>
+  <p>Cifra azul • Letra preta • Mesmo tamanho</p>
+</header>
 
-<div class="main">
-<div class="now"><div style="color:#c9a86a;font-size:9px">NOW PLAYING</div><div id="ntit" style="font-size:22px;color:#FFD700;font-weight:900">DESERTO</div><div id="nart" style="color:#888;font-size:11px">TOM C#m • Wave pequeno • V201</div></div>
-<div class="wave-small"><audio id="aud" controls style="width:100%;height:32px"></audio></div>
-<div class="controls-top"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:9px;color:#888">TOM</span><button class="tom-btn" onclick="changeTom(-1)">−</button><div class="tom-val" id="tomVal">0 • C#m</div><button class="tom-btn" onclick="changeTom(1)">+</button></div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:9px;color:#888">ROLL</span><button class="scroll-btn" onclick="changeScroll(-1)">−</button><div class="tom-val" id="rollVal" style="min-width:38px;color:#0f0">0</div><button class="scroll-btn" onclick="changeScroll(1)">+</button></div></div>
-<div class="cifra-container" id="cifraBox">
-<div class="full-top" style="display:none"><div style="display:flex;gap:8px;align-items:center"><button class="tom-btn" onclick="changeTom(-1)">−</button><div class="tom-val" id="tomVal2">0</div><button class="tom-btn" onclick="changeTom(1)">+</button><span style="margin-left:10px;color:#888;font-size:9px">ROLL</span><button class="scroll-btn" onclick="changeScroll(-1)">−</button><div class="tom-val" id="rollVal2" style="min-width:34px">0</div><button class="scroll-btn" onclick="changeScroll(1)">+</button></div><button onclick="toggleFull()" style="width:36px;height:36px;border-radius:50%;background:#222;border:1px solid #444;color:#fff">✕</button></div>
-<button class="full-btn" onclick="toggleFull()" id="fullBtn">⛶</button>
-<div style="color:#555;font-size:8px;letter-spacing:1px;margin-bottom:10px">LYRICS & CHORDS • BRANCA/AZUL • TELA CHEIA = SO CIFRA</div>
-<div id="renderArea" style="line-height:2.2"></div>
+<div class="top-info">
+  <h2>À francesa • Claudio Zoli</h2>
+  <p>Tom: <b id="tomLabel">C</b> &nbsp;|&nbsp; <span id="sizeLabel">Tamanho: 18px</span></p>
 </div>
-<div class="play-ctrl"><div class="kbtn" onclick="prevC()">⏮️</div><div class="kbtn" style="width:72px;height:72px" onclick="tog()" id="pb">▶️</div><div class="kbtn" onclick="nextC()">⏭️</div></div>
-<div class="knobs"><div style="text-align:center"><small style="color:#666;font-size:7px">VOLUME</small><div class="knob"></div><input type="range" min="0" max="100" value="85" style="width:100%;accent-color:#FFD700"></div><div style="text-align:center"><small style="color:#666;font-size:7px">PITCH</small><div class="knob"></div><input type="range" min="0.5" max="1.5" step="0.05" value="1" style="width:100%;accent-color:#FFD700"></div><div style="text-align:center"><small style="color:#666;font-size:7px">GRAVE</small><div class="knob"></div><input type="range" min="0" max="100" value="50" style="width:100%;accent-color:#FFD700"></div><div style="text-align:center"><small style="color:#666;font-size:7px">REVERB</small><div class="knob"></
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           div><input type="range" min="0" max="100" value="0" style="width:100%;accent-color:#FFD700"></div></div>
-<div class="add-btn" style="margin-top:10px;text-align:center"><button onclick="openM('add')" style="background:#FFD700;border:none;padding:10px 18px;border-radius:20px;font-weight:900;font-size:12px">+ CIFRA + VS</button></div>
+
+<div class="hint">Cifra sempre azul, letra sempre preta em negrito, mesmo tamanho. A+ e A- mudam os dois juntos.</div>
+
+<div class="song" id="song"></div>
+
+<div class="controls">
+  <button class="btn-gray" onclick="changeSize(-2)">A- Menor</button>
+  <button class="btn-blue" onclick="changeSize(2)">A+ Maior</button>
+  <button class="btn-gray" onclick="changeTom(1)">Mudar Tom ↑</button>
+  <button class="btn-dark" onclick="openEditor()">Editar</button>
 </div>
-<div id="m-cifras" class="modal" onclick="if(event.target==this)closeAll()"><div class="mbox"><h2>📖 CIFRAS</h2><div id="clist"></div><button class="btnG" onclick="openM('add')">+ NOVA</button><button class="btnS" onclick="closeAll()">Fechar</button></div></div>
-<div id="m-add" class="modal" onclick="if(event.target==this)closeAll()"><div class="mbox"><h2>➕ ADD - [Cifra] Letra</h2><input id="ctit" placeholder="Título *"><input id="cart" placeholder="Artista"><select id="ctom"><option>C</option><option>C#</option><option>D</option><option>D#</option><option>E</option><option>F</option><option>F#</option><option>G</option><option>G#</option><option>A</option><option>A#</option><option>B</option><option>Cm</option><option>C#m</option><option>Dm</option><option>D#m</option><option>Em</option><option>Fm</option><option>F#m</option><option>Gm</option><option>G#m</option><option>Am</option><option>A#m</option><option>Bm</option></select><textarea id="clet" rows="8" placeholder="[Am] No deserto..."></textarea><input type="file" id="cfile" accept="audio/*"><input id="cvs" placeholder="Link MP3"><button class="btnG" onclick="saveC()">💾 SALVAR</button><button class="btnS" onclick="closeAll()">Cancelar</button></div></div>
-<div id="m-notif" class="modal"><div class="mbox"><h2>🔔 Pede Aí</h2><div>Nenhum pedido ainda</div><button class="btnS" onclick="closeAll()">Fechar</button></div></div>
+
+<div id="editor">
+  <h2 style="margin-bottom:8px">Editar cifra</h2>
+  <p style="font-size:13px;color:#64748b;margin-bottom:10px">Escreva a cifra em cima e a letra embaixo. Uma linha de cifra, uma linha de letra.</p>
+  <textarea id="editArea"></textarea>
+  <button style="background:#2563EB;color:#fff" onclick="saveEdit()">Salvar e voltar</button>
+  <button style="background:#e2e8f0" onclick="closeEditor()">Cancelar</button>
+</div>
+
 <script>
-let db=JSON.parse(localStorage.getItem('cf_v201')||'{"cifras":[{"id":1,"tit":"DESERTO","art":"","tom":"C#m","letra":"[C#m] Sem medo,\\nSem medo, firme a caminhar\\n[F#m] A noite cai,\\nA noite cai, mas vou brilhar\\n[C#] Em silêncio,\\nEm silêncio, vou cantar","vs":""}],"pedidos":[]}');
-let idx=0,tomOffset=0,scrollSpeed=0,scrollInterval=null,isFull=false,baseTom='C#m';
-const notas=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-function save(){localStorage.setItem('cf_v201',JSON.stringify(db));render()}
-function closeD(){document.getElementById('drawer').classList.remove('on')}
-function openM(id){document.getElementById('m-'+id).classList.add('on');render()}
-function closeAll(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('on'))}
-function transposeChord(c,o){if(!c)return c;let i=notas.indexOf(c.replace('m',''));if(i==-1)return c;let ni=(i+o+120)%12;return c.includes('m')?notas[ni]+'m':notas[ni]}
-function changeTom(d){tomOffset+=d;if(tomOffset>7)tomOffset=7;if(tomOffset<-7)tomOffset=-7;let t=transposeChord(baseTom,tomOffset);document.getElementById('tomVal').innerText=(tomOffset>0?'+'+tomOffset:tomOffset)+' • '+t;if(document.getElementById('tomVal2'))document.getElementById('tomVal2').innerText=(tomOffset>0?'+'+tomOffset:tomOffset)+' • '+t;if(idx>=0)playIdx(idx)}
-function changeScroll(d){scrollSpeed+=d;if(scrollSpeed>5)scrollSpeed=5;if(scrollSpeed<0)scrollSpeed=0;document.getElementById('rollVal').innerText=scrollSpeed;if(document.getElementById('rollVal2'))document.getElementById('rollVal2').innerText=scrollSpeed;startScroll()}
-function startScroll(){if(scrollInterval)clearInterval(scrollInterval);if(scrollSpeed==0)return;let delays=[0,200,120,70,35,15];let del=delays[scrollSpeed];scrollInterval=setInterval(()=>{let b=document.getElementById('cifraBox');b.scrollTop+=1;if(b.scrollTop+b.clientHeight>=b.scrollHeight-5)b.scrollTop=0},del)}
-function toggleFull(){isFull=!isFull;let box=document.getElementById('cifraBox');if(isFull){box.classList.add('fullscreen');document.body.classList.add('full-active');document.getElementById('fullBtn').innerText='✕';document.body.style.overflow='hidden'}else{box.classList.remove('fullscreen');document.body.classList.remove('full-active');document.getElementById('fullBtn').innerText='⛶';document.body.style.overflow='auto'}}
-function parseCifra(t){if(!t)return '';let h='';let ls=t.split('\n');for(let line of ls){if(!line.trim()){h+='<br>';continue}let row='<div class="chord-line">';let re=/\[(.*?)\]\s*([^\[]*)/g;let m,f=false;while((m=re.exec(line))!==null){f=true;let ch=transposeChord(m[1].trim(),tomOffset);let ly=m[2]||' ';row+=`<span class="chord-wrap"><span class="chord">${ch}</span><span class="lyric">${ly}</span></span>`}if(!f){row+=`<span class="chord-wrap"><span class="lyric">${line}</span></span>`}row+='</div>';h+=row}return h}
-function saveC(){let t=document.getElementById('ctit').value.trim();if(!t)return alert('Título');let f=document.getElementById('cfile');let v=document.getElementById('cvs').value;new Promise(r=>{if(f.files[0]){let fr=new FileReader();fr.onload=e=>r(e.target.result);fr.readAsDataURL(f.files[0])}else r(v)}).then(vs=>{baseTom=document.getElementById('ctom').value;db.cifras.push({id:Date.now(),tit:t,art:document.getElementById('cart').value,tom:baseTom,letra:document.getElementById('clet').value,vs:vs});save();closeAll();closeD();tomOffset=0;playIdx(db.cifras.length-1)})}
-function render(){let cl=document.getElementById('clist');if(cl)cl.innerHTML=db.cifras.map((c,i)=>`<div style="background:#0f0f14;border:1px solid #222;border-radius:12px;padding:12px;margin:8px 0;display:flex;justify-content:space-between"><div><b>${c.tit}</b><br><small style="color:#888">${c.tom}</small></div><button onclick="playIdx(${i})" style="background:#FFD700;border:none;padding:8px 14px;border-radius:20px;font-weight:900">▶️</button></div>`).join('')}
-function playIdx(i){idx=i;let c=db.cifras[i];baseTom=c.tom;document.getElementById('ntit').innerText=c.tit;document.getElementById('nart').innerText='TOM '+transposeChord(baseTom,tomOffset)+(tomOffset!=0?' ('+(tomOffset>0?'+'+tomOffset:tomOffset)+')':'');let a=document.getElementById('aud');a.src=c.vs||'';document.getElementById('renderArea').innerHTML=parseCifra(c.letra);closeAll();closeD();document.getElementById('cifraBox').scrollTop=0;document.getElementById('tomVal').innerText=(tomOffset>0?'+'+tomOffset:tomOffset)+' • '+transposeChord(baseTom,tomOffset)}
-function tog(){let a=document.getElementById('aud');if(a.paused){a.play();document.getElementById('pb').innerText='⏸️';startScroll()}else{a.pause();document.getElementById('pb').innerText='▶️';if(scrollInterval)clearInterval(scrollInterval)}}
-function prevC(){if(idx>0)playIdx(idx-1)}
-function nextC(){if(idx<db.cifras.length-1)playIdx(idx+1)}
-render();playIdx(0);
-</script></body></html>
+let tomAtual = 0; // 0 = C
+let fontSize = 18;
+const notas = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const notasBemol = {'C#':'Db','D#':'Eb','F#':'Gb','G#':'Ab','A#':'Bb'};
+
+// DADOS ORIGINAIS - Tom C
+// Cada bloco: {cifra: "Cmaj7 ...", letra: "Eu cheguei..."}
+let dadosOriginais = [
+  {cifra: "Cmaj7", letra: "Eu cheguei na sua casa numa tarde de verão"},
+  {cifra: "G", letra: "Traga um vinho, um queijo, vamos conversar"},
+  {cifra: "Em", letra: "A conversa é leve, como o vento a passar"},
+  {cifra: "Am            G", letra: "E o seu olhar me convida a ficar"},
+  {cifra: "", letra: ""},
+  {cifra: "F              G", letra: "À francesa, a gente se entende"},
+  {cifra: "Em             Am", letra: "Sem precisar dizer uma palavra sequer"},
+  {cifra: "F              G              C", letra: "Seu sorriso me leva pra outro lugar"},
+];
+
+function transporCifra(texto, semitons){
+  if(!texto) return texto;
+  return texto.replace(/([A-G])(#|b)?(m|maj7|maj|m7|7|dim|aug|sus4|sus2|add9|9|6|5)?/g, (match, nota, acidente, resto)=>{
+    let nome = nota + (acidente||'');
+    let idx = notas.indexOf(nome);
+    if(idx===-1){
+      // tenta bemol
+      const mapa = {'Db':1,'Eb':3,'Gb':6,'Ab':8,'Bb':10};
+      idx = mapa[nome] ?? 0;
+    }
+    let novo = (idx + semitons + 12) % 12;
+    let novaNota = notas[novo];
+    // usa bemol se original era bemol
+    if(acidente==='b' && notasBemol[novaNota]) novaNota = notasBemol[novaNota];
+    return novaNota + (resto||'');
+  });
+}
+
+function render(){
+  const container = document.getElementById('song');
+  container.innerHTML = '';
+  document.getElementById('tomLabel').textContent = notas[(0 + tomAtual + 12)%12];
+  document.getElementById('sizeLabel').textContent = 'Tamanho: ' + fontSize + 'px';
+  document.body.style.setProperty('--size', fontSize + 'px');
+
+  dadosOriginais.forEach(bloco=>{
+    const div = document.createElement('div');
+    div.className = 'line';
+    const cifraTransposta = transporCifra(bloco.cifra, tomAtual);
+    div.innerHTML = `<div class="chord-line">${cifraTransposta || '&nbsp;'}</div><div class="lyric-line">${bloco.letra || '&nbsp;'}</div>`;
+    container.appendChild(div);
+  });
+}
+
+function changeSize(delta){
+  fontSize = Math.max(12, Math.min(32, fontSize + delta));
+  render();
+}
+function changeTom(delta){
+  tomAtual = (tomAtual + delta + 12) % 12;
+  render();
+}
+function openEditor(){
+  const txt = dadosOriginais.map(b=> b.cifra + '\n' + b.letra).join('\n\n');
+  document.getElementById('editArea').value = txt;
+  document.getElementById('editor').style.display = 'block';
+}
+function closeEditor(){
+  document.getElementById('editor').style.display = 'none';
+}
+function saveEdit(){
+  const txt = document.getElementById('editArea').value;
+  const blocos = txt.split('\n\n');
+  dadosOriginais = blocos.map(bloco=>{
+    const linhas = bloco.split('\n');
+    return {cifra: linhas[0]||'', letra: linhas[1]||''};
+  });
+  tomAtual = 0;
+  closeEditor();
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
