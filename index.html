@@ -1,10 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CIFRAFLOW V200 - PREVIA 2 TELAS</title>
+<title>CIFRAFLOW V201 - PREVIA APROVADA</title>
 <style>*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}body{background:#050507;color:#fff}
 .top{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:10px;background:#0f0f12;border-bottom:1px solid #222}
 .hamb{width:38px;height:38px;border-radius:10px;background:#1a1a1e;border:1px solid #2a2a2e;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
 .ibtn{width:36px;height:36px;border-radius:50%;background:#1a1a1e;border:1px solid #333;display:flex;align-items:center;justify-content:center;position:relative}
-.dot{position:absolute;top:-5px;right:-5px;background:#ff1a1a;color:#fff;font-size:9px;padding:2px 6px;border-radius:10px;display:none}
 .drawer{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:90;display:none}.drawer.on{display:block}
 .dbox{width:88%;max-width:360px;height:100%;background:#141418;border-right:2px solid #222;overflow:auto;padding:12px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.card{background:#1d1d23;border:1.5px solid #2e2e36;border-radius:12px;min-height:85px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;text-align:center;line-height:1.3}.card.gold{border-color:#8a6a00}
@@ -24,14 +23,13 @@ body.full-active .top,body.full-active .wave-small,body.full-active .play-ctrl,b
 body.full-active{background:#000}
 .full-top{display:none;justify-content:space-between;align-items:center;padding:10px 12px;background:#0a0a0a;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
 .full-btn{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:8px;background:#1a1a1e;border:1px solid #333;color:#fff;font-size:14px;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center}
-.chord-line{display:block;margin-bottom:2px}
-.chord-wrap{display:inline-block;position:relative;margin-right:8px;padding-top:16px}
-.chord{position:absolute;top:0;left:0;color:#00B0FF;font-weight:900;font-size:13px;text-shadow:0 0 8px rgba(0,176,255,.6);white-space:nowrap}
+.chord-line{display:block;margin-bottom:2px}.chord-wrap{display:inline-block;position:relative;margin-right:8px;padding-top:16px}
+.chord{position:absolute;top:0;left:0;color:#00B0FF;font-weight:900;font-size:13px;white-space:nowrap}
 .lyric{color:#FFFFFF;font-size:15px;font-weight:500}
 .play-ctrl{display:flex;justify-content:space-around;margin:10px 0;background:#111;border:1px solid #222;border-radius:12px;padding:10px}
 .kbtn{width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#f3d97a,#8a6300);border:2px solid #000;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
 .knobs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:#0f0f12;border:1px solid #222;border-radius:12px;padding:8px;margin-top:8px}
-.knob{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#f3d97a,#8a6300);border:2px solid #000;margin:0 auto;position:relative}
+.knob{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#f3d97a,#8a6300);border:2px solid #000;margin:0 auto}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:100;display:none;padding:10px;overflow:auto}.modal.on{display:block}
 .mbox{background:#1e1e24;border:1px solid #333;border-radius:16px;padding:16px;max-width:560px;margin:20px auto}
 input,textarea,select{width:100%;background:#0a0a0e;border:1px solid #2a2a32;border-radius:8px;color:#fff;padding:11px;margin:6px 0}
@@ -39,11 +37,12 @@ input,textarea,select{width:100%;background:#0a0a0e;border:1px solid #2a2a32;bor
 .btnS{background:#1a1a20;color:#aaa;border:1px solid #333;padding:10px;border-radius:8px;width:100%;margin-top:6px}
 .menu-link{padding:12px 8px;border-bottom:1px solid #222;font-size:13px;display:flex;justify-content:space-between}
 </style></head><body>
-<div class="top"><div class="hamb" onclick="document.getElementById('drawer').classList.add('on')">☰</div><b style="font-size:10px;color:#888">CIFRAFLOW STUDIO</b><div style="display:flex;gap:6px"><div class="ibtn" onclick="openM('notif')">🔔<span id="ndot" class="dot">0</span></div><div class="ibtn">⚙️</div></div></div>
+<!-- V201 - TELA PRINCIPAL E PLAYER, MENU DENTRO DO HAMBURGUER -->
+<div class="top"><div class="hamb" onclick="document.getElementById('drawer').classList.add('on')">☰</div><b style="font-size:10px;color:#888">CIFRAFLOW STUDIO - V201</b><div style="display:flex;gap:6px"><div class="ibtn" onclick="openM('notif')">🔔</div><div class="ibtn">⚙️</div></div></div>
 
 <div id="drawer" class="drawer" onclick="if(event.target==this)this.classList.remove('on')"><div class="dbox">
 <div style="display:flex;justify-content:space-between;align-items:center"><b>PREMIUM</b><span onclick="document.getElementById('drawer').classList.remove('on')" style="font-size:24px;cursor:pointer">✕</span></div>
-<div style="color:#555;font-size:8px;margin:10px 0;text-align:center">MENU 12 BOTOES DENTRO</div>
+<div style="color:#555;font-size:8px;margin:10px 0;text-align:center">MENU 12 BOTOES DENTRO - SO APARECE NO ☰</div>
 <div class="grid">
 <div class="card">📅<br>AGENDA</div><div class="card">👥<br>CADASTRO<br>MUSICOS</div><div class="card">💲<br>MEU PIX</div>
 <div class="card">🎤<br>PEDE AI</div><div class="card">🎵<br>MEU<br>REPERTORIO</div><div class="card">☁️<br>BACKUP<br>RESTAURAR</div>
@@ -61,7 +60,7 @@ input,textarea,select{width:100%;background:#0a0a0e;border:1px solid #2a2a32;bor
 </div></div>
 
 <div class="main">
-<div class="now"><div style="color:#c9a86a;font-size:9px">NOW PLAYING</div><div id="ntit" style="font-size:22px;color:#FFD700;font-weight:900">DESERTO</div><div id="nart" style="color:#888;font-size:11px">TOM C#m • Wave pequeno</div></div>
+<div class="now"><div style="color:#c9a86a;font-size:9px">NOW PLAYING</div><div id="ntit" style="font-size:22px;color:#FFD700;font-weight:900">DESERTO</div><div id="nart" style="color:#888;font-size:11px">TOM C#m • Wave pequeno • V201</div></div>
 <div class="wave-small"><audio id="aud" controls style="width:100%;height:32px"></audio></div>
 <div class="controls-top"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:9px;color:#888">TOM</span><button class="tom-btn" onclick="changeTom(-1)">−</button><div class="tom-val" id="tomVal">0 • C#m</div><button class="tom-btn" onclick="changeTom(1)">+</button></div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:9px;color:#888">ROLL</span><button class="scroll-btn" onclick="changeScroll(-1)">−</button><div class="tom-val" id="rollVal" style="min-width:38px;color:#0f0">0</div><button class="scroll-btn" onclick="changeScroll(1)">+</button></div></div>
 <div class="cifra-container" id="cifraBox">
@@ -71,17 +70,18 @@ input,textarea,select{width:100%;background:#0a0a0e;border:1px solid #2a2a32;bor
 <div id="renderArea" style="line-height:2.2"></div>
 </div>
 <div class="play-ctrl"><div class="kbtn" onclick="prevC()">⏮️</div><div class="kbtn" style="width:72px;height:72px" onclick="tog()" id="pb">▶️</div><div class="kbtn" onclick="nextC()">⏭️</div></div>
-<div class="knobs"><div style="text-align:center"><small style="color:#666;font-size:7px">VOLUME</small><div class="knob"></div><input type="range" id="kvol" min="0" max="100" value="85" style="width:100%;accent-color:#FFD700"></div><div style="text-align:center"><small style="color:#666;font-size:7px">PITCH</small><div class="knob"></div><input type="range" id="kpit" min="0.5" max="1.5" step="0.05" value="1" style="width:100%;accent-color:#FFD700"></div><div style="text-align:center"><small style="color:#666;font-size:7px">GRAVE</small><div class="knob"></div><input type="range" id="kgra" min="0" max="100" value="50" style="width:100%;accent-color:#FFD700"></div><div style="text-align:center"><small style="color:#666;font-size:7px">REVERB</small><div class="knob"></div><input type="range" id="krev" min="0" max="100" value="0" style="width:100%;accent-color:#FFD700"></div></div>
+<div class="knobs"><div style="text-align:center"><small style="color:#666;font-size:7px">VOLUME</small><div class="knob"></div><input type="range" min="0" max="100" value="85" style="width:100%;accent-color:#FFD700"></div><div style="text-align:center"><small style="color:#666;font-size:7px">PITCH</small><div class="knob"></div><input type="range" min="0.5" max="1.5" step="0.05" value="1" style="width:100%;accent-color:#FFD700"></div><div style="text-align:center"><small style="color:#666;font-size:7px">GRAVE</small><div class="knob"></div><input type="range" min="0" max="100" value="50" style="width:100%;accent-color:#FFD700"></div><div style="text-align:center"><small style="color:#666;font-size:7px">REVERB</small><div class="knob"></
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           div><input type="range" min="0" max="100" value="0" style="width:100%;accent-color:#FFD700"></div></div>
 <div class="add-btn" style="margin-top:10px;text-align:center"><button onclick="openM('add')" style="background:#FFD700;border:none;padding:10px 18px;border-radius:20px;font-weight:900;font-size:12px">+ CIFRA + VS</button></div>
 </div>
 <div id="m-cifras" class="modal" onclick="if(event.target==this)closeAll()"><div class="mbox"><h2>📖 CIFRAS</h2><div id="clist"></div><button class="btnG" onclick="openM('add')">+ NOVA</button><button class="btnS" onclick="closeAll()">Fechar</button></div></div>
 <div id="m-add" class="modal" onclick="if(event.target==this)closeAll()"><div class="mbox"><h2>➕ ADD - [Cifra] Letra</h2><input id="ctit" placeholder="Título *"><input id="cart" placeholder="Artista"><select id="ctom"><option>C</option><option>C#</option><option>D</option><option>D#</option><option>E</option><option>F</option><option>F#</option><option>G</option><option>G#</option><option>A</option><option>A#</option><option>B</option><option>Cm</option><option>C#m</option><option>Dm</option><option>D#m</option><option>Em</option><option>Fm</option><option>F#m</option><option>Gm</option><option>G#m</option><option>Am</option><option>A#m</option><option>Bm</option></select><textarea id="clet" rows="8" placeholder="[Am] No deserto..."></textarea><input type="file" id="cfile" accept="audio/*"><input id="cvs" placeholder="Link MP3"><button class="btnG" onclick="saveC()">💾 SALVAR</button><button class="btnS" onclick="closeAll()">Cancelar</button></div></div>
-<div id="m-notif" class="modal"><div class="mbox"><h2>🔔 Pede Aí</h2><div id="nlist">Nenhum pedido ainda</div><button class="btnS" onclick="closeAll()">Fechar</button></div></div>
+<div id="m-notif" class="modal"><div class="mbox"><h2>🔔 Pede Aí</h2><div>Nenhum pedido ainda</div><button class="btnS" onclick="closeAll()">Fechar</button></div></div>
 <script>
-let db=JSON.parse(localStorage.getItem('cf_v200_previa')||'{"cifras":[{"id":1,"tit":"DESERTO","art":"","tom":"C#m","letra":"[C#m] Sem medo,\\nSem medo, firme a caminhar\\n[F#m] A noite cai,\\nA noite cai, mas vou brilhar\\n[C#] Em silêncio,\\nEm silêncio, vou cantar","vs":""}],"pedidos":[]}');
+let db=JSON.parse(localStorage.getItem('cf_v201')||'{"cifras":[{"id":1,"tit":"DESERTO","art":"","tom":"C#m","letra":"[C#m] Sem medo,\\nSem medo, firme a caminhar\\n[F#m] A noite cai,\\nA noite cai, mas vou brilhar\\n[C#] Em silêncio,\\nEm silêncio, vou cantar","vs":""}],"pedidos":[]}');
 let idx=0,tomOffset=0,scrollSpeed=0,scrollInterval=null,isFull=false,baseTom='C#m';
 const notas=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-function save(){localStorage.setItem('cf_v200_previa',JSON.stringify(db));render()}
+function save(){localStorage.setItem('cf_v201',JSON.stringify(db));render()}
 function closeD(){document.getElementById('drawer').classList.remove('on')}
 function openM(id){document.getElementById('m-'+id).classList.add('on');render()}
 function closeAll(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('on'))}
