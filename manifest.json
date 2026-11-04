@@ -1,25 +1,38 @@
 {
-  "name": "CIFRAFLOW STUDIO PREMIUM",
+  "name": "CIFRAFLOW",
   "short_name": "CIFRAFLOW",
-  "description": "MENU PRINCIPAL TELA INICIAL - STUDIO PREMIUM ESCURO REALISTA",
-  "start_url": "./",
-  "scope": "./",
+  "description": "CIFRAFLOW - Suas cifras organizadas por artista, com tom, cifra simplificada, rolagem automática e tela cheia.",
+  "id": "/CIFRA-FLOW-STUDIO-PREMIUM/",
+  "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#000000",
-  "theme_color": "#0a0a0a",
+  "background_color": "#ffffff",
+  "theme_color": "#3F51B5",
+  "lang": "pt-BR",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
