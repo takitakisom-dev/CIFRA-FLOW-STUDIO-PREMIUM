@@ -16,8 +16,8 @@ header h1 span{display:block}
 #overlay.show{display:block}
 nav{position:fixed;top:0;left:-300px;width:285px;height:100%;background:#065A40;color:#fff;z-index:200;transition:.28s;overflow-y:auto;padding-top:64px;padding-bottom:20px}
 nav.open{left:0}
-nav a,nav button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:none;color:#fff;padding:14px 18px;font-size:16px;font-weight:600;cursor:pointer}
-nav a:active,nav button:active{background:rgba(255,255,255,.12)}
+nav button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:none;color:#fff;padding:14px 18px;font-size:16px;font-weight:600;cursor:pointer}
+nav button:active{background:rgba(255,255,255,.12)}
 nav .ico{width:26px;text-align:center;font-size:19px}
 nav .div{height:1px;background:rgba(255,255,255,.15);margin:8px 18px}
 main{padding:78px 14px 30px;max-width:620px;margin:auto}
@@ -36,12 +36,17 @@ pre{background:#111;color:#F7C957;padding:14px;border-radius:12px;white-space:pr
 .btn{width:100%;background:#1E3A5F;color:#fff;border:none;border-radius:12px;padding:14px;font-size:16px;font-weight:800;cursor:pointer;margin-top:10px}
 .btn.green{background:#065A40}
 .btn.gold{background:#F7C957;color:#111}
+.btn.outline{background:#fff;color:#065A40;border:2px solid #065A40}
 .top-actions{display:flex;gap:10px;margin-bottom:14px}
 .top-actions button{flex:1;background:#fff;border:1px solid #ddd;border-radius:12px;padding:11px;font-weight:700;cursor:pointer}
 .hidden{display:none!important}
 label.file{display:block;background:#fff;border:2px dashed #065A40;border-radius:14px;padding:20px;text-align:center;cursor:pointer;margin-top:10px}
 input[type=file]{display:none}
-textarea{width:100%;min-height:160px;border:1px solid #ddd;border-radius:12px;padding:12px;font-size:15px;margin-top:10px}
+.field{margin-top:12px}
+.field label{display:block;font-weight:800;font-size:14px;margin-bottom:6px;color:#333}
+.field input,.field textarea{width:100%;border:1px solid #ddd;border-radius:12px;padding:13px;font-size:16px;outline:none;background:#fff}
+.field input:focus,.field textarea:focus{border-color:#065A40}
+.field textarea{min-height:180px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -73,39 +78,65 @@ textarea{width:100%;min-height:160px;border:1px solid #ddd;border-radius:12px;pa
 </nav>
 
 <main>
-  <!-- PASTAS -->
   <div id="page-pastas">
     <h2>Pastas</h2>
     <div class="top-actions">
       <button onclick="toggleSearch()">🔍 Buscar</button>
-      <button onclick="showPage('importar')">+ Nova música</button>
+      <button onclick="novaCifra()">+ Nova cifra</button>
     </div>
     <div class="search-box" id="searchBox"><input id="q" placeholder="Buscar música, artista..." oninput="filtrar()"></div>
     <div id="listaPastas"></div>
     <div id="listaMusicas"></div>
   </div>
 
-  <!-- OUTRAS PÁGINAS -->
   <div id="page-listas" class="hidden"><h2>Minhas Listas</h2><p>Suas listas de show vão aparecer aqui.</p><button class="btn" onclick="novaLista()">+ Criar lista</button><div id="minhasListas"></div></div>
   <div id="page-procurar" class="hidden"><h2>Procurar Música</h2><input id="q2" placeholder="Digite o nome..." style="width:100%;padding:13px;border-radius:12px;border:1px solid #ddd" oninput="filtrar2()"><div id="resBusca" style="margin-top:12px"></div></div>
-  <div id="page-importar" class="hidden"><h2>Importar .txt</h2><p>Importe sua cifra em .txt</p><label class="file">📄 Clique para escolher arquivo .txt<input type="file" accept=".txt" onchange="lerTxt(event)"></label><textarea id="txtImport" placeholder="Ou cole a cifra aqui..."></textarea><button class="btn green" onclick="salvarTxt()">Salvar música</button></div>
+
+  <!-- IMPORTAR / NOVA CIFRA - CORRIGIDO -->
+  <div id="page-importar" class="hidden">
+    <h2>Nova cifra</h2>
+    <p>Preencha, importe ou cole a cifra e salve.</p>
+
+    <div class="field">
+      <label>Nome da música *</label>
+      <input id="nomeMusica" placeholder="Ex: Do que é o amor">
+    </div>
+
+    <div class="field">
+      <label>Nome do artista *</label>
+      <input id="nomeArtista" placeholder="Ex: Cidade Negra">
+    </div>
+
+    <button class="btn outline" onclick="novaCifra()">+ Nova cifra - limpar tudo</button>
+
+    <label class="file">📄 Clique para escolher arquivo .txt<input type="file" accept=".txt" onchange="lerTxt(event)"></label>
+
+    <div class="field">
+      <label>Cifra</label>
+      <textarea id="txtImport" placeholder="Dm  C/E  F  G7  Dm7  F  G7  C&#10;&#10;Do que é o amor, do que é o amor..."></textarea>
+    </div>
+
+    <button class="btn green" onclick="salvarTxt()">Salvar música</button>
+    <button class="btn" onclick="showPage('pastas')">Ver minhas pastas</button>
+  </div>
+
   <div id="page-backup" class="hidden"><h2>Backup</h2><p>Salve tudo ou restaure depois.</p><button class="btn" onclick="exportar()">⬇️ Exportar Backup</button><button class="btn green" onclick="document.getElementById('fileBackup').click()">⬆️ Importar Backup</button><input type="file" id="fileBackup" onchange="importarBackup(event)"></div>
   <div id="page-prefs" class="hidden"><h2>Preferências</h2><p>Tamanho da letra:</p><button class="btn" onclick="mudarFonte(1)">A+ Maior</button><button class="btn" onclick="mudarFonte(-1)">A- Menor</button><p style="margin-top:14px">Tema: Claro (padrão do app)</p></div>
   <div id="page-redes" class="hidden"><h2>Redes Sociais</h2><button class="btn" onclick="abrir('https://instagram.com/takicomerciais')">Instagram - @takicomerciais</button><button class="btn green" onclick="abrir('https://facebook.com')">Facebook - Taki Artesanal</button></div>
   <div id="page-apps" class="hidden"><h2>Outros Apps</h2><p>Em breve outros apps do Taki.</p></div>
-  <div id="page-ajuda" class="hidden"><h2>Ajuda</h2><p>1 - Vá em Importar .txt<br>2 - Escolha a música<br>3 - Ela aparece na pasta do artista<br>4 - Toque na música para ver a cifra</p></div>
-  <div id="page-sobre" class="hidden"><h2>Sobre</h2><p><b>Cifra Flow Studio Premium</b><br>Versão V307<br>Feito para músicos organizarem suas cifras por pastas.</p></div>
+  <div id="page-ajuda" class="hidden"><h2>Ajuda</h2><p>1 - Vá em Nova cifra<br>2 - Digite nome da música e artista<br>3 - Importe .txt ou cole a cifra<br>4 - Toque em Salvar música</p></div>
+  <div id="page-sobre" class="hidden"><h2>Sobre</h2><p><b>Cifra Flow Studio Premium</b><br>Versão V308<br>Feito para músicos organizarem suas cifras por pastas.</p></div>
   <div id="page-comprar" class="hidden"><h2>Comprar assinatura</h2><p>Premium - Sem anúncios, backup ilimitado.</p><button class="btn gold" onclick="alert('Em breve: link de pagamento')">⭐ Assinar Premium</button></div>
 </main>
 
 <script>
-let musicas = JSON.parse(localStorage.getItem('cifraflow_v307') || 'null') || [
+let musicas = JSON.parse(localStorage.getItem('cifraflow_v308') || 'null') || [
  {titulo:'Aonde Quer Que Eu Vá',artista:'Cidade Negra',pasta:'Cidade Negra',cifra:'[Intro] G D Em C\n\nG\nAonde quer que eu vá\nD\nVou te levar...'},
  {titulo:'Noite',artista:'Claudio Zoli',pasta:'Claudio Zoli',cifra:'[Intro] Am F C G\n\nAm\nNoite...'},
  {titulo:'À Francesa',artista:'Claudio Zoli',pasta:'Claudio Zoli',cifra:'[Intro] C G Am F\n\nC\nÀ francesa...'}
 ];
 let fonte = 15;
-function salvar(){localStorage.setItem('cifraflow_v307',JSON.stringify(musicas));}
+function salvar(){localStorage.setItem('cifraflow_v308',JSON.stringify(musicas));}
 function toggleMenu(abrir){document.getElementById('menu').classList.toggle('open',abrir);document.getElementById('overlay').classList.toggle('show',abrir);}
 function toggleSearch(){let s=document.getElementById('searchBox');s.style.display=s.style.display==='block'?'none':'block';if(s.style.display==='block')document.getElementById('q').focus();}
 function showPage(p){
@@ -114,6 +145,13 @@ function showPage(p){
  document.getElementById('page-'+p).classList.remove('hidden');
  window.scrollTo(0,0);
  if(p==='pastas') render();
+}
+function novaCifra(){
+ document.getElementById('nomeMusica').value='';
+ document.getElementById('nomeArtista').value='';
+ document.getElementById('txtImport').value='';
+ showPage('importar');
+ setTimeout(()=>document.getElementById('nomeMusica').focus(),100);
 }
 function render(){
  let pastas={};
@@ -136,12 +174,35 @@ function abrirMusica(i){
 }
 function filtrar(){let q=document.getElementById('q').value.toLowerCase();let f=musicas.filter(m=>(m.titulo+' '+m.artista).toLowerCase().includes(q));if(!q){render();return;}mostrarLista(f,'Resultado da busca');}
 function filtrar2(){let q=document.getElementById('q2').value.toLowerCase();let f=musicas.filter(m=>(m.titulo+' '+m.artista).toLowerCase().includes(q));document.getElementById('resBusca').innerHTML=f.map(m=>`<div class="song"><b>${m.titulo}</b><br><small>${m.artista}</small></div>`).join('')||'<p>Nenhuma encontrada.</p>';}
-function lerTxt(e){let f=e.target.files[0];let r=new FileReader();r.onload=()=>{document.getElementById('txtImport').value=r.result;};r.readAsText(f);}
+function lerTxt(e){
+ let f=e.target.files[0];if(!f) return;
+ let r=new FileReader();
+ r.onload=()=>{
+   document.getElementById('txtImport').value=r.result;
+   // Se o nome do arquivo for "Artista - Musica.txt", tenta preencher sozinho
+   let nome=f.name.replace('.txt','').replace('.TXT','');
+   if(nome.includes(' - ')){
+     let partes=nome.split(' - ');
+     if(!document.getElementById('nomeArtista').value) document.getElementById('nomeArtista').value=partes[0].trim();
+     if(!document.getElementById('nomeMusica').value) document.getElementById('nomeMusica').value=partes[1].trim();
+   } else if(!document.getElementById('nomeMusica').value){
+     document.getElementById('nomeMusica').value=nome;
+   }
+ };
+ r.readAsText(f);
+}
 function salvarTxt(){
- let txt=document.getElementById('txtImport').value.trim();if(!txt){alert('Cole ou importe uma cifra primeiro');return;}
- let titulo=prompt('Nome da música?')||'Nova música';
- let artista=prompt('Artista / Pasta?')||'Sem pasta';
- musicas.push({titulo,artista,pasta:artista,cifra:txt});salvar();alert('Salva!');showPage('pastas');
+ let titulo=document.getElementById('nomeMusica').value.trim();
+ let artista=document.getElementById('nomeArtista').value.trim();
+ let txt=document.getElementById('txtImport').value.trim();
+ if(!titulo){alert('Digite o nome da música');document.getElementById('nomeMusica').focus();return;}
+ if(!artista){alert('Digite o nome do artista');document.getElementById('nomeArtista').focus();return;}
+ if(!txt){alert('Cole ou importe a cifra primeiro');return;}
+ musicas.push({titulo,artista,pasta:artista,cifra:txt});
+ salvar();
+ alert('Salva! '+titulo+' - '+artista);
+ novaCifra();
+ showPage('pastas');
 }
 function novaLista(){let n=prompt('Nome da lista?');if(n){document.getElementById('minhasListas').innerHTML+=`<div class="song"><b>${n}</b></div>`;}}
 function mudarFonte(d){fonte+=d;let el=document.getElementById('cifraView');if(el)el.style.fontSize=fonte+'px';}
