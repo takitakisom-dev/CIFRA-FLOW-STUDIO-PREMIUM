@@ -3,20 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>CIFRAFLOW</title>
+<title>CIFRAFLOW V304</title>
 <meta name="theme-color" content="#3F51B5">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json?v=304">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Roboto,system-ui,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#fff;color:#111}
-header{background:#3F51B5;color:#fff;padding:12px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:20}
-header h1{font-size:22px;font-weight:500;flex:1}
+header{background:#3F51B5;color:#fff;padding:12px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20}
+header h1{font-size:19px;font-weight:500;flex:1}
 header button{background:none;border:0;color:#fff;font-size:22px;cursor:pointer}
+.ver{font-size:11px;background:#FFEB3B;color:#000;padding:3px 7px;border-radius:999px;font-weight:900}
 .topo-lista{display:flex;justify-content:space-between;align-items:center;padding:14px 12px;font-size:19px}
-.topo-lista span{font-size:22px}
 .pasta{background:#fff;border-bottom:1px solid #e5e5e5;padding:14px 12px;display:flex;gap:14px;align-items:center;cursor:pointer}
-.pasta:active{background:#f0f0f0}
 .pasta .ico{width:44px;height:44px;border:2px solid #3F51B5;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px}
 .pasta b{font-size:18px;font-weight:400}
 .pasta span{margin-left:auto;color:#333;font-size:20px}
@@ -36,11 +34,8 @@ textarea{height:300px;font-family:monospace}
 #drawer .bg{position:absolute;inset:0;background:rgba(0,0,0,.5)}
 #drawer .panel{position:absolute;left:0;top:0;bottom:0;width:82%;max-width:320px;background:#fff;overflow:auto}
 .drawer-top{background:linear-gradient(180deg,#4CAF50,#2E7D32);color:#fff;padding:14px 16px 20px}
-.drawer-top .bonequinho{font-size:52px}
 .drawer-top h3{font-size:18px;font-weight:400}
-.drawer-top p{font-size:14px;opacity:.95}
 .drawer-item{padding:14px 16px;display:flex;gap:16px;align-items:center;cursor:pointer;font-size:16px;color:#333}
-.drawer-item span{font-size:22px;width:26px;text-align:center}
 #tela-cifra{display:none;background:#fff;min-height:100vh}
 #tela-cifra .top{background:#3F51B5;color:#fff;padding:10px 12px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:20}
 #tela-cifra .top h2{font-size:22px;flex:1;line-height:1.1;font-weight:500}
@@ -57,7 +52,7 @@ textarea{height:300px;font-family:monospace}
 .popup{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:70;display:none;align-items:center;justify-content:center;padding:16px}
 .popup.open{display:flex}
 .popup .sheet{background:#fff;width:100%;max-width:480px;border-radius:6px;padding:16px;max-height:88vh;overflow:auto}
-.popup .sheet h3{font-size:22px;font-weight:400;display:flex;gap:10px;align-items:center;margin-bottom:14px}
+.popup .sheet h3{font-size:22px;font-weight:400;margin-bottom:14px}
 .radio label{display:flex;gap:14px;align-items:center;padding:11px 4px;font-size:19px;cursor:pointer}
 .radio input{width:22px;height:22px;accent-color:#009688}
 .tons{background:#3F51B5;padding:14px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
@@ -67,47 +62,46 @@ textarea{height:300px;font-family:monospace}
 .edit-top h2{font-size:22px;flex:1;font-weight:500}
 .edit-top button{background:none;border:0;color:#fff;font-size:22px}
 .edit-box{margin:12px;border:1px solid #ddd;border-radius:12px;padding:14px}
-.edit-box h3{font-size:20px;font-weight:400}
-.edit-box p{font-size:14px;color:#777;margin-top:6px}
 .edit-text{border:1px solid #D1C4E9;border-radius:12px;padding:12px;margin-top:12px;min-height:380px;font-family:monospace;font-size:16px;white-space:pre-wrap;outline:none;background:repeating-linear-gradient(#fff,#fff 30px,#E8EAF6 31px)}
 </style>
 </head>
 <body style="--size:17px">
 
-<header id="headerMain"><button onclick="toggleDrawer(true)">☰</button><h1>Cifras</h1><button onclick="abrirTela('nova')">⊞＋</button><button onclick="document.getElementById('inputBusca').focus()">🔍</button><button onclick="abrirTela('ajuda')">💬❓</button><button onclick="toggleDrawer(true)">⋮</button></header>
+<header id="headerMain"><button onclick="toggleDrawer(true)">☰</button><h1>Cifras <span class="ver">V304 NOVO</span></h1><button onclick="abrirTela('nova')">⊞＋</button><button onclick="document.getElementById('inputBusca').focus()">🔍</button><button onclick="toggleDrawer(true)">⋮</button></header>
 
 <div class="topo-lista" id="topoLista"><span>Minhas músicas</span><span>▼</span></div>
 <div style="padding:0 12px 10px"><input id="inputBusca" placeholder="Pesquisar..." oninput="renderLista()"></div>
+<div style="background:#FFF9C4;padding:10px 12px;font-size:13px;border-bottom:1px solid #F0E68C">✅ Se você está vendo <b>V304 NOVO</b> em amarelo aqui em cima, o código novo já entrou. Agora testa dentro da música.</div>
 <div id="listaPrincipal"></div>
 
-<div id="drawer"><div class="bg" onclick="toggleDrawer(false)"></div><div class="panel"><div class="drawer-top"><div class="bonequinho">🎸</div><h3>Cifras</h3><p>androidcifras@gmail.com</p><p style="font-size:12px;margin-top:4px">CIFRAFLOW</p></div>
-<div class="drawer-item" onclick="irHome()">👥 <span>Minhas músicas</span></div>
-<div class="drawer-item" onclick="abrirTela('listas')">☰ <span>Minhas Listas</span></div>
-<div class="drawer-item" onclick="abrirTela('procurar')">🔍 <span>Procurar Música</span></div>
-<div class="drawer-item" onclick="abrirTela('importar')">📄 <span>Importar .txt</span></div>
-<div class="drawer-item" onclick="abrirTela('backup')">↻ <span>Backup e Restauração</span></div>
-<div class="drawer-item" onclick="abrirTela('prefs')">⚙️ <span>Preferências</span></div>
-<div class="drawer-item" onclick="abrirTela('redes')">👤 <span>Redes Sociais</span></div>
-<div class="drawer-item" onclick="abrirTela('outros')">▢ <span>Outros Apps</span></div>
-<div class="drawer-item" onclick="abrirTela('ajuda')">💬 <span>Ajuda</span></div>
-<div class="drawer-item" onclick="abrirTela('sobre')">👤 <span>Sobre</span></div>
-<div class="drawer-item" onclick="abrirTela('assinatura')">🖼️ <span>Comprar assinatura</span></div>
+<div id="drawer"><div class="bg" onclick="toggleDrawer(false)"></div><div class="panel"><div class="drawer-top"><h3>🎸 Cifras</h3><p>androidcifras@gmail.com</p><p style="font-size:12px">CIFRAFLOW V304</p></div>
+<div class="drawer-item" onclick="irHome()">👥 Minhas músicas</div>
+<div class="drawer-item" onclick="abrirTela('listas')">☰ Minhas Listas</div>
+<div class="drawer-item" onclick="abrirTela('procurar')">🔍 Procurar Música</div>
+<div class="drawer-item" onclick="abrirTela('importar')">📄 Importar .txt</div>
+<div class="drawer-item" onclick="abrirTela('backup')">↻ Backup e Restauração</div>
+<div class="drawer-item" onclick="abrirTela('prefs')">⚙️ Preferências</div>
+<div class="drawer-item" onclick="abrirTela('redes')">👤 Redes Sociais</div>
+<div class="drawer-item" onclick="abrirTela('outros')">▢ Outros Apps</div>
+<div class="drawer-item" onclick="abrirTela('ajuda')">💬 Ajuda</div>
+<div class="drawer-item" onclick="abrirTela('sobre')">👤 Sobre</div>
+<div class="drawer-item" onclick="abrirTela('assinatura')">🖼️ Comprar assinatura</div>
 </div></div>
 
 <div id="tela-listas" class="tela"><div class="box"><h2>Minhas Listas</h2><input id="nomeLista" placeholder="Nome da lista"><button class="btn btn-blue" onclick="criarLista()">Criar Lista</button><div id="listaListas"></div><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
 <div id="tela-procurar" class="tela"><div class="box"><h2>Procurar Música</h2><input id="buscaWeb" placeholder="Ex: Será"><button class="btn btn-blue" onclick="procurarWeb()">Procurar</button><div id="resProcurar"></div><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
 <div id="tela-importar" class="tela"><div class="box"><h2>Importar .txt</h2><input type="file" accept=".txt" onchange="lerTxt(event)"><textarea id="txtImport" placeholder="Cole a cifra..."></textarea><input id="tituloImport" placeholder="Título"><input id="artistaImport" placeholder="Artista"><button class="btn btn-blue" onclick="salvarImport()">Importar</button><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
 <div id="tela-backup" class="tela"><div class="box"><h2>Backup e Restauração</h2><button class="btn btn-blue" onclick="fazerBackup()">Baixar Backup</button><input type="file" accept=".json" onchange="restaurar(event)"><p id="msgBackup"></p><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
-<div id="tela-prefs" class="tela"><div class="box"><h2>Preferências</h2><label>Cor da cifra</label><input type="color" id="prefCorCifra" value="#00008B"><label>Tamanho</label><input type="range" id="prefSize" min="14" max="26" value="17"><button class="btn btn-blue" onclick="salvarPrefs()">Salvar</button><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
+<div id="tela-prefs" class="tela"><div class="box"><h2>Preferências</h2><label>Tamanho</label><input type="range" id="prefSize" min="14" max="26" value="17"><button class="btn btn-blue" onclick="salvarPrefs()">Salvar</button><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
 <div id="tela-redes" class="tela"><div class="box"><h2>Redes Sociais</h2><button class="btn btn-blue" onclick="window.open('https://facebook.com','_blank')">Facebook</button><button class="btn btn-blue" onclick="window.open('https://instagram.com','_blank')">Instagram</button><button class="btn btn-blue" onclick="window.open('https://youtube.com','_blank')">Youtube</button><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
 <div id="tela-outros" class="tela"><div class="box"><h2>Outros Apps</h2><p>Apps do Taki.</p><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
-<div id="tela-ajuda" class="tela"><div class="box"><h2>Ajuda</h2><p>Toque numa pasta, abra a música, use ▶️ pra rolar sozinho, ➕➖ pra tamanho, 🎵 pra mudar o tom, ✏️ pra editar, ⛶ pra tela cheia.</p><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
-<div id="tela-sobre" class="tela"><div class="box"><h2>Sobre</h2><p><b>CIFRAFLOW V303</b><br>Estilo Cifras</p><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
-<div id="tela-assinatura" class="tela"><div class="box"><h2>Assinatura</h2><p>Valor a definir depois, como você falou.</p><button class="btn btn-blue" onclick="alert('Teste - valor final depois')">ASSINAR</button><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
-<div id="tela-nova" class="tela"><div class="box"><h2>Nova música</h2><input id="tituloNova" placeholder="Nome da Música"><input id="artistaNova" placeholder="Nome do Artista"><textarea id="textoNova" placeholder="Cole a cifra aqui, com tom: , Introdução, Riff, tablatura..."></textarea><button class="btn btn-blue" onclick="salvarNova()">Salvar</button><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
+<div id="tela-ajuda" class="tela"><div class="box"><h2>Ajuda - Como testar o novo</h2><p>1. Abra a música <b>Mais</b><br>2. Aperte <b>🎵</b> lá embaixo > vai aparecer <b>Cifra Simplificada</b> pra marcar<br>3. Aperte <b>▶️</b> > vai aparecer Velocidade 1 até 11<br>4. Aperte <b>⛶</b> > tela cheia</p><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
+<div id="tela-sobre" class="tela"><div class="box"><h2>Sobre</h2><p><b>CIFRAFLOW V304</b><br>Estilo Cifras</p><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
+<div id="tela-assinatura" class="tela"><div class="box"><h2>Assinatura</h2><p>Valor a definir depois.</p><button class="btn btn-blue" onclick="alert('Teste')">ASSINAR</button><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
+<div id="tela-nova" class="tela"><div class="box"><h2>Nova música</h2><input id="tituloNova" placeholder="Nome da Música"><input id="artistaNova" placeholder="Nome do Artista"><textarea id="textoNova" placeholder="Cole a cifra aqui..."></textarea><button class="btn btn-blue" onclick="salvarNova()">Salvar</button><button class="btn btn-gray" onclick="irHome()">← Voltar</button></div></div>
 
 <div id="tela-cifra">
-  <div class="top"><button onclick="fecharCifra()">←</button><h2 id="cifraTitulo">Mais<small id="cifraSub">Capital Inicial</small></h2><button onclick="abrirTela('ajuda')">💬❓</button><button onclick="abrirTela('prefs')">⚙️</button><button>⋮</button></div>
+  <div class="top"><button onclick="fecharCifra()">←</button><h2 id="cifraTitulo">Mais<small id="cifraSub">Capital Inicial</small></h2><button onclick="abrirTela('ajuda')">💬❓</button><button>⋮</button></div>
   <div class="cifra-area" id="cifraArea"></div>
   <div class="bottom-bar">
     <button id="btnPlay" onclick="abrirVelocidade()">▶️</button>
@@ -120,24 +114,29 @@ textarea{height:300px;font-family:monospace}
   </div>
 </div>
 
-<div class="popup" id="popupVel"><div class="sheet"><h3><span>🎸</span> Velocidade Rolagem<br>Automática</h3><div class="radio" id="radioVel"></div><div style="text-align:right"><button onclick="confirmarVel()" style="border:0;background:none;color:#3F51B5;font-size:18px;padding:10px">OK</button></div></div></div>
+<div class="popup" id="popupVel"><div class="sheet"><h3>🎸 Velocidade Rolagem Automática</h3><div class="radio" id="radioVel"></div><div style="text-align:right"><button onclick="confirmarVel()" style="border:0;background:none;color:#3F51B5;font-size:18px;padding:10px">OK</button></div></div></div>
 
-<div class="popup" id="popupTom"><div class="sheet" style="padding:0;overflow:hidden"><h3 style="padding:16px 16px 0"><span>🎸</span> Mudar o Tom</h3><div style="padding:16px"><div class="tons" id="tonsGrid"></div><label style="display:flex;gap:10px;align-items:center;margin-top:16px;font-size:17px;cursor:pointer"><input type="checkbox" id="checkSimplificada" onchange="toggleSimplificada(this.checked)" style="width:22px;height:22px;accent-color:#3F51B5"> 🎸 Cifra Simplificada</label><p style="font-size:13px;color:#666;margin-top:6px">Ex: Cadd9 vira C, Am7 vira Am, F/G vira F. Mais fácil de tocar.</p><div style="text-align:right;margin-top:14px"><button onclick="fecharPopup('popupTom')" style="border:0;background:none;color:#3F51B5;font-size:17px">CANCELAR</button></div></div></div></div>
+<div class="popup" id="popupTom"><div class="sheet" style="padding:0;overflow:hidden"><h3 style="padding:16px 16px 0">🎸 Mudar o Tom</h3><div style="padding:16px"><div class="tons" id="tonsGrid"></div><label style="display:flex;gap:10px;align-items:center;margin-top:16px;font-size:17px;cursor:pointer"><input type="checkbox" id="checkSimplificada" onchange="toggleSimplificada(this.checked)" style="width:22px;height:22px;accent-color:#3F51B5"> 🎸 Cifra Simplificada</label><p style="font-size:13px;color:#666;margin-top:6px">Ex: Cadd9 vira C, Am7 vira Am, F/G vira F. Mais fácil de tocar.</p><div style="text-align:right;margin-top:14px"><button onclick="fecharPopup('popupTom')" style="border:0;background:none;color:#3F51B5;font-size:17px">CANCELAR</button></div></div></div></div>
 
-<div class="popup" id="popupEditar" style="align-items:flex-start;padding:0"><div style="background:#fff;width:100%;min-height:100vh"><div class="edit-top"><button onclick="fecharPopup('popupEditar')">←</button><h2>Cifras</h2><button onclick="alert('Colar')">📋</button><button onclick="salvarEdicao()">💾</button><button onclick="fecharPopup('popupEditar')">✕</button></div><div class="edit-box"><h3>Texto da cifra <span style="float:right">⤢</span></h3><p>Escreva ou cole a letra com os acordes no formato que preferir.</p><div class="edit-text" contenteditable="true" id="editTextoDiv"></div><input id="editTitulo" placeholder="Nome da Música" style="margin-top:12px"><input id="editArtista" placeholder="Nome do Artista"><button class="btn btn-blue" onclick="salvarEdicao()">Salvar</button></div></div></div>
+<div class="popup" id="popupEditar" style="align-items:flex-start;padding:0"><div style="background:#fff;width:100%;min-height:100vh"><div class="edit-top"><button onclick="fecharPopup('popupEditar')">←</button><h2>Cifras</h2><button onclick="salvarEdicao()">💾</button><button onclick="fecharPopup('popupEditar')">✕</button></div><div class="edit-box"><h3>Texto da cifra</h3><div class="edit-text" contenteditable="true" id="editTextoDiv"></div><input id="editTitulo" placeholder="Nome da Música" style="margin-top:12px"><input id="editArtista" placeholder="Nome do Artista"><button class="btn btn-blue" onclick="salvarEdicao()">Salvar</button></div></div></div>
 
 <script>
+// FORÇA LIMPAR O VELHO - se a versão salva não for V304, apaga e recria
+if(localStorage.getItem('cifraflow_versao')!=='V304'){
+  localStorage.removeItem('cifraflow_musicas');
+  localStorage.setItem('cifraflow_versao','V304');
+}
 let musicas = JSON.parse(localStorage.getItem('cifraflow_musicas')||'null');
 if(!musicas){
   musicas=[
-    {titulo:'Mais',artista:'Capital Inicial',tom:'G',texto:'tom: G\nIntrodução: (G Em Cadd9 D Cadd9 G)4x D\n\nRiff da Introdução 4x\n\nE|---------------------------|\nB|-3-3-3---------3-3-3-------|\nG|-0-0-0---------2-2-2-------|\nD|-0-0-0---------0-0-0-------|\nA|-2-2-2--2-3--0-0-0--3-2-0--|\nE|-3-3-3---------------------|\n\nRepete riff da Introdução.\n\nG               Cadd9  D\nÉ sempre frio, é tão estranho\nG                     Cadd9  D\nPodia ser perfeito, mas foi quebrado\nG               Cadd9  D\nCaindo no vazio, do lado errado\n\nEm                                      Am\nNão há nada que eu possa fazer a não ser\n              Bm                A/C#\nSair sem destino, cantando o novo hino dos descontentes\n\n                Cadd9        D\nEu sempre quero mais que ontem\n                Cadd9        D\nEu sempre quero mais que hoje\nCadd9 D (Introd.) 4X\nEu sempre quero mais do que eu posso ter'},
+    {titulo:'Mais',artista:'Capital Inicial',tom:'G',texto:'tom: G\nIntrodução: (G Em Cadd9 D Cadd9 G)4x D\n\nRiff da Introdução 4x\n\nE|---------------------------|\nB|-3-3-3---------3-3-3-------|\nG|-0-0-0---------2-2-2-------|\nD|-0-0-0---------0-0-0-------|\nA|-2-2-2--2-3--0-0-0--3-2-0--|\nE|-3-3-3---------------------|\n\nRepete riff da Introdução.\n\nG               Cadd9  D\nÉ sempre frio, é tão estranho\nG                     Cadd9  D\nPodia ser perfeito, mas foi quebrado\n\nEm                                      Am\nNão há nada que eu possa fazer a não ser\n              Bm                A/C#\nSair sem destino, cantando o novo hino dos descontentes\n\n                Cadd9        D\nEu sempre quero mais que ontem'},
     {titulo:'À francesa',artista:'Claudio Zoli',tom:'C',texto:'tom: C\nAm          Am7M         Am7\nMeu amor se você for embora\nAm6\nSabe lá o que será de mim'},
     {titulo:'A Cor do Sol',artista:'Cidade Negra',tom:'G',texto:'tom: G\nG\nA cor do sol\nEm\nBrilha no seu olhar'},
   ];
   localStorage.setItem('cifraflow_musicas',JSON.stringify(musicas));
 }
 let listas = JSON.parse(localStorage.getItem('cifraflow_listas')||'[{"nome":"Músicas favoritas","ids":[0]}]');
-let artistaAberto=null, musicaAberta=0, tomAtual=0, fontSize=17, velSelecionada=7, timerScroll=null, scrollAtivo=false, simplificada=false;
+let artistaAberto=null, musicaAberta=0, tomAtual=0, fontSize=17, velSelecionada=7, timerScroll=null, simplificada=false;
 const notas=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const mapaBemol={'Db':1,'Eb':3,'Gb':6,'Ab':8,'Bb':10};
 const bemolDe={'C#':'Db','D#':'Eb','F#':'Gb','G#':'Ab','A#':'Bb'};
@@ -172,11 +171,7 @@ function transpor(texto,semi){
     let novo=(idx+semi+12)%12;let n=notas[novo];if(ac==='b'&&bemolDe[n])n=bemolDe[n];return n+(resto||'');
   });
 }
-function simplificarAcorde(acorde){
-  return acorde.replace(/^(C|C#|D|D#|E|F|F#|G|G#|A|A#|B)(m)?(maj7|m7|7|maj|dim|aug|sus4|sus2|add9|9|6|5|7M|Cadd9)?.*/, (m, nota, menor) => {
-    return nota + (menor||'');
-  }).split('/')[0];
-}
+function simplificarAcorde(acorde){ return acorde.replace(/^(C|C#|D|D#|E|F|F#|G|G#|A|A#|B)(m)?(maj7|m7|7|maj|dim|aug|sus4|sus2|add9|9|6|5|7M|Cadd9)?.*/, (m, nota, menor) => { return nota + (menor||''); }).split('/')[0]; }
 function abrirCifra(i){
   musicaAberta=i;tomAtual=0;
   document.getElementById('headerMain').style.display='none';document.getElementById('topoLista').style.display='none';document.getElementById('listaPrincipal').style.display='none';document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));document.getElementById('tela-cifra').style.display='block';renderCifra();window.scrollTo(0,0);
@@ -235,11 +230,11 @@ function confirmarVel(){
   iniciarScroll();
 }
 function iniciarScroll(){
-  pararScroll();scrollAtivo=true;document.getElementById('btnPlay').classList.add('ativo');
+  pararScroll();document.getElementById('btnPlay').classList.add('ativo');
   const velocidade=120 - velSelecionada*10;
   timerScroll=setInterval(()=>{window.scrollBy(0,1);if((window.innerHeight+window.scrollY)>=document.body.scrollHeight-10)pararScroll();},Math.max(10,velocidade));
 }
-function pararScroll(){if(timerScroll)clearInterval(timerScroll);scrollAtivo=false;const b=document.getElementById('btnPlay');if(b)b.classList.remove('ativo')}
+function pararScroll(){if(timerScroll)clearInterval(timerScroll);const b=document.getElementById('btnPlay');if(b)b.classList.remove('ativo')}
 function abrirEditar(){
   const m=musicas[musicaAberta];
   document.getElementById('editTitulo').value=m.titulo;
@@ -266,7 +261,7 @@ function procurarWeb(){
   if(!q){alert('Digite a música');return;}
   const achadas=musicas.filter(m=>(m.titulo+' '+m.artista).toLowerCase().includes(q.toLowerCase()));
   if(achadas.length>0){el.innerHTML='<p><b>Resultado:</b></p>'+achadas.map(m=>'<div class="musica" onclick="abrirCifra('+musicas.indexOf(m)+')"><b>'+m.titulo+'</b> - '+m.artista+'</div>').join('');}
-  else{el.innerHTML='<p>Nenhum resultado encontrado.<br>Você pode tentar melhorar a consulta ou criar as músicas...</p><button class="btn btn-blue" onclick="window.open(\'https://www.google.com/search?q=cifra+\'+encodeURIComponent(document.getElementById(\'buscaWeb\').value),\'_blank\')">🌐 Procurar na web</button><button class="btn btn-gray" onclick="abrirTela(\'nova\')">Criar música</button>';}
+  else{el.innerHTML='<p>Nenhum resultado encontrado.</p><button class="btn btn-blue" onclick="window.open(\'https://www.google.com/search?q=cifra+\'+encodeURIComponent(document.getElementById(\'buscaWeb\').value),\'_blank\')">🌐 Procurar na web</button>';}
 }
 function criarLista(){const n=document.getElementById('nomeLista').value;if(!n){alert('Nome');return;}listas.push({nome:n,ids:[]});localStorage.setItem('cifraflow_listas',JSON.stringify(listas));renderListas()}
 function renderListas(){document.getElementById('listaListas').innerHTML=listas.map(l=>'<div class="pasta"><div class="ico">📁</div><b>'+l.nome+'</b></div>').join('')}
@@ -276,7 +271,6 @@ function fazerBackup(){const dados={musicas,listas};const blob=new Blob([JSON.st
 function restaurar(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(d.musicas){musicas=d.musicas;localStorage.setItem('cifraflow_musicas',JSON.stringify(musicas));}renderLista();document.getElementById('msgBackup').textContent='Restaurado! ✅'}catch(err){alert('Inválido')}};r.readAsText(f)}
 function salvarPrefs(){fontSize=parseInt(document.getElementById('prefSize').value);alert('Salvo! ✅');irHome()}
 renderLista();
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
 </script>
 </body>
 </html>
