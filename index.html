@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>CIFRA FLOW STUDIO PREMIUM</title>
+<title>Cifra Flow</title>
 <meta name="theme-color" content="#1E3A5F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cifra Flow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231E3A5F'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='white'%3E%F0%9F%8E%B5%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href='data:application/json,{"name":"Cifra Flow","short_name":"Cifra Flow","display":"standalone","start_url":"./","background_color":"%231E3A5F","theme_color":"%231E3A5F"}'>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#B8BEC6;background-image:radial-gradient(rgba(30,58,95,.07) 1px, transparent 1px);background-size:18px 18px;color:#111;overflow-x:hidden}
@@ -79,7 +83,7 @@ body.modo-cheia #btnSairCheia{display:block}
 </style>
 </head>
 <body>
-<header><button type="button" onclick="toggleMenu(true)">☰</button><h1>CIFRA FLOW STUDIO<span>PREMIUM</span></h1><button type="button" onclick="toggleSearch()">🔍</button><button type="button" onclick="toggleMenu(true)">⋯</button></header>
+<header><button type="button" onclick="toggleMenu(true)">☰</button><h1>CIFRA FLOW<span>STUDIO PREMIUM</span></h1><button type="button" onclick="toggleSearch()">🔍</button><button type="button" onclick="toggleMenu(true)">⋯</button></header>
 <div id="overlay" onclick="toggleMenu(false)"></div>
 <nav id="menu">
 <div class="menu-top"><b>☰ MENU</b><button type="button" onclick="toggleMenu(false)">✕ FECHAR</button></div>
@@ -126,8 +130,8 @@ body.modo-cheia #btnSairCheia{display:block}
 <div id="page-prefs" class="hidden"><h2>Preferências</h2><button class="btn" onclick="mudarFonte(1)">A+ Maior</button><button class="btn" onclick="mudarFonte(-1)">A- Menor</button></div>
 <div id="page-redes" class="hidden"><h2>Redes Sociais</h2><button class="btn" onclick="abrir('https://instagram.com/takicomerciais')">Instagram - @takicomerciais</button><button class="btn green" onclick="abrir('https://facebook.com')">Facebook - Taki Artesanal</button></div>
 <div id="page-apps" class="hidden"><h2>Outros Apps</h2><p>Em breve outros apps do Taki.</p></div>
-<div id="page-ajuda" class="hidden"><h2>Ajuda</h2><p><b>Rolagem V323:</b> Vel 0 = Parado, Vel 1 = Bem lento, Vel 7 = Mais rápido. A rolagem só funciona na tela cheia e só rola a letra dentro do quadrado azul.</p></div>
-<div id="page-sobre" class="hidden"><h2>Sobre</h2><p><b>Cifra Flow Studio Premium</b><br>Versão V323 - 7 velocidades, Vel 1 bem lenta</p></div>
+<div id="page-ajuda" class="hidden"><h2>Ajuda</h2><p><b>Rolagem V324:</b> Vel 0 = Parado, Vel 1 = Bem lento, Vel 7 = Máximo. Só funciona na tela cheia e só rola a letra dentro do azul. Nome novo Cifra Flow pra achar fácil.</p></div>
+<div id="page-sobre" class="hidden"><h2>Sobre</h2><p><b>Cifra Flow</b><br>Versão V324 - Nome curto, pasta SVG grandona, rolagem só na cifra</p></div>
 <div id="page-comprar" class="hidden"><h2>Comprar assinatura</h2><button class="btn gold" onclick="alert('Em breve: link de pagamento')">⭐ Assinar Premium</button></div>
 </main>
 <div id="controlesCheia"><button onclick="mudarVel(-1)">− Vel</button><div class="vel-cheia" id="velCheia">Vel 1<br>Bem lento</div><button onclick="mudarVel(1)">+ Vel</button><button id="btnPlayCheia" onclick="toggleRolagem()">▶ PLAY</button></div>
@@ -168,34 +172,20 @@ A ave que vem de longe tão bela
 A esperança que arde em calor
    Am/G     F       G7      C
 Você é a tradução do que é o amor
-
-E a dor saiu, foi você quem me curou
-Quando o mal partiu, vi que algo em mim mudou
-No momento em que quis ficar junto de ti
-E agora sou feliz, pois lhe tenho bem aqui
-
-Refrão
-Quando me perdi...
-Refrão
-Dm7  C/E  F  G7  Dm7  F  G7  C
-Do que é o amor, do que é o amor, do que é o amor
-Dm7  C/E  F  G7  Dm7  F  G7  C`;
+`;
 function carregar(){
   let s=localStorage.getItem(CHAVE); let lista=null;
   if(s){try{lista=JSON.parse(s);}catch(e){}}
   if(!lista||!lista.length){for(let k of ['cifraflow_v310','cifraflow_v309','cifraflow_v308']){let v=localStorage.getItem(k); if(v){try{let a=JSON.parse(v); if(a&&a.length){lista=a;break;}}catch(e){}}}}
-  if(!lista||!lista.length){lista=[{titulo:'Aonde Quer Que Eu Vá',artista:'Cidade Negra',pasta:'Cidade Negra',cifra:'G  D  Em  C\nAonde quer que eu vá'},{titulo:'Noite',artista:'Claudio Zoli',pasta:'Claudio Zoli',cifra:'Am  F  C  G\nNoite...'}];}
+  if(!lista||!lista.length){lista=[{titulo:'Aonde Quer Que Eu Vá',artista:'Cidade Negra',pasta:'Cidade Negra',cifra:'G  D  Em  C'},{titulo:'Noite',artista:'Claudio Zoli',pasta:'Claudio Zoli',cifra:'Am  F  C  G'}];}
   let idx=lista.findIndex(m=>m.titulo.toLowerCase().includes('esperando na janela'));
   if(idx>=0){lista[idx].cifra=CIFRA_ESPERANDO; lista[idx].artista='Cogumelo e Plutão'; lista[idx].pasta='Cogumelo e Plutão'; lista[idx].titulo='Esperando na Janela';}
   else{lista.unshift({titulo:'Esperando na Janela',artista:'Cogumelo e Plutão',pasta:'Cogumelo e Plutão',cifra:CIFRA_ESPERANDO});}
   return lista;
 }
 let musicas=carregar();
-// V323 - VELOCIDADES REFEITAS
 let fonte=16, tomAtual=0, cifraOriginal='', editando=-1, musicaAberta=-1, filtroMenu='todas', zoom=false;
 let scrollTimer=null, velocidade=1, rolando=false;
-// Tabela: quanto maior o número, mais rápido. Vel 0 = parado, Vel 1 = bem lento
-// Valor = milissegundos para andar 1 pixel. Vel 1 = 400ms = bem devagar
 const VELOCIDADES=[0, 400, 200, 120, 80, 50, 32, 20];
 const NOMES_VEL=['Parado','Bem lento','Lento','Normal','Médio','Rápido','Bem rápido','Máximo'];
 let audioCtx=null, fGrave=null, fMedio=null, fAgudo=null, gainNode=null;
@@ -212,21 +202,7 @@ function excluirAtual(){if(editando<0) return; if(!confirm('Excluir "'+musicas[e
 function salvarAgora(){if(musicaAberta<0) return; salvar(); toast('✅ Salva! '+musicas[musicaAberta].titulo); setTimeout(()=>showPage('pastas'),800);}
 function listaFiltrada(){if(filtroMenu==='vs') return musicas.filter(m=>m.vsNome); if(filtroMenu==='playback') return musicas.filter(m=>m.vsNome); return musicas;}
 function pastaSVG(){
-return `<span class="folder-real"><svg viewBox="0 0 78 62" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<linearGradient id="azulF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A8AD1"/><stop offset="0.35" stop-color="#2E5A8A"/><stop offset="0.7" stop-color="#1E3A5F"/><stop offset="1" stop-color="#122A4A"/></linearGradient>
-<linearGradient id="brilho" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="0.4" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-<linearGradient id="ouro" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8A6D1A"/><stop offset="0.25" stop-color="#F7C957"/><stop offset="0.5" stop-color="#FFE9A8"/><stop offset="0.75" stop-color="#F7C957"/><stop offset="1" stop-color="#8A6D1A"/></linearGradient>
-</defs>
-<rect x="12" y="6" width="52" height="32" rx="2" fill="#FFFFFF"/>
-<rect x="17" y="11" width="42" height="2" rx="1" fill="#DDE1E6"/>
-<rect x="17" y="16" width="42" height="2" rx="1" fill="#DDE1E6"/>
-<rect x="17" y="21" width="30" height="2" rx="1" fill="#DDE1E6"/>
-<path d="M6 14 Q6 8 12 8 L26 8 Q30 8 32 13 L36 20 L70 20 Q74 20 74 24 L74 30 L6 30 Z" fill="#2E5A8A"/>
-<path d="M6 24 L72 24 Q76 24 76 28 L74 50 Q74 56 68 56 L10 56 Q4 56 4 50 L6 28 Q6 24 6 24 Z" fill="url(#azulF)"/>
-<path d="M8 26 L70 26 Q74 26 74 30 L73 36 L9 32 Q6 31 6 28 Z" fill="url(#brilho)"/>
-<path d="M4 50 Q4 56 10 56 L68 56 Q74 56 74 50 L74 52 Q74 57 68 57 L10 57 Q4 57 4 52 Z" fill="url(#ouro)"/>
-</svg></span>`;
+return `<span class="folder-real"><svg viewBox="0 0 78 62" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="azulF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A8AD1"/><stop offset="0.35" stop-color="#2E5A8A"/><stop offset="0.7" stop-color="#1E3A5F"/><stop offset="1" stop-color="#122A4A"/></linearGradient><linearGradient id="brilho" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="0.4" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="ouro" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8A6D1A"/><stop offset="0.25" stop-color="#F7C957"/><stop offset="0.5" stop-color="#FFE9A8"/><stop offset="0.75" stop-color="#F7C957"/><stop offset="1" stop-color="#8A6D1A"/></linearGradient></defs><rect x="12" y="6" width="52" height="32" rx="2" fill="#FFFFFF"/><rect x="17" y="11" width="42" height="2" rx="1" fill="#DDE1E6"/><rect x="17" y="16" width="42" height="2" rx="1" fill="#DDE1E6"/><rect x="17" y="21" width="30" height="2" rx="1" fill="#DDE1E6"/><path d="M6 14 Q6 8 12 8 L26 8 Q30 8 32 13 L36 20 L70 20 Q74 20 74 24 L74 30 L6 30 Z" fill="#2E5A8A"/><path d="M6 24 L72 24 Q76 24 76 28 L74 50 Q74 56 68 56 L10 56 Q4 56 4 50 L6 28 Q6 24 6 24 Z" fill="url(#azulF)"/><path d="M8 26 L70 26 Q74 26 74 30 L73 36 L9 32 Q6 31 6 28 Z" fill="url(#brilho)"/><path d="M4 50 Q4 56 10 56 L68 56 Q74 56 74 50 L74 52 Q74 57 68 57 L10 57 Q4 57 4 52 Z" fill="url(#ouro)"/></svg></span>`;
 }
 function render(){
   let base=listaFiltrada();
@@ -403,7 +379,7 @@ function importarBackup(e){let f=e.target.files[0];let r=new FileReader();r.onlo
 function abrir(url){window.open(url,'_blank');}
 let deferredPrompt=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
 function installApp(){if(deferredPrompt){deferredPrompt.prompt();}else{alert('No celular: 3 pontinhos do Chrome > Adicionar à tela inicial / Instalar app');}}
-async function shareApp(){if(navigator.share){try{await navigator.share({title:'Cifra Flow Studio Premium',text:'Olha esse app de cifras!',url:location.href});}catch(e){}}else{prompt('Copie o link:',location.href);}}
+async function shareApp(){if(navigator.share){try{await navigator.share({title:'Cifra Flow',text:'Olha esse app de cifras!',url:location.href});}catch(e){}}else{prompt('Copie o link:',location.href);}}
 async function shareMusica(t){if(navigator.share){try{await navigator.share({title:t,text:'Cifra: '+t,url:location.href});}catch(e){}}}
 salvar(); render();
 </script>
