@@ -17,13 +17,17 @@ nav.open{left:0}
 .menu-top{background:#04402E;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0}
 .menu-top b{font-size:19px;letter-spacing:1px}.menu-top button{background:#fff;color:#065A40;border:none;border-radius:20px;padding:7px 12px;font-weight:900;font-size:13px;cursor:pointer}
 nav .item{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:none;color:#fff;padding:14px 18px;font-size:16px;font-weight:600;cursor:pointer}
+nav .item.ativo{background:rgba(255,255,255,.18);border-left:4px solid #F7C957}
 nav .ico{width:26px;text-align:center;font-size:19px}nav .div{height:1px;background:rgba(255,255,255,.15);margin:8px 18px}
+nav .secao{padding:10px 18px 4px;font-size:11px;letter-spacing:1px;color:#A8D5BA;font-weight:900}
 main{padding:78px 14px 30px;max-width:620px;margin:auto}
 h2{font-size:34px;margin:6px 2px 16px}
 .card{background:#fff;border-radius:16px;padding:18px;display:flex;align-items:center;gap:14px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.06);cursor:pointer}
 .card .folder{font-size:42px}.card b{font-size:19px;display:block}.card small{color:#666;font-size:14px}.card .arrow{margin-left:auto;font-size:22px;color:#999}
 .search-box{display:none;background:#fff;border-radius:12px;padding:10px;margin-bottom:14px}.search-box input{width:100%;border:1px solid #ddd;border-radius:10px;padding:12px;font-size:16px;outline:none}
 .song{background:#fff;border-radius:12px;padding:16px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer}.song b{font-size:17px}.song small{color:#666}
+.tag-vs{display:inline-block;background:#065A40;color:#fff;font-size:11px;font-weight:900;padding:3px 8px;border-radius:20px;margin-left:6px}
+.tag-pb{display:inline-block;background:#1E3A5F;color:#fff;font-size:11px;font-weight:900;padding:3px 8px;border-radius:20px;margin-left:4px}
 .btn{width:100%;background:#1E3A5F;color:#fff;border:none;border-radius:12px;padding:14px;font-size:16px;font-weight:800;cursor:pointer;margin-top:10px}
 .btn.green{background:#065A40}.btn.gold{background:#F7C957;color:#111}.btn.outline{background:#fff;color:#065A40;border:2px solid #065A40}.btn.red{background:#C0392B}.btn.orange{background:#E67E22}
 .top-actions{display:flex;gap:10px;margin-bottom:14px}.top-actions button{flex:1;background:#fff;border:1px solid #ddd;border-radius:12px;padding:11px;font-weight:700;cursor:pointer}
@@ -63,7 +67,12 @@ body.modo-cheia #btnSairCheia{display:block}#msg{position:fixed;left:50%;bottom:
 <div id="overlay" onclick="toggleMenu(false)"></div>
 <nav id="menu">
 <div class="menu-top"><b>☰ MENU</b><button type="button" onclick="toggleMenu(false)">✕ FECHAR</button></div>
-<button type="button" class="item" onclick="showPage('pastas')"><span class="ico">🎵</span>Minhas músicas</button>
+<div class="secao">MINHAS CIFRAS</div>
+<button type="button" class="item" id="menu-todas" onclick="filtrarMenu('todas')"><span class="ico">🎵</span>Só minhas cifras</button>
+<button type="button" class="item" id="menu-vs" onclick="filtrarMenu('vs')"><span class="ico">🎹</span>Minhas cifras com VS salvas</button>
+<button type="button" class="item" id="menu-pb" onclick="filtrarMenu('playback')"><span class="ico">▶️</span>Minhas cifras com Playback salvas</button>
+<div class="div"></div>
+<div class="secao">OUTROS</div>
 <button type="button" class="item" onclick="showPage('listas')"><span class="ico">☰</span>Minhas Listas</button>
 <button type="button" class="item" onclick="showPage('procurar')"><span class="ico">🔍</span>Procurar Música</button>
 <button type="button" class="item" onclick="showPage('importar')"><span class="ico">⬆️</span>Importar .txt / Nova cifra</button>
@@ -79,7 +88,12 @@ body.modo-cheia #btnSairCheia{display:block}#msg{position:fixed;left:50%;bottom:
 <button type="button" class="item" onclick="showPage('comprar')"><span class="ico">⭐</span>Comprar assinatura</button>
 </nav>
 <main>
-<div id="page-pastas"><h2>Pastas</h2><div class="top-actions"><button type="button" onclick="toggleSearch()">🔍 Buscar</button><button type="button" onclick="novaCifra()">+ Nova cifra</button></div><div class="search-box" id="searchBox"><input id="q" placeholder="Buscar música, artista..." oninput="filtrar()"></div><div id="listaPastas"></div><div id="listaMusicas"></div></div>
+<!-- SEM O TÍTULO PASTAS - LIMPO -->
+<div id="page-pastas">
+<div class="top-actions"><button type="button" onclick="toggleSearch()">🔍 Buscar</button><button type="button" onclick="novaCifra()">+ Nova cifra</button></div>
+<div class="search-box" id="searchBox"><input id="q" placeholder="Buscar música, artista..." oninput="filtrar()"></div>
+<div id="listaPastas"></div><div id="listaMusicas"></div>
+</div>
 <div id="page-listas" class="hidden"><h2>Minhas Listas</h2><button class="btn" onclick="novaLista()">+ Criar lista</button><div id="minhasListas"></div></div>
 <div id="page-procurar" class="hidden"><h2>Procurar Música</h2><input id="q2" placeholder="Digite o nome..." style="width:100%;padding:13px;border-radius:12px;border:1px solid #ddd" oninput="filtrar2()"><div id="resBusca" style="margin-top:12px"></div></div>
 <div id="page-importar" class="hidden">
@@ -91,14 +105,14 @@ body.modo-cheia #btnSairCheia{display:block}#msg{position:fixed;left:50%;bottom:
 <div class="field"><label>Cifra completa</label><textarea id="txtImport" placeholder="Cole a cifra COMPLETA aqui..."></textarea></div>
 <button class="btn green" id="btnSalvar" onclick="salvarTxt()">Salvar música</button>
 <button class="btn red hidden" id="btnExcluir" onclick="excluirAtual()">🗑️ Excluir esta música</button>
-<button class="btn" onclick="showPage('pastas')">Ver minhas pastas</button>
+<button class="btn" onclick="showPage('pastas')">Ver minhas cifras</button>
 </div>
 <div id="page-backup" class="hidden"><h2>Backup</h2><p id="totalBackup"></p><button class="btn" onclick="exportar()">⬇️ Exportar Backup</button><button class="btn green" onclick="document.getElementById('fileBackup').click()">⬆️ Importar Backup</button><input type="file" id="fileBackup" onchange="importarBackup(event)"><button class="btn gold" onclick="copiarBackup()">📋 Copiar Backup</button></div>
 <div id="page-prefs" class="hidden"><h2>Preferências</h2><button class="btn" onclick="mudarFonte(1)">A+ Maior</button><button class="btn" onclick="mudarFonte(-1)">A- Menor</button></div>
 <div id="page-redes" class="hidden"><h2>Redes Sociais</h2><button class="btn" onclick="abrir('https://instagram.com/takicomerciais')">Instagram - @takicomerciais</button><button class="btn green" onclick="abrir('https://facebook.com')">Facebook - Taki Artesanal</button></div>
 <div id="page-apps" class="hidden"><h2>Outros Apps</h2><p>Em breve outros apps do Taki.</p></div>
-<div id="page-ajuda" class="hidden"><h2>Ajuda</h2><p>Para salvar: abra a música e toque em SALVAR ESSA MÚSICA AGORA NO MENU. Ela fica salva no celular.</p></div>
-<div id="page-sobre" class="hidden"><h2>Sobre</h2><p><b>Cifra Flow Studio Premium</b><br>Versão V314 - Esperando na Janela salva</p></div>
+<div id="page-ajuda" class="hidden"><h2>Ajuda</h2><p>No menu você tem 3 visões: Só minhas cifras, Com VS salvas e Com Playback salvas. Quando escolhe o MP3, a música já entra nas 2 listas de VS / Playback.</p></div>
+<div id="page-sobre" class="hidden"><h2>Sobre</h2><p><b>Cifra Flow Studio Premium</b><br>Versão V315 - Menu VS / Playback</p></div>
 <div id="page-comprar" class="hidden"><h2>Comprar assinatura</h2><button class="btn gold" onclick="alert('Em breve: link de pagamento')">⭐ Assinar Premium</button></div>
 </main>
 <button id="btnSairCheia" onclick="sairTelaCheia()">✕ SAIR DA TELA CHEIA</button>
@@ -106,7 +120,6 @@ body.modo-cheia #btnSairCheia{display:block}#msg{position:fixed;left:50%;bottom:
 <audio id="audioVS" preload="auto"></audio>
 <script>
 const CHAVE='cifraflow_final';
-// ===== ESPERANDO NA JANELA - COMPLETA - JÁ VEM SALVA =====
 const CIFRA_ESPERANDO = `Dm7  C/E  F  G7  Dm7  F  G7  C  G7
 solo intro: (3x)
 e|------5---3---2-------------------|
@@ -152,29 +165,17 @@ Dm7  C/E  F  G7  Dm7  F  G7  C
 Do que é o amor, do que é o amor, do que é o amor
 Dm7  C/E  F  G7  Dm7  F  G7  C`;
 function carregar(){
-  let s=localStorage.getItem(CHAVE);
-  let lista=null;
+  let s=localStorage.getItem(CHAVE); let lista=null;
   if(s){try{lista=JSON.parse(s);}catch(e){}}
-  if(!lista || !lista.length){
-    for(let k of ['cifraflow_v310','cifraflow_v309','cifraflow_v308','cifraflow_v307']){let v=localStorage.getItem(k); if(v){try{let a=JSON.parse(v); if(a&&a.length){lista=a;break;}}catch(e){}}}
-  }
-  if(!lista || !lista.length){
-    lista=[{titulo:'Aonde Quer Que Eu Vá',artista:'Cidade Negra',pasta:'Cidade Negra',cifra:'G  D  Em  C\nAonde quer que eu vá'},{titulo:'Noite',artista:'Claudio Zoli',pasta:'Claudio Zoli',cifra:'Am  F  C  G\nNoite...'}];
-  }
-  // SEMPRE garante que a Esperando na Janela está completa e salva
+  if(!lista||!lista.length){for(let k of ['cifraflow_v310','cifraflow_v309','cifraflow_v308']){let v=localStorage.getItem(k); if(v){try{let a=JSON.parse(v); if(a&&a.length){lista=a;break;}}catch(e){}}}}
+  if(!lista||!lista.length){lista=[{titulo:'Aonde Quer Que Eu Vá',artista:'Cidade Negra',pasta:'Cidade Negra',cifra:'G  D  Em  C\nAonde quer que eu vá'},{titulo:'Noite',artista:'Claudio Zoli',pasta:'Claudio Zoli',cifra:'Am  F  C  G\nNoite...'}];}
   let idx=lista.findIndex(m=>m.titulo.toLowerCase().includes('esperando na janela'));
-  if(idx>=0){
-    lista[idx].cifra=CIFRA_ESPERANDO;
-    lista[idx].artista='Cogumelo e Plutão';
-    lista[idx].pasta='Cogumelo e Plutão';
-    lista[idx].titulo='Esperando na Janela';
-  } else {
-    lista.unshift({titulo:'Esperando na Janela',artista:'Cogumelo e Plutão',pasta:'Cogumelo e Plutão',cifra:CIFRA_ESPERANDO});
-  }
+  if(idx>=0){lista[idx].cifra=CIFRA_ESPERANDO; lista[idx].artista='Cogumelo e Plutão'; lista[idx].pasta='Cogumelo e Plutão'; lista[idx].titulo='Esperando na Janela';}
+  else{lista.unshift({titulo:'Esperando na Janela',artista:'Cogumelo e Plutão',pasta:'Cogumelo e Plutão',cifra:CIFRA_ESPERANDO});}
   return lista;
 }
 let musicas=carregar();
-let fonte=15, tomAtual=0, cifraOriginal='', editando=-1, musicaAberta=-1;
+let fonte=15, tomAtual=0, cifraOriginal='', editando=-1, musicaAberta=-1, filtroMenu='todas';
 let scrollTimer=null, velocidade=3, rolando=false;
 let audioCtx=null, fGrave=null, fMedio=null, fAgudo=null, gainNode=null;
 let vs={vol:8, grave:7, medio:4, agudo:5, tempo:13, altura:0};
@@ -183,21 +184,39 @@ function toast(t){let m=document.getElementById('msg');m.textContent=t;m.style.d
 function toggleMenu(a){document.getElementById('menu').classList.toggle('open',a);document.getElementById('overlay').classList.toggle('show',a);}
 function toggleSearch(){let s=document.getElementById('searchBox');s.style.display=s.style.display==='block'?'none':'block';}
 function showPage(p){pararRolagem(); pararVS(); sairTelaCheia(true); toggleMenu(false); document.querySelectorAll('main > div').forEach(d=>d.classList.add('hidden')); let el=document.getElementById('page-'+p); if(el) el.classList.remove('hidden'); window.scrollTo(0,0); if(p==='pastas') render(); if(p==='backup'){let t=document.getElementById('totalBackup'); if(t) t.textContent=musicas.length+' músicas salvas';}}
+// MENU - 3 FILTROS
+function filtrarMenu(tipo){
+  filtroMenu=tipo;
+  document.querySelectorAll('#menu .item').forEach(b=>b.classList.remove('ativo'));
+  let id=tipo==='todas'?'menu-todas':tipo==='vs'?'menu-vs':'menu-pb';
+  let el=document.getElementById(id); if(el) el.classList.add('ativo');
+  showPage('pastas');
+  if(tipo==='todas') toast('Só minhas cifras - todas');
+  if(tipo==='vs') toast('Minhas cifras com VS salvas');
+  if(tipo==='playback') toast('Minhas cifras com Playback salvas');
+}
 function novaCifra(){editando=-1; document.getElementById('tituloImportar').textContent='Nova cifra'; document.getElementById('btnSalvar').textContent='Salvar música'; document.getElementById('btnExcluir').classList.add('hidden'); showPage('importar'); setTimeout(()=>{document.getElementById('nomeMusica').value='';document.getElementById('nomeArtista').value='';document.getElementById('txtImport').value='';document.getElementById('nomeMusica').focus();},80);}
 function editarMusica(i){editando=i; let m=musicas[i]; document.getElementById('tituloImportar').textContent='✏️ Editar música'; document.getElementById('btnSalvar').textContent='💾 SALVAR ALTERAÇÕES'; document.getElementById('btnExcluir').classList.remove('hidden'); showPage('importar'); setTimeout(()=>{document.getElementById('nomeMusica').value=m.titulo;document.getElementById('nomeArtista').value=m.artista;document.getElementById('txtImport').value=m.cifra;},80);}
 function excluirAtual(){if(editando<0) return; if(!confirm('Excluir "'+musicas[editando].titulo+'"?')) return; musicas.splice(editando,1); salvar(); editando=-1; showPage('pastas');}
-// BOTÃO SALVAR AGORA NO MENU
-function salvarAgora(){
-  if(musicaAberta<0) return;
-  // Garante que a música aberta está salva com a cifra completa atual
-  salvar();
-  toast('✅ Salva no menu! '+musicas[musicaAberta].titulo+' - Pasta: '+musicas[musicaAberta].pasta);
-  setTimeout(()=>showPage('pastas'),800);
+function salvarAgora(){if(musicaAberta<0) return; salvar(); toast('✅ Salva no menu! '+musicas[musicaAberta].titulo); setTimeout(()=>showPage('pastas'),800);}
+function listaFiltrada(){
+  if(filtroMenu==='vs') return musicas.filter(m=>m.vsNome);
+  if(filtroMenu==='playback') return musicas.filter(m=>m.vsNome);
+  return musicas;
 }
-function render(){let pastas={};musicas.forEach(m=>{pastas[m.pasta]=(pastas[m.pasta]||0)+1});let h=`<div class="card" onclick="mostrarTodas()"><span class="folder">📁</span><div><b>Todos</b><small>${musicas.length} músicas</small></div><span class="arrow">›</span></div>`;for(let p in pastas){h+=`<div class="card" onclick="mostrarPasta('${p}')"><span class="folder">📁</span><div><b>${p}</b><small>${pastas[p]} música${pastas[p]>1?'s':''}</small></div><span class="arrow">›</span></div>`;}document.getElementById('listaPastas').innerHTML=h;document.getElementById('listaMusicas').innerHTML='';}
-function mostrarPasta(p){mostrarLista(musicas.filter(m=>m.pasta===p),p);}
-function mostrarTodas(){mostrarLista(musicas,'Todas as músicas');}
-function mostrarLista(lista,titulo){document.getElementById('listaPastas').innerHTML=`<button class="btn" onclick="render()">← Voltar para Pastas</button><h2 style="font-size:22px;margin-top:14px">${titulo}</h2>`;document.getElementById('listaMusicas').innerHTML=lista.map(m=>`<div class="song" onclick="abrirMusica(${musicas.indexOf(m)})"><b>▶ ${m.titulo}</b><br><small>${m.artista} • ${m.pasta}</small></div>`).join('')||'<p>Nenhuma música aqui.</p>';}
+function render(){
+  let base=listaFiltrada();
+  let tituloFiltro=filtroMenu==='vs'?'🎹 Com VS salvas':filtroMenu==='playback'?'▶️ Com Playback salvas':'🎵 Minhas cifras';
+  let pastas={}; base.forEach(m=>{pastas[m.pasta]=(pastas[m.pasta]||0)+1});
+  let h=`<div style="background:#1E3A5F;color:#fff;border-radius:12px;padding:12px 14px;margin-bottom:12px;font-weight:800">${tituloFiltro} • ${base.length} música${base.length!==1?'s':''} ${filtroMenu!=='todas'?'<button onclick="filtrarMenu(\'todas\')" style="float:right;background:#fff;border:none;border-radius:20px;padding:5px 10px;font-weight:900;font-size:12px;cursor:pointer">Ver todas ✕</button>':''}</div>`;
+  if(!base.length){h+=`<p style="background:#fff;padding:16px;border-radius:12px">Nenhuma música ${filtroMenu==='vs'?'com VS salvo':filtroMenu==='playback'?'com Playback salvo':''} ainda.<br><br>Abra uma música, toque em <b>ESCOLHER PLAYBACK / VS</b> e escolha o MP3. Ela entra aqui sozinha.</p>`;}
+  h+=`<div class="card" onclick="mostrarTodas()"><span class="folder">📁</span><div><b>Todos</b><small>${base.length} músicas</small></div><span class="arrow">›</span></div>`;
+  for(let p in pastas){h+=`<div class="card" onclick="mostrarPasta('${p}')"><span class="folder">📁</span><div><b>${p}</b><small>${pastas[p]} música${pastas[p]>1?'s':''}</small></div><span class="arrow">›</span></div>`;}
+  document.getElementById('listaPastas').innerHTML=h; document.getElementById('listaMusicas').innerHTML='';
+}
+function mostrarPasta(p){mostrarLista(listaFiltrada().filter(m=>m.pasta===p),p);}
+function mostrarTodas(){mostrarLista(listaFiltrada(),'Todas as músicas');}
+function mostrarLista(lista,titulo){document.getElementById('listaPastas').innerHTML=`<button class="btn" onclick="render()">← Voltar</button><h2 style="font-size:22px;margin-top:14px">${titulo}</h2>`;document.getElementById('listaMusicas').innerHTML=lista.map(m=>`<div class="song" onclick="abrirMusica(${musicas.indexOf(m)})"><b>▶ ${m.titulo}</b>${m.vsNome?'<span class="tag-vs">🎹 VS</span><span class="tag-pb">▶️ PLAYBACK</span>':''}<br><small>${m.artista} • ${m.pasta}${m.vsNome?'<br>🎵 '+m.vsNome:''}</small></div>`).join('')||'<p>Nenhuma música aqui.</p>';}
 function formatarCifra(texto){return texto.split('\n').map(linha=>{let l=linha.trimEnd();if(!l.trim())return `<div class="linha-vazia"></div>`;if(/^[eEBGDA]+\|/.test(l.trim())||l.includes('---'))return `<div class="linha-tab">${escapeHtml(l)}</div>`;let soAcordes=/^[A-G][#b]?(m|maj|min|dim|aug|sus|add|7|9|11|13|M|m7|maj7|mMaj7|\/|\(|\)|\s|#|b|\.|,|-)+$/.test(l.trim())&&l.trim().length<60&&/[A-G]/.test(l);let palavras=l.trim().split(/\s+/).length;if(soAcordes&&palavras<=8)return `<div class="linha-cifra">${escapeHtml(l)}</div>`;return `<div class="linha-letra">${escapeHtml(l)}</div>`;}).join('');}
 function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function abrirMusica(i){
@@ -207,7 +226,7 @@ function abrirMusica(i){
   document.getElementById('page-pastas').classList.remove('hidden');
   document.getElementById('listaPastas').innerHTML=`<button class="btn" onclick="render()">← Voltar</button>`;
   document.getElementById('listaMusicas').innerHTML=`
-  <div class="cifra-top"><b>${m.titulo}</b><small>${m.artista} • Tom: <span id="tomLabel">Original</span></small></div>
+  <div class="cifra-top"><b>${m.titulo}</b><small>${m.artista} • Tom: <span id="tomLabel">Original</span>${m.vsNome?'<br>🎹 VS / ▶️ Playback: '+m.vsNome:''}</small></div>
   <div class="toolbar">
     <div class="tool" onclick="mudarFonte(-1)">A-<small>Menor</small></div>
     <div class="tool" onclick="mudarFonte(1)">A+<small>Maior</small></div>
@@ -220,7 +239,7 @@ function abrirMusica(i){
   <div class="scroll-box"><span class="tv">📺</span><button class="sbtn" onclick="mudarVel(-1)">−</button><div class="vel">Rolagem<br><span id="velLabel">Vel ${velocidade}</span></div><button class="sbtn" onclick="mudarVel(1)">+</button><button class="play" id="btnPlay" onclick="toggleRolagem()">▶ PLAY ROLAGEM</button></div>
   <div class="vs-box">
     <b>🎹 VS / PLAYBACK</b><small>Play de um lado, escolher do outro.</small>
-    <div class="vs-nome" id="nomeVS">Nenhum VS carregado</div>
+    <div class="vs-nome" id="nomeVS">${m.vsNome?'🎵 '+m.vsNome+' (salvo)':'Nenhum VS carregado'}</div>
     <div class="vs-principal">
       <button class="play-vs" id="btnVS" onclick="toggleVS()">▶ PLAY<br>VS / PLAYBACK</button>
       <button class="escolher-vs" onclick="document.getElementById('fileVS').click()">📁 ESCOLHER<br>PLAYBACK / VS</button>
@@ -238,8 +257,7 @@ function abrirMusica(i){
   </div>
   <button class="btn orange" onclick="editarMusica(${i})">✏️ EDITAR MÚSICA</button>
   <button class="btn green" onclick="shareMusica('${m.titulo}')">Compartilhar música</button>`;
-  window.scrollTo(0,0);
-  aplicarVS();
+  window.scrollTo(0,0); aplicarVS();
 }
 const NOTAS=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const EQUIV={'Db':'C#','Eb':'D#','Gb':'F#','Ab':'G#','Bb':'A#','Cb':'B','Fb':'E','E#':'F','B#':'C'};
@@ -293,8 +311,11 @@ function carregarVS(e){
   initAudio(); if(audioCtx.state==='suspended') audioCtx.resume();
   let a=document.getElementById('audioVS');
   a.src=URL.createObjectURL(f);
-  let n=document.getElementById('nomeVS'); if(n) n.textContent='🎵 '+f.name;
-  aplicarVS(); toast('VS carregado: '+f.name);
+  let n=document.getElementById('nomeVS'); if(n) n.textContent='🎵 '+f.name+' (salvo)';
+  // SALVA O NOME DO VS / PLAYBACK NA MÚSICA - ENTRA NO MENU
+  if(musicaAberta>=0){ musicas[musicaAberta].vsNome=f.name; salvar(); toast('✅ VS salvo na música! Agora ela está em Minhas cifras com VS / Playback salvas'); }
+  else toast('VS carregado: '+f.name);
+  aplicarVS();
 }
 function toggleVS(){
   let a=document.getElementById('audioVS');
@@ -307,10 +328,10 @@ function toggleVS(){
 }
 function pararVS(){let a=document.getElementById('audioVS'); if(a){a.pause(); a.currentTime=0;} let b=document.getElementById('btnVS'); if(b){b.innerHTML='▶ PLAY<br>VS / PLAYBACK'; b.classList.remove('tocando');}}
 function pularVS(v){let a=document.getElementById('audioVS'); if(a&&a.duration) a.currentTime=a.duration*v/100;}
-function filtrar(){let q=document.getElementById('q').value.toLowerCase();let f=musicas.filter(m=>(m.titulo+' '+m.artista).toLowerCase().includes(q));if(!q){render();return;}mostrarLista(f,'Resultado da busca');}
+function filtrar(){let q=document.getElementById('q').value.toLowerCase();let f=listaFiltrada().filter(m=>(m.titulo+' '+m.artista).toLowerCase().includes(q));if(!q){render();return;}mostrarLista(f,'Resultado da busca');}
 function filtrar2(){let q=document.getElementById('q2').value.toLowerCase();let f=musicas.filter(m=>(m.titulo+' '+m.artista).toLowerCase().includes(q));document.getElementById('resBusca').innerHTML=f.map(m=>`<div class="song" onclick="abrirMusica(${musicas.indexOf(m)})"><b>▶ ${m.titulo}</b><br><small>${m.artista}</small></div>`).join('')||'<p>Nenhuma encontrada.</p>';}
 function lerTxt(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{document.getElementById('txtImport').value=r.result;let nome=f.name.replace('.txt','');if(nome.includes(' - ')){let p=nome.split(' - ');if(!document.getElementById('nomeArtista').value)document.getElementById('nomeArtista').value=p[0].trim();if(!document.getElementById('nomeMusica').value)document.getElementById('nomeMusica').value=p[1].trim();}};r.readAsText(f);}
-function salvarTxt(){let titulo=document.getElementById('nomeMusica').value.trim();let artista=document.getElementById('nomeArtista').value.trim();let txt=document.getElementById('txtImport').value.trim();if(!titulo){alert('Digite o nome da música');return;}if(!artista){alert('Digite o nome do artista');return;}if(!txt){alert('Cole ou importe a cifra primeiro');return;}if(editando>=0){musicas[editando]={titulo,artista,pasta:artista,cifra:txt};toast('Alterações salvas!');}else{musicas.push({titulo,artista,pasta:artista,cifra:txt});toast('Salva! '+titulo);}salvar();editando=-1;showPage('pastas');}
+function salvarTxt(){let titulo=document.getElementById('nomeMusica').value.trim();let artista=document.getElementById('nomeArtista').value.trim();let txt=document.getElementById('txtImport').value.trim();if(!titulo){alert('Digite o nome da música');return;}if(!artista){alert('Digite o nome do artista');return;}if(!txt){alert('Cole ou importe a cifra primeiro');return;}if(editando>=0){let old=musicas[editando].vsNome; musicas[editando]={titulo,artista,pasta:artista,cifra:txt,vsNome:old};toast('Alterações salvas!');}else{musicas.push({titulo,artista,pasta:artista,cifra:txt});toast('Salva! '+titulo);}salvar();editando=-1;showPage('pastas');}
 function novaLista(){let n=prompt('Nome da lista?');if(n){document.getElementById('minhasListas').innerHTML+=`<div class="song"><b>${n}</b></div>`;}}
 function mudarFonte(d){fonte=Math.max(12,Math.min(28,fonte+d));let el=document.getElementById('cifraView');if(el)el.style.fontSize=fonte+'px';}
 function exportar(){let blob=new Blob([JSON.stringify(musicas)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='backup-cifraflow.json';a.click();toast('Backup baixado');}
