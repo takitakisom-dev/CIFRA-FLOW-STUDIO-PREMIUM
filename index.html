@@ -40,22 +40,17 @@ input[type=file]{display:none}.field{margin-top:12px}.field label{display:block;
 .scroll-box{background:#fff;border-radius:16px;padding:12px;margin-top:12px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .scroll-box .tv{font-size:28px}.scroll-box .sbtn{width:44px;height:44px;border-radius:50%;border:1px solid #ddd;background:#F2F3F5;font-size:20px;font-weight:900;cursor:pointer}
 .scroll-box .play{flex:1;height:44px;border-radius:22px;border:none;background:#065A40;color:#fff;font-size:15px;font-weight:900;cursor:pointer}.scroll-box .play.pausado{background:#C0392B}.scroll-box .vel{font-size:13px;font-weight:800;text-align:center;min-width:52px}
-/* VS V313 - BOTÕES SEPARADOS + CONTROLES 1 A 10 */
 .vs-box{background:#fff;border-radius:16px;padding:14px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .vs-box b{font-size:17px;display:block}.vs-box small{color:#666;font-size:13px}
 .vs-nome{margin-top:10px;background:#F2F3F5;border-radius:10px;padding:10px;font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .vs-principal{display:flex;gap:10px;margin-top:12px}
 .vs-principal button{flex:1;border:none;border-radius:14px;padding:16px 8px;font-weight:900;font-size:14px;cursor:pointer;line-height:1.2}
-.vs-principal .play-vs{background:#111;color:#fff}
-.vs-principal .play-vs.tocando{background:#C0392B}
-.vs-principal .escolher-vs{background:#065A40;color:#fff}
+.vs-principal .play-vs{background:#111;color:#fff}.vs-principal .play-vs.tocando{background:#C0392B}.vs-principal .escolher-vs{background:#065A40;color:#fff}
 .vs-parar{width:100%;margin-top:8px;background:#F2F3F5;border:1px solid #ddd;border-radius:12px;padding:10px;font-weight:800;cursor:pointer}
 .ctl{display:flex;align-items:center;gap:8px;margin-top:12px;background:#F8F9FA;border-radius:12px;padding:8px 10px}
 .ctl .lbl{flex:1;font-size:13px;font-weight:800;line-height:1.2}.ctl .lbl small{display:block;color:#666;font-weight:600;font-size:11px}
 .ctl .menos,.ctl .mais{width:40px;height:40px;border-radius:50%;border:1px solid #ddd;background:#fff;font-size:22px;font-weight:900;cursor:pointer}
 .ctl .val{min-width:52px;text-align:center;font-weight:900;font-size:15px}
-.ctl .bar{flex:1;height:6px;background:#ddd;border-radius:3px;overflow:hidden}
-.ctl .bar i{display:block;height:100%;background:#065A40}
 .vs-range{width:100%;margin-top:8px;accent-color:#065A40}
 body.modo-cheia header,body.modo-cheia .toolbar,body.modo-cheia .scroll-box,body.modo-cheia .btn,body.modo-cheia .top-actions,body.modo-cheia h2,body.modo-cheia .vs-box{display:none!important}
 body.modo-cheia main{padding:0;max-width:none}body.modo-cheia .cifra-top{border-radius:0}body.modo-cheia .cifra-box{border-radius:0;min-height:100vh;padding:18px}
@@ -102,8 +97,8 @@ body.modo-cheia #btnSairCheia{display:block}#msg{position:fixed;left:50%;bottom:
 <div id="page-prefs" class="hidden"><h2>Preferências</h2><button class="btn" onclick="mudarFonte(1)">A+ Maior</button><button class="btn" onclick="mudarFonte(-1)">A- Menor</button></div>
 <div id="page-redes" class="hidden"><h2>Redes Sociais</h2><button class="btn" onclick="abrir('https://instagram.com/takicomerciais')">Instagram - @takicomerciais</button><button class="btn green" onclick="abrir('https://facebook.com')">Facebook - Taki Artesanal</button></div>
 <div id="page-apps" class="hidden"><h2>Outros Apps</h2><p>Em breve outros apps do Taki.</p></div>
-<div id="page-ajuda" class="hidden"><h2>Ajuda</h2><p><b>VS:</b><br>PLAY VS só toca/pausa.<br>ESCOLHER PLAYBACK só escolhe o MP3.<br>Use - / + para Volume, Grave, Médio, Agudo, Tempo e Altura.</p></div>
-<div id="page-sobre" class="hidden"><h2>Sobre</h2><p><b>Cifra Flow Studio Premium</b><br>Versão V313 - VS separado</p></div>
+<div id="page-ajuda" class="hidden"><h2>Ajuda</h2><p>Para salvar: abra a música e toque em SALVAR ESSA MÚSICA AGORA NO MENU. Ela fica salva no celular.</p></div>
+<div id="page-sobre" class="hidden"><h2>Sobre</h2><p><b>Cifra Flow Studio Premium</b><br>Versão V314 - Esperando na Janela salva</p></div>
 <div id="page-comprar" class="hidden"><h2>Comprar assinatura</h2><button class="btn gold" onclick="alert('Em breve: link de pagamento')">⭐ Assinar Premium</button></div>
 </main>
 <button id="btnSairCheia" onclick="sairTelaCheia()">✕ SAIR DA TELA CHEIA</button>
@@ -111,21 +106,94 @@ body.modo-cheia #btnSairCheia{display:block}#msg{position:fixed;left:50%;bottom:
 <audio id="audioVS" preload="auto"></audio>
 <script>
 const CHAVE='cifraflow_final';
-function carregar(){let s=localStorage.getItem(CHAVE); if(s){try{return JSON.parse(s);}catch(e){}} for(let k of ['cifraflow_v310','cifraflow_v309','cifraflow_v308','cifraflow_v307']){let v=localStorage.getItem(k); if(v){try{let a=JSON.parse(v); if(a&&a.length) return a;}catch(e){}}} return [{titulo:'Esperando na Janela',artista:'Cogumelo e Plutão',pasta:'Cogumelo e Plutão',cifra:'Dm7  C/E  F  G7  Dm7  F  G7  C\n\nC  F  G7  C\nQuando me perdi, você apareceu\nAm  F  G7  C\nMe fazendo rir, do que aconteceu'},{titulo:'Aonde Quer Que Eu Vá',artista:'Cidade Negra',pasta:'Cidade Negra',cifra:'G  D  Em  C\nAonde quer que eu vá'},{titulo:'Noite',artista:'Claudio Zoli',pasta:'Claudio Zoli',cifra:'Am  F  C  G\nNoite...'}];}
+// ===== ESPERANDO NA JANELA - COMPLETA - JÁ VEM SALVA =====
+const CIFRA_ESPERANDO = `Dm7  C/E  F  G7  Dm7  F  G7  C  G7
+solo intro: (3x)
+e|------5---3---2-------------------|
+b|------3---3---3---3---5---3---2---3|
+e|---2---0---3---2---0-----------  C  Am  F  G  C
+b|---2---3---3---------------------|
+
+       C        F       G7      C
+Quando me perdi, você apareceu
+      Am        F       G7      C
+Me fazendo rir, do que aconteceu
+      Em        Am      F       G7      C
+E de medo olhei tudo ao meu redor
+      Em        Am      F       G7      C
+Só assim enxerguei que agora estou melhor
+
+        F       G7      C
+Você é a escada na minha subida
+        F       G7      C
+Você é o amor da minha vida
+        Em              Am
+É o meu abrir de olhos o amanhecer
+   Am/G     F       G7      C
+Verdade que me leva a viver
+        F       G7      C
+Você é a espera na janela
+        F       G7      C
+A ave que vem de longe tão bela
+        Em              Am
+A esperança que arde em calor
+   Am/G     F       G7      C
+Você é a tradução do que é o amor
+
+E a dor saiu, foi você quem me curou
+Quando o mal partiu, vi que algo em mim mudou
+No momento em que quis ficar junto de ti
+E agora sou feliz, pois lhe tenho bem aqui
+
+Refrão
+Quando me perdi...
+Refrão
+Dm7  C/E  F  G7  Dm7  F  G7  C
+Do que é o amor, do que é o amor, do que é o amor
+Dm7  C/E  F  G7  Dm7  F  G7  C`;
+function carregar(){
+  let s=localStorage.getItem(CHAVE);
+  let lista=null;
+  if(s){try{lista=JSON.parse(s);}catch(e){}}
+  if(!lista || !lista.length){
+    for(let k of ['cifraflow_v310','cifraflow_v309','cifraflow_v308','cifraflow_v307']){let v=localStorage.getItem(k); if(v){try{let a=JSON.parse(v); if(a&&a.length){lista=a;break;}}catch(e){}}}
+  }
+  if(!lista || !lista.length){
+    lista=[{titulo:'Aonde Quer Que Eu Vá',artista:'Cidade Negra',pasta:'Cidade Negra',cifra:'G  D  Em  C\nAonde quer que eu vá'},{titulo:'Noite',artista:'Claudio Zoli',pasta:'Claudio Zoli',cifra:'Am  F  C  G\nNoite...'}];
+  }
+  // SEMPRE garante que a Esperando na Janela está completa e salva
+  let idx=lista.findIndex(m=>m.titulo.toLowerCase().includes('esperando na janela'));
+  if(idx>=0){
+    lista[idx].cifra=CIFRA_ESPERANDO;
+    lista[idx].artista='Cogumelo e Plutão';
+    lista[idx].pasta='Cogumelo e Plutão';
+    lista[idx].titulo='Esperando na Janela';
+  } else {
+    lista.unshift({titulo:'Esperando na Janela',artista:'Cogumelo e Plutão',pasta:'Cogumelo e Plutão',cifra:CIFRA_ESPERANDO});
+  }
+  return lista;
+}
 let musicas=carregar();
-let fonte=15, tomAtual=0, cifraOriginal='', editando=-1;
+let fonte=15, tomAtual=0, cifraOriginal='', editando=-1, musicaAberta=-1;
 let scrollTimer=null, velocidade=3, rolando=false;
 let audioCtx=null, fGrave=null, fMedio=null, fAgudo=null, gainNode=null;
-// CONTROLES VS - 1 a 10
-let vs={vol:8, grave:5, medio:5, agudo:5, tempo:10, altura:0}; // tempo 10 = 1.0x, altura 0 = original
+let vs={vol:8, grave:7, medio:4, agudo:5, tempo:13, altura:0};
 function salvar(){localStorage.setItem(CHAVE,JSON.stringify(musicas));}
-function toast(t){let m=document.getElementById('msg');m.textContent=t;m.style.display='block';setTimeout(()=>m.style.display='none',2600);}
+function toast(t){let m=document.getElementById('msg');m.textContent=t;m.style.display='block';setTimeout(()=>m.style.display='none',3000);}
 function toggleMenu(a){document.getElementById('menu').classList.toggle('open',a);document.getElementById('overlay').classList.toggle('show',a);}
 function toggleSearch(){let s=document.getElementById('searchBox');s.style.display=s.style.display==='block'?'none':'block';}
 function showPage(p){pararRolagem(); pararVS(); sairTelaCheia(true); toggleMenu(false); document.querySelectorAll('main > div').forEach(d=>d.classList.add('hidden')); let el=document.getElementById('page-'+p); if(el) el.classList.remove('hidden'); window.scrollTo(0,0); if(p==='pastas') render(); if(p==='backup'){let t=document.getElementById('totalBackup'); if(t) t.textContent=musicas.length+' músicas salvas';}}
 function novaCifra(){editando=-1; document.getElementById('tituloImportar').textContent='Nova cifra'; document.getElementById('btnSalvar').textContent='Salvar música'; document.getElementById('btnExcluir').classList.add('hidden'); showPage('importar'); setTimeout(()=>{document.getElementById('nomeMusica').value='';document.getElementById('nomeArtista').value='';document.getElementById('txtImport').value='';document.getElementById('nomeMusica').focus();},80);}
 function editarMusica(i){editando=i; let m=musicas[i]; document.getElementById('tituloImportar').textContent='✏️ Editar música'; document.getElementById('btnSalvar').textContent='💾 SALVAR ALTERAÇÕES'; document.getElementById('btnExcluir').classList.remove('hidden'); showPage('importar'); setTimeout(()=>{document.getElementById('nomeMusica').value=m.titulo;document.getElementById('nomeArtista').value=m.artista;document.getElementById('txtImport').value=m.cifra;},80);}
 function excluirAtual(){if(editando<0) return; if(!confirm('Excluir "'+musicas[editando].titulo+'"?')) return; musicas.splice(editando,1); salvar(); editando=-1; showPage('pastas');}
+// BOTÃO SALVAR AGORA NO MENU
+function salvarAgora(){
+  if(musicaAberta<0) return;
+  // Garante que a música aberta está salva com a cifra completa atual
+  salvar();
+  toast('✅ Salva no menu! '+musicas[musicaAberta].titulo+' - Pasta: '+musicas[musicaAberta].pasta);
+  setTimeout(()=>showPage('pastas'),800);
+}
 function render(){let pastas={};musicas.forEach(m=>{pastas[m.pasta]=(pastas[m.pasta]||0)+1});let h=`<div class="card" onclick="mostrarTodas()"><span class="folder">📁</span><div><b>Todos</b><small>${musicas.length} músicas</small></div><span class="arrow">›</span></div>`;for(let p in pastas){h+=`<div class="card" onclick="mostrarPasta('${p}')"><span class="folder">📁</span><div><b>${p}</b><small>${pastas[p]} música${pastas[p]>1?'s':''}</small></div><span class="arrow">›</span></div>`;}document.getElementById('listaPastas').innerHTML=h;document.getElementById('listaMusicas').innerHTML='';}
 function mostrarPasta(p){mostrarLista(musicas.filter(m=>m.pasta===p),p);}
 function mostrarTodas(){mostrarLista(musicas,'Todas as músicas');}
@@ -133,7 +201,7 @@ function mostrarLista(lista,titulo){document.getElementById('listaPastas').inner
 function formatarCifra(texto){return texto.split('\n').map(linha=>{let l=linha.trimEnd();if(!l.trim())return `<div class="linha-vazia"></div>`;if(/^[eEBGDA]+\|/.test(l.trim())||l.includes('---'))return `<div class="linha-tab">${escapeHtml(l)}</div>`;let soAcordes=/^[A-G][#b]?(m|maj|min|dim|aug|sus|add|7|9|11|13|M|m7|maj7|mMaj7|\/|\(|\)|\s|#|b|\.|,|-)+$/.test(l.trim())&&l.trim().length<60&&/[A-G]/.test(l);let palavras=l.trim().split(/\s+/).length;if(soAcordes&&palavras<=8)return `<div class="linha-cifra">${escapeHtml(l)}</div>`;return `<div class="linha-letra">${escapeHtml(l)}</div>`;}).join('');}
 function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function abrirMusica(i){
-  tomAtual=0; cifraOriginal=musicas[i].cifra; pararRolagem(); pararVS();
+  musicaAberta=i; tomAtual=0; cifraOriginal=musicas[i].cifra; pararRolagem(); pararVS();
   let m=musicas[i];
   document.querySelectorAll('main > div').forEach(d=>d.classList.add('hidden'));
   document.getElementById('page-pastas').classList.remove('hidden');
@@ -148,9 +216,10 @@ function abrirMusica(i){
     <div class="tool" onclick="telaCheia()">⛶<small>Tela cheia</small></div>
   </div>
   <div class="cifra-box"><pre id="cifraView" style="font-size:${fonte}px">${formatarCifra(cifraOriginal)}</pre></div>
+  <button class="btn green" onclick="salvarAgora()">💾 SALVAR ESSA MÚSICA AGORA NO MENU</button>
   <div class="scroll-box"><span class="tv">📺</span><button class="sbtn" onclick="mudarVel(-1)">−</button><div class="vel">Rolagem<br><span id="velLabel">Vel ${velocidade}</span></div><button class="sbtn" onclick="mudarVel(1)">+</button><button class="play" id="btnPlay" onclick="toggleRolagem()">▶ PLAY ROLAGEM</button></div>
   <div class="vs-box">
-    <b>🎹 VS / PLAYBACK</b><small>Play de um lado, escolher do outro. Não confunde mais.</small>
+    <b>🎹 VS / PLAYBACK</b><small>Play de um lado, escolher do outro.</small>
     <div class="vs-nome" id="nomeVS">Nenhum VS carregado</div>
     <div class="vs-principal">
       <button class="play-vs" id="btnVS" onclick="toggleVS()">▶ PLAY<br>VS / PLAYBACK</button>
@@ -162,7 +231,7 @@ function abrirMusica(i){
     <div class="ctl"><div class="lbl">🎛️ Grave<small>Bumbo / baixo</small></div><button class="menos" onclick="ajustar('grave',-1)">−</button><div class="val" id="val-grave">${vs.grave}</div><button class="mais" onclick="ajustar('grave',1)">+</button></div>
     <div class="ctl"><div class="lbl">🎛️ Médio<small>Voz / teclado</small></div><button class="menos" onclick="ajustar('medio',-1)">−</button><div class="val" id="val-medio">${vs.medio}</div><button class="mais" onclick="ajustar('medio',1)">+</button></div>
     <div class="ctl"><div class="lbl">🎛️ Agudo<small>Prato / brilho</small></div><button class="menos" onclick="ajustar('agudo',-1)">−</button><div class="val" id="val-agudo">${vs.agudo}</div><button class="mais" onclick="ajustar('agudo',1)">+</button></div>
-    <div class="ctl"><div class="lbl">⏱️ Tempo<small>Velocidade do VS</small></div><button class="menos" onclick="ajustar('tempo',-1)">−</button><div class="val" id="val-tempo">1.0x</div><button class="mais" onclick="ajustar('tempo',1)">+</button></div>
+    <div class="ctl"><div class="lbl">⏱️ Tempo<small>Velocidade do VS</small></div><button class="menos" onclick="ajustar('tempo',-1)">−</button><div class="val" id="val-tempo">1.3x</div><button class="mais" onclick="ajustar('tempo',1)">+</button></div>
     <div class="ctl"><div class="lbl">🎵 Altura / Tom do VS<small>Sobe ou desce o tom do playback</small></div><button class="menos" onclick="ajustar('altura',-1)">−</button><div class="val" id="val-altura">0</div><button class="mais" onclick="ajustar('altura',1)">+</button></div>
     <label style="display:block;font-size:13px;font-weight:800;margin-top:12px">⏱️ Posição: <span id="tempoVS">0:00 / 0:00</span></label>
     <input type="range" class="vs-range" id="barraVS" min="0" max="100" value="0" oninput="pularVS(this.value)">
@@ -182,7 +251,6 @@ document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement
 function toggleRolagem(){let b=document.getElementById('btnPlay');if(rolando){pararRolagem();return;}rolando=true;b.textContent='⏸ PARAR';b.classList.add('pausado');scrollTimer=setInterval(()=>{window.scrollBy(0,1);},60-velocidade*7);}
 function pararRolagem(){rolando=false;clearInterval(scrollTimer);let b=document.getElementById('btnPlay');if(b){b.textContent='▶ PLAY ROLAGEM';b.classList.remove('pausado');}}
 function mudarVel(d){velocidade=Math.max(1,Math.min(8,velocidade+d));let l=document.getElementById('velLabel');if(l)l.textContent='Vel '+velocidade;if(rolando){clearInterval(scrollTimer);scrollTimer=setInterval(()=>{window.scrollBy(0,1);},60-velocidade*7);}}
-// ===== VS V313 =====
 function initAudio(){
   if(audioCtx) return;
   let a=document.getElementById('audioVS');
@@ -200,16 +268,12 @@ function fmt(s){if(!s||isNaN(s)) return '0:00'; let m=Math.floor(s/60), ss=Math.
 function aplicarVS(){
   let a=document.getElementById('audioVS'); if(!a) return;
   initAudio();
-  // 0 a 10 vira ganho / dB
   if(gainNode) gainNode.gain.value=vs.vol/10;
-  if(fGrave) fGrave.gain.value=(vs.grave-5)*3; // -15 a +15 dB
+  if(fGrave) fGrave.gain.value=(vs.grave-5)*3;
   if(fMedio) fMedio.gain.value=(vs.medio-5)*3;
   if(fAgudo) fAgudo.gain.value=(vs.agudo-5)*3;
-  // Tempo 5 a 15 = 0.5x a 1.5x, Altura -6 a +6 semitons
-  let tempo=vs.tempo/10;
-  let pitch=Math.pow(2, vs.altura/12);
-  a.playbackRate=tempo*pitch;
-  a.preservesPitch=false;
+  let tempo=vs.tempo/10; let pitch=Math.pow(2, vs.altura/12);
+  a.playbackRate=tempo*pitch; a.preservesPitch=false;
   let els={vol:vs.vol, grave:vs.grave, medio:vs.medio, agudo:vs.agudo};
   for(let k in els){let e=document.getElementById('val-'+k); if(e) e.textContent=els[k];}
   let t=document.getElementById('val-tempo'); if(t) t.textContent=tempo.toFixed(1)+'x';
@@ -223,7 +287,6 @@ function ajustar(tipo,delta){
   if(tipo==='tempo') vs.tempo=Math.max(5,Math.min(15,vs.tempo+delta));
   if(tipo==='altura') vs.altura=Math.max(-6,Math.min(6,vs.altura+delta));
   aplicarVS();
-  toast(tipo==='vol'?'Volume: '+vs.vol : tipo==='tempo'?'Tempo: '+(vs.tempo/10).toFixed(1)+'x' : tipo==='altura'?'Altura: '+vs.altura : tipo+': '+vs[tipo]);
 }
 function carregarVS(e){
   let f=e.target.files[0]; if(!f) return;
@@ -231,8 +294,7 @@ function carregarVS(e){
   let a=document.getElementById('audioVS');
   a.src=URL.createObjectURL(f);
   let n=document.getElementById('nomeVS'); if(n) n.textContent='🎵 '+f.name;
-  aplicarVS();
-  toast('VS carregado: '+f.name);
+  aplicarVS(); toast('VS carregado: '+f.name);
 }
 function toggleVS(){
   let a=document.getElementById('audioVS');
