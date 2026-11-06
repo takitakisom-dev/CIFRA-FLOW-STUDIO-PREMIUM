@@ -3,148 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>e-Cifra - Cifra Flow</title>
+<title>e-Cifra</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1a6fc4">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f0f2f5;color:#222}
-header{background:#1a6fc4;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;gap:10px;position:sticky;top:0;z-index:10}
-header b{font-size:18px}
+body{font-family:Arial,sans-serif;min-height:100vh;background:#000;background-image:url('https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1400&q=80&auto=format&fit=crop');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;padding:14px}
+.tablet{background:#fff;width:100%;max-width:1080px;border-radius:22px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6);border:8px solid #f2f2f2}
+header{background:#1a6fc4;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;gap:10px}
+header .l{display:flex;align-items:center;gap:10px}
+#btnMenu{font-size:20px;background:#fff;color:#1a6fc4;border:0;width:38px;height:38px;border-radius:8px;cursor:pointer}
+header b{font-size:17px}
 .top{display:flex;gap:6px;flex-wrap:wrap}
-.top button{background:#fff;color:#1a6fc4;border:0;padding:7px 10px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer}
+.top button{background:#fff;color:#1a6fc4;border:0;padding:7px 10px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px}
 .top button.blue{background:#0d4d8f;color:#fff}
-.wrap{max-width:1100px;margin:0 auto;padding:14px;display:flex;gap:16px;align-items:flex-start}
-.main{flex:1;background:#fff;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.08);min-width:0}
-.main h1{font-size:26px}
+#sidebar{position:fixed;top:0;left:-280px;width:260px;height:100vh;background:#0d2a4a;color:#fff;padding:20px;transition:.3s;z-index:50}
+#sidebar.open{left:0}
+#sidebar button{display:block;width:100%;text-align:left;background:rgba(255,255,255,.12);color:#fff;border:0;padding:12px;border-radius:10px;margin-bottom:8px;font-size:15px;cursor:pointer}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:40}
+#overlay.show{display:block}
+.home{padding:14px}
+.busca{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:14px;margin-bottom:12px}
+.pastas{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.pasta{background:#f7f9ff;border-radius:12px;padding:14px;text-align:center;cursor:pointer;border:2px solid transparent}
+.pasta.ativa{border-color:#1a6fc4;background:#eef4ff}
+.pasta b{display:block;font-size:14px}
+.pasta span{font-size:11px;color:#888}
+.musica{background:#fff;border:1px solid #eee;border-radius:12px;padding:13px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.musica b{font-size:15px}
+.musica small{color:#666;display:block}
+.musica i{color:#1a6fc4;font-style:normal;font-weight:700}
+.wrap{display:flex;gap:0}
+.main{flex:1;padding:18px;min-width:0}
+.main h1{font-size:24px}
 .main small{color:#666}
-.intro{margin:14px 0;color:#333;font-weight:700}
-.linha{margin:22px 0;line-height:1.4}
-.acorde{color:#1a6fc4;font-weight:800;display:inline-block;min-width:40px}
-.letra{font-size:16px}
-aside{width:260px;background:#fff;border-radius:10px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.08);flex-shrink:0}
-aside h3{font-size:14px;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:8px}
-.conf{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
+.intro{margin:12px 0;font-weight:700;font-size:13px}
+.linha{margin:18px 0;line-height:1.3}
+.acorde{color:#1a6fc4;font-weight:800;font-size:14px}
+.letra{font-size:14px}
+aside{width:250px;border-left:1px solid #eee;padding:14px;flex-shrink:0;background:#fff}
+aside h3{font-size:12px;margin-bottom:10px}
+.conf{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:12px}
 .conf span{color:#666}
-.pill{background:#eef4ff;color:#1a6fc4;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700;border:0;cursor:pointer}
+.pill{background:#eef4ff;color:#1a6fc4;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;border:0;cursor:pointer}
 .pill.off{background:#eee;color:#666}
-.player{margin-top:16px;background:#fff;border-radius:10px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.player h3{font-size:13px;margin-bottom:10px}
-.prow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.prow button{background:#1a6fc4;color:#fff;border:0;padding:8px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer}
-.prow button.ghost{background:#eee;color:#333}
+.player{margin:0 14px 14px;border-top:1px solid #eee;padding-top:12px}
+.player h3{font-size:11px;margin-bottom:10px;color:#444}
+.prow{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.prow button{background:#1a6fc4;color:#fff;border:0;padding:7px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer}
+.prow button.ghost{background:#f0f0f0;color:#333}
 .sliders{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
-.sliders label{font-size:11px;font-weight:700;color:#666;display:block;text-align:center}
+.sliders label{font-size:10px;font-weight:700;color:#666;display:block;text-align:center}
 .sliders input{width:100%;accent-color:#1a6fc4}
-.sliders b{display:block;text-align:center;font-size:13px;margin-top:2px}
-.bottom{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}
-.bottom button{background:#eee;border:0;padding:8px 10px;border-radius:6px;font-size:12px;cursor:pointer}
-.bottom select{padding:8px;border:1px solid #ddd;border-radius:6px}
+.sliders b{display:block;text-align:center;font-size:12px}
+.bottom{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap;font-size:12px}
+.bottom button{background:#eee;border:0;padding:7px 10px;border-radius:20px;font-size:11px;cursor:pointer}
+.bottom select{padding:7px;border:1px solid #ddd;border-radius:20px;font-size:12px}
 #installBtn{display:none}
-@media(max-width:800px){.wrap{flex-direction:column}aside{width:100%}.sliders{grid-template-columns:repeat(2,1fr)}}
+.voltar{background:#eee;border:0;padding:9px 12px;border-radius:8px;margin-bottom:10px;cursor:pointer;font-weight:700}
+@media(max-width:800px){body{padding:0}.tablet{border-radius:0;border:0}.wrap{flex-direction:column}aside{width:100%;border-left:0;border-top:1px solid #eee}.pastas{grid-template-columns:repeat(2,1fr)}.sliders{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
+<div id="sidebar"><h2 style="margin-bottom:14px">☰ Menu</h2><button onclick="mostrarHome();toggleMenu()">🏠 Página Inicial</button><button onclick="filtrar('Louvores');toggleMenu()">🎵 Louvores</button><button onclick="filtrar('Culto');toggleMenu()">⛪ Culto</button><button onclick="filtrar('Ensaio');toggleMenu()">🎸 Ensaio</button><button onclick="filtrar('Favoritas');toggleMenu()">⭐ Favoritas</button><hr style="margin:14px 0;opacity:.3"><button onclick="toggleMenu()">✕ Fechar</button></div>
+<div id="overlay" onclick="toggleMenu()"></div>
 
-<header>
-<b>🎵 e-Cifra</b>
-<div class="top">
-<button onclick="document.getElementById('file').click()">⬆ IMPORTAR</button>
-<button onclick="compartilhar()">↗ COMPARTILHAR</button>
-<button id="installBtn">📱 INSTALAR NO CELULAR</button>
-<button class="blue" onclick="alert('Saindo...')">SAIR</button>
+<div class="tablet">
+<header><div class="l"><button id="btnMenu" onclick="toggleMenu()">☰</button><b>🎵 e-Cifra</b></div>
+<div class="top"><button onclick="alert('Importar')">🌐 IMPORTAR</button><button onclick="compartilhar()">↗ COMPARTILHAR</button><button onclick="alert('Instalar')">📱 INSTALAR NO CELULAR</button><button class="blue" id="installBtn">Instalar</button><button class="blue" onclick="mostrarHome()">INÍCIO</button></div></header>
+
+<!-- HOME -->
+<div id="home" class="home">
+<input class="busca" placeholder="🔍 Buscar música..." oninput="buscar(this.value)">
+<div class="pastas">
+<div class="pasta ativa" id="p-Todas" onclick="filtrar('Todas')">📁<b>Todas</b><span>4 músicas</span></div>
+<div class="pasta" id="p-Louvores" onclick="filtrar('Louvores')">🎵<b>Louvores</b><span>2 músicas</span></div>
+<div class="pasta" id="p-Culto" onclick="filtrar('Culto')">⛪<b>Culto</b><span>1 música</span></div>
+<div class="pasta" id="p-Ensaio" onclick="filtrar('Ensaio')">🎸<b>Ensaio</b><span>1 música</span></div>
 </div>
-</header>
-<input type="file" id="file" hidden accept=".txt,.chordpro,.mp3,.wav">
+<div id="lista"></div>
+</div>
 
+<!-- CIFRA -->
+<div id="cifraPage" style="display:none">
+<div style="padding:12px 14px 0"><button class="voltar" onclick="mostrarHome()">← Voltar</button></div>
 <div class="wrap">
-<div class="main">
-<h1 id="titulo">Garota de Ipanema</h1>
-<small>Tom Jobim & Vinicius de Moraes</small>
-<p class="intro" id="intro">[Intro: F7M | G7(13) | Gm7 | C7(9)]</p>
-<div id="cifra"></div>
-
-<div class="player">
-<h3>PLAYER DE ÁUDIO</h3>
-<div class="prow">
-<button id="btnPlay" onclick="togglePlay()">⏸ Pausar</button>
-<button class="ghost" onclick="document.getElementById('file').click()">Carregar Playback/VS</button>
-<button class="ghost">From um dispositivo</button>
-<span style="font-size:12px;color:#666">Apoio Musical</span>
-</div>
-<div class="sliders">
-<div><label>VOLUME</label><input type="range" id="vol" value="75" oninput="document.getElementById('vVol').innerText=this.value+'%'"><b id="vVol">75%</b></div>
-<div><label>PITCH</label><input type="range" min="-6" max="6" value="0" oninput="document.getElementById('vPitch').innerText=(this.value>0?'+':'')+this.value"><b id="vPitch">0</b></div>
-<div><label>REVERB</label><input type="range" value="20" oninput="document.getElementById('vRev').innerText=this.value+'%'"><b id="vRev">20%</b></div>
-<div><label>GRAVE</label><input type="range" value="0" min="-10" max="10" oninput="document.getElementById('vGrave').innerText=this.value+' dB'"><b id="vGrave">0 dB</b></div>
-</div>
-<div class="bottom">
-<button onclick="mudarBpm(-5)">- BPM</button><b><span id="bpm">76</span> BPM</b><button onclick="mudarBpm(5)">+ BPM</button>
-<select id="tomSelect" onchange="mudarTom(this.value)"><option>F Maior</option><option>G Maior</option><option>C Maior</option><option>D Maior</option><option>E Maior</option></select>
-<button onclick="toggleScroll()" id="btnScroll">Scroll Automático</button>
-<button onclick="toggleMetro()" id="btnMetro">Metrônomo</button>
-<button onclick="alert('Afinador aberto')">🎸 Tuner</button>
-</div>
-</div>
-</div>
-
-<aside>
-<h3>CONFIGURAÇÕES</h3>
+<div class="main"><h1 id="titulo">Garota de Ipanema</h1><small>Tom Jobim & Vinicius de Moraes</small><p class="intro">[Intro: F7M | G7(13) | Gm7 | C7(9)]</p><div id="cifra"></div></div>
+<aside><h3>CONFIGURAÇÕES</h3>
 <div class="conf"><span>Tema</span><div><button class="pill" id="btnClaro" onclick="setTema('claro')">Claro</button> <button class="pill off" id="btnEscuro" onclick="setTema('escuro')">Escuro</button></div></div>
 <div class="conf"><span>Tamanho da Cifra</span><b><span id="tam">16</span>px</b></div>
 <div class="conf"><span>Fonte</span><span>Arial ›</span></div>
 <div class="conf"><span>Transposição de Tom</span><span><button onclick="transpor(-1)">-</button> <b id="tomAtual">F</b> <button onclick="transpor(1)">+</button></span></div>
 <div class="conf"><span>Rolagem Automática</span><button class="pill off" id="btnAuto" onclick="toggleScroll()">Desligada</button></div>
-<div style="margin-top:14px;display:flex;gap:6px">
-<button style="flex:1;background:#1a6fc4;color:#fff;border:0;padding:10px;border-radius:6px" onclick="aumentarFonte()">A+ Aumentar</button>
-<button style="flex:1;background:#eee;border:0;padding:10px;border-radius:6px" onclick="diminuirFonte()">A- Diminuir</button>
+<div style="margin-top:12px;display:flex;gap:6px"><button style="flex:1;background:#1a6fc4;color:#fff;border:0;padding:9px;border-radius:6px" onclick="aumentarFonte()">A+ Aumentar</button><button style="flex:1;background:#eee;border:0;padding:9px;border-radius:6px" onclick="diminuirFonte()">A- Diminuir</button></div>
+</aside></div>
+<div class="player"><h3>PLAYER DE ÁUDIO</h3>
+<div class="prow"><button id="btnPlay" onclick="togglePlay()">⏸ Pausar</button><button class="ghost">⬇ Carregar Playback/VS</button><button class="ghost">From um dispositivo</button><span style="font-size:11px;color:#888;margin-left:auto">Apoio Musical</span></div>
+<div class="sliders">
+<div><label>VOLUME</label><input type="range" value="75" oninput="document.getElementById('vVol').innerText=this.value+'%'"><b id="vVol">75%</b></div>
+<div><label>PITCH</label><input type="range" min="-6" max="6" value="2" oninput="document.getElementById('vPitch').innerText='+'+this.value+' st'"><b id="vPitch">+2 st</b></div>
+<div><label>REVERB</label><input type="range" value="30" oninput="document.getElementById('vRev').innerText=this.value+'%'"><b id="vRev">30%</b></div>
+<div><label>GRAVE</label><input type="range" min="-10" max="10" value="4" oninput="document.getElementById('vGrave').innerText='+'+this.value+' dB'"><b id="vGrave">+4 dB</b></div>
 </div>
-</aside>
+<div class="bottom"><button onclick="mudarBpm(-1)">◀</button><button onclick="mudarBpm(1)">▶</button><b><span id="bpm">76</span> BPM</b><input type="range" min="60" max="160" value="76" style="width:120px" oninput="document.getElementById('bpm').innerText=this.value"><select id="tomSelect" onchange="mudarTom(this.value)"><option>F Maior</option><option>G Maior</option><option>C Maior</option><option>D Maior</option></select><button onclick="toggleScroll()">Scroll Sincronizado</button><button>Automático</button><button>Metrônomo</button><button>🎸 Tuner</button></div>
+</div></div>
 </div>
 
 <script>
 const tons=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-let tomIdx=5, fontSize=16, playing=true, scrollOn=false, scrollId=null, metroOn=false;
-const dados=[
-{ac:'F7M',txt:'Olha que coisa mais '},{ac:'G7(13)',txt:'linda, mais cheia de '},{ac:'Gm7',txt:'graça'},
-{ac:'F7M',txt:'É ela menina que '},{ac:'Gb7(13)',txt:'vem e que passa'},
-{ac:'Gm7',txt:'num doce balanço a '},{ac:'C7(9)',txt:'caminho do '},{ac:'F7M',txt:'mar'}
-];
-function render(){
- document.getElementById('tomAtual').innerText=tons[tomIdx];
- let html='';
- dados.forEach(d=>{
-   let acorde=transporAcorde(d.ac);
-   html+=`<div class="linha"><div class="acorde" style="font-size:${fontSize}px">${acorde}</div><div class="letra" style="font-size:${fontSize}px">${d.txt}</div></div>`;
- });
- document.getElementById('cifra').innerHTML=html;
-}
-function transporAcorde(ac){
- const raiz=ac.match(/^[A-G][#b]?/)[0];
- const idx=tons.indexOf(raiz.replace('b',''));
- let novoIdx=(idx+ (tomIdx-5) + 12)%12;
- return ac.replace(raiz, tons[novoIdx]);
-}
+let tomIdx=5, fontSize=14, playing=true, scrollOn=false, scrollId=null, filtro='Todas', buscaTxt='';
+const musicas=[{titulo:'Garota de Ipanema',artista:'Tom Jobim',tom:'F',pasta:'Louvores'},{titulo:'Como É Grande o Meu Amor',artista:'Roberto Carlos',tom:'C',pasta:'Culto'},{titulo:'Aquarela',artista:'Toquinho',tom:'G',pasta:'Ensaio'},{titulo:'Oceano',artista:'Djavan',tom:'D',pasta:'Louvores'}];
+const dados=[{ac:'F7M',txt:'Olha que coisa mais '},{ac:'G7(13)',txt:'linda, mais cheia de '},{ac:'Gm7',txt:'graça'},{ac:'F7M',txt:'É ela menina que '},{ac:'Gb7(13)',txt:'vem e que passa'},{ac:'Gm7',txt:'num doce balanço a '},{ac:'C7(9)',txt:'caminho do '},{ac:'F7M',txt:'mar'}];
+function renderLista(){ let list=musicas.filter(m=>(filtro==='Todas'||m.pasta===filtro)&&(m.titulo.toLowerCase().includes(buscaTxt))); document.getElementById('lista').innerHTML=list.map(m=>`<div class="musica" onclick="abrirCifra('${m.titulo}')"><div><b>${m.titulo}</b><small>${m.artista} • ${m.pasta}</small></div><i>Tom ${m.tom} ›</i></div>`).join('')||'<p>Nenhuma música.</p>'; document.querySelectorAll('.pasta').forEach(p=>p.classList.remove('ativa')); let el=document.getElementById('p-'+filtro); if(el) el.classList.add('ativa'); }
+function filtrar(f){ filtro=f; mostrarHome(); renderLista(); }
+function buscar(v){ buscaTxt=v.toLowerCase(); renderLista(); }
+function mostrarHome(){ document.getElementById('home').style.display='block'; document.getElementById('cifraPage').style.display='none'; }
+function abrirCifra(t){ document.getElementById('titulo').innerText=t; document.getElementById('home').style.display='none'; document.getElementById('cifraPage').style.display='block'; render(); }
+function toggleMenu(){ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('show'); }
+function render(){ document.getElementById('tomAtual').innerText=tons[tomIdx]; let h=''; dados.forEach(d=>{ h+=`<div class="linha"><div class="acorde" style="font-size:${fontSize}px">${transporAcorde(d.ac)}</div><div class="letra" style="font-size:${fontSize}px">${d.txt}</div></div>`; }); document.getElementById('cifra').innerHTML=h; }
+function transporAcorde(ac){ const r=ac.match(/^[A-G][#b]?/)[0]; const idx=tons.indexOf(r.replace('b','')); return ac.replace(r,tons[(idx+(tomIdx-5)+12)%12]); }
 function transpor(d){ tomIdx=(tomIdx+d+12)%12; render(); }
-function mudarTom(v){ let t=v.split(' ')[0]; tomIdx=tons.indexOf(t); render(); }
+function mudarTom(v){ tomIdx=tons.indexOf(v.split(' ')[0]); render(); }
 function aumentarFonte(){ fontSize+=2; document.getElementById('tam').innerText=fontSize; render(); }
 function diminuirFonte(){ fontSize=Math.max(12,fontSize-2); document.getElementById('tam').innerText=fontSize; render(); }
-function setTema(t){
- if(t==='escuro'){ document.body.style.background='#111'; document.querySelectorAll('.main,aside,.player').forEach(e=>{e.style.background='#222';e.style.color='#fff'}); document.getElementById('btnEscuro').classList.remove('off'); document.getElementById('btnClaro').classList.add('off'); }
- else{ location.reload(); }
-}
+function setTema(t){ if(t==='escuro'){ document.querySelector('.tablet').style.background='#222'; document.querySelector('.tablet').style.color='#fff'; document.getElementById('btnEscuro').classList.remove('off'); document.getElementById('btnClaro').classList.add('off'); } else location.reload(); }
 function togglePlay(){ playing=!playing; document.getElementById('btnPlay').innerText=playing?'⏸ Pausar':'▶ Tocar'; }
-function toggleScroll(){
- scrollOn=!scrollOn;
- document.getElementById('btnAuto').innerText=scrollOn?'Ligada':'Desligada';
- document.getElementById('btnAuto').classList.toggle('off',!scrollOn);
- document.getElementById('btnScroll').innerText=scrollOn?'⏸ Parar Scroll':'Scroll Automático';
- if(scrollOn) scrollId=setInterval(()=>window.scrollBy(0,1),50); else clearInterval(scrollId);
-}
-function toggleMetro(){ metroOn=!metroOn; document.getElementById('btnMetro').innerText=metroOn?'🔊 Metrônomo ON':'Metrônomo'; alert(metroOn?'Metrônomo ligado em '+document.getElementById('bpm').innerText+' BPM':'Metrônomo desligado'); }
-function mudarBpm(d){ let b=parseInt(document.getElementById('bpm').innerText)+d; document.getElementById('bpm').innerText=b; }
-function compartilhar(){ if(navigator.share) navigator.share({title:'e-Cifra',text:'Garota de Ipanema',url:location.href}); else alert(location.href); }
-render();
+function toggleScroll(){ scrollOn=!scrollOn; document.getElementById('btnAuto').innerText=scrollOn?'Ligada':'Desligada'; document.getElementById('btnAuto').classList.toggle('off',!scrollOn); if(scrollOn) scrollId=setInterval(()=>window.scrollBy(0,1),50); else clearInterval(scrollId); }
+function mudarBpm(d){ document.getElementById('bpm').innerText=parseInt(document.getElementById('bpm').innerText)+d; }
+function compartilhar(){ if(navigator.share) navigator.share({title:'e-Cifra',url:location.href}); else alert(location.href); }
+renderLista(); render();
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 let dp; const ib=document.getElementById('installBtn');
 window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); dp=e; ib.style.display='block'; ib.onclick=()=>{ ib.style.display='none'; dp.prompt(); }; });
