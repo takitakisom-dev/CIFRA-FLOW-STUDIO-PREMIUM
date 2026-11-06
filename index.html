@@ -4,26 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cifra Flow - Chord Wizard</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1a6fc4">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:sans-serif;background:#121212;color:#fff;padding:20px}
-.app{max-width:900px;margin:auto;background:#1a1a1a;border:2px solid #1a6fc4;border-radius:10px;overflow:hidden;position:relative}
+.app{max-width:900px;margin:auto;background:#1a1a1a;border:2px solid #1a6fc4;border-radius:10px;overflow:hidden}
 header{background:#1a6fc4;color:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.btnMenu{background:#fff;border:0;padding:7px 11px;border-radius:6px;font-weight:700;cursor:pointer}
-.btnTelaGrande{background:#fff;border:0;padding:7px 11px;border-radius:6px;font-weight:700;cursor:pointer}
+header button{background:#fff;border:0;padding:8px 12px;border-radius:6px;font-weight:700;cursor:pointer}
 .home{padding:14px}
 .busca{width:100%;padding:12px;border:1px solid #333;border-radius:10px;margin-bottom:12px;background:#222;color:#fff}
 .controles{background:#1f1f1f;border:1px solid #333;border-radius:12px;padding:12px;margin-bottom:14px;display:flex;gap:14px;flex-wrap:wrap}
 .controles label{font-size:11px;font-weight:700;color:#aaa;display:block}
 .controles input{width:100%}
 .controles div{flex:1;min-width:120px}
-.pastas{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.pasta{background:#222;border:1px solid #333;border-radius:12px;padding:13px;cursor:pointer}
-.pasta-top{display:flex;justify-content:space-between;align-items:center}
+.pastas{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.pasta{background:#222;border:1px solid #333;border-radius:14px;padding:12px;cursor:pointer}
 .pasta.aberta{border-color:#1a6fc4}
+.pasta-foto{width:52px;height:52px;border-radius:50%;background:#1a6fc4;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;flex-shrink:0}
+.pasta-info{flex:1}
+.pasta-info b{font-size:15px}
+.pasta-info small{color:#aaa}
 .musicas-dentro{display:none;margin-top:12px;flex-direction:column;gap:8px}
 .pasta.aberta .musicas-dentro{display:flex}
-.musica-item{background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.musica-item{background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:12px;display:flex;justify-content:space-between;cursor:pointer}
 .btns{display:flex;gap:8px;margin:12px 0}
 .btns button{flex:1;padding:12px;border-radius:10px;font-weight:700;cursor:pointer}
 .btnAdd{background:#1a6fc4;color:#fff;border:0}
@@ -36,22 +40,14 @@ header{background:#1a6fc4;color:#fff;padding:12px 14px;display:flex;justify-cont
 .btnReverb{padding:8px 12px;border-radius:8px;border:1px solid #1a6fc4;background:#222;color:#00d2ff;font-weight:700;cursor:pointer}
 .btnReverb.on{background:#1a6fc4;color:#fff}
 .btnVoltar{background:#222;color:#fff;border:1px solid #333;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer;margin-bottom:12px}
-/* MENU LATERAL */
 #menuFundo{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;display:none}
 #menuFundo.show{display:block}
 #menuLateral{position:fixed;top:0;left:0;bottom:0;width:280px;max-width:85vw;background:#1a1a1a;border-right:2px solid #1a6fc4;z-index:100;padding:16px;overflow-y:auto;transform:translateX(-100%);transition:.25s}
 #menuLateral.show{transform:translateX(0)}
-#menuLateral h2{color:#00d2ff;margin-bottom:4px}
-#menuLateral p{color:#aaa;font-size:13px;margin-bottom:14px}
-.menuSecao{font-size:11px;font-weight:700;color:#888;margin:16px 0 8px;letter-spacing:1px}
-.menuItem{background:#222;border:1px solid #333;border-radius:10px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.menuSecao{font-size:11px;font-weight:700;color:#888;margin:16px 0 8px}
+.menuItem{background:#222;border:1px solid #333;border-radius:10px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;cursor:pointer}
 .menuItem.ativo{border-color:#1a6fc4;background:#1a6fc4}
-.menuItem small{color:#aaa;display:block;font-weight:400}
 .menuBtn{width:100%;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;border:0;margin-bottom:8px}
-.btnInstalar{background:#00c853;color:#fff}
-.btnCompartilhar{background:#fff;color:#1a6fc4}
-.btnExportar{background:#1a6fc4;color:#fff}
-.btnImportar{background:#222;color:#00d2ff;border:1px solid #1a6fc4}
 #telaCheia{position:fixed;inset:0;background:#121212;z-index:200;display:none;overflow-y:auto;padding:20px}
 #telaCheia.show{display:block}
 #telaCheia .barra{position:sticky;top:0;background:#121212;padding:10px 0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -63,18 +59,18 @@ header{background:#1a6fc4;color:#fff;padding:12px 14px;display:flex;justify-cont
 <body>
 <div class="app">
 <header>
-<button class="btnMenu" onclick="abrirMenu()">☰ MENU</button>
+<button onclick="abrirMenu()">☰ MENU</button>
 <b>🎵 Cifra Flow</b>
-<button class="btnTelaGrande" onclick="abrirTelaCheia()">⛶ TELA GRANDE</button>
+<button onclick="abrirTelaCheia()">⛶ TELA GRANDE</button>
 </header>
 <div class="home">
 <input class="busca" id="busca" placeholder="🔍 Buscar cantor ou música..." oninput="filtrar()">
 <div class="controles">
 <div><label>VOLUME</label><input type="range" id="volume" value="75"><span id="volume-val">75%</span></div>
-<div><label>PITCH (Semitons): <span id="pitch-val">0 st</span></label><input type="range" id="pitch" min="-6" max="6" value="0"></div>
+<div><label>PITCH: <span id="pitch-val">0 st</span></label><input type="range" id="pitch" min="-6" max="6" value="0"></div>
 <div><label>BPM: <span id="bpm-val">124</span></label><input type="range" id="bpm" min="60" max="200" value="124"></div>
-<div><label>GRAVE (BASS)</label><input type="range" id="bass" min="-10" max="10" value="0"><span id="bass-val">0 dB</span></div>
-<div><label>AGUDO (TREBLE)</label><input type="range" id="treble" min="-10" max="10" value="0"><span id="treble-val">0 dB</span></div>
+<div><label>GRAVE</label><input type="range" id="bass" min="-10" max="10" value="0"><span id="bass-val">0 dB</span></div>
+<div><label>AGUDO</label><input type="range" id="treble" min="-10" max="10" value="0"><span id="treble-val">0 dB</span></div>
 <div><label>REVERB</label><br><button id="reverbBtn" class="btnReverb on" onclick="toggleReverb()">REVERB: LIGADO</button></div>
 </div>
 <h3 style="margin-bottom:10px" id="tituloSecao">Pastas dos Cantores</h3>
@@ -89,36 +85,29 @@ header{background:#1a6fc4;color:#fff;padding:12px 14px;display:flex;justify-cont
 </div>
 </div>
 </div>
-
-<!-- MENU -->
 <div id="menuFundo" onclick="fecharMenu()"></div>
 <div id="menuLateral">
-<h2>🎵 Cifra Flow</h2>
-<p>Taki Artesanal • Seu repertório</p>
+<h2 style="color:#00d2ff">🎵 Cifra Flow</h2>
+<p style="color:#aaa;font-size:13px;margin-bottom:10px">Taki Artesanal • Seu repertório</p>
 <button onclick="fecharMenu()" style="background:#222;color:#fff;border:1px solid #333;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:10px">✕ Fechar</button>
-
 <div class="menuSecao">MINHAS CIFRAS</div>
-<div class="menuItem" onclick="irPara('vs')" id="menu-vs"><div><b>🎹 Com VS</b><small id="count-vs">0 cifras salvas</small></div><span>›</span></div>
-<div class="menuItem" onclick="irPara('playback')" id="menu-playback"><div><b>▶️ Com Playback</b><small id="count-playback">0 cifras salvas</small></div><span>›</span></div>
-<div class="menuItem" onclick="irPara('todas')" id="menu-todas"><div><b>📚 Biblioteca</b><small id="count-todas">Tudo que você baixar ou criar fica aqui</small></div><span>›</span></div>
-
+<div class="menuItem" onclick="irPara('vs')" id="menu-vs"><div><b>🎹 Com VS</b><br><small id="count-vs">0 cifras</small></div><span>›</span></div>
+<div class="menuItem" onclick="irPara('playback')" id="menu-playback"><div><b>▶️ Com Playback</b><br><small id="count-playback">0 cifras</small></div><span>›</span></div>
+<div class="menuItem" onclick="irPara('todas')" id="menu-todas"><div><b>📚 Biblioteca</b><br><small id="count-todas">Tudo que você baixar ou criar</small></div><span>›</span></div>
 <div class="menuSecao">APP</div>
-<button class="menuBtn btnInstalar" onclick="instalarApp()">📲 INSTALAR APLICATIVO</button>
-<button class="menuBtn btnCompartilhar" onclick="compartilharApp()">🔗 COMPARTILHAR</button>
-
+<button class="menuBtn" style="background:#00c853;color:#fff" onclick="instalarApp()">📲 INSTALAR APLICATIVO</button>
+<button class="menuBtn" style="background:#fff;color:#1a6fc4" onclick="compartilharApp()">🔗 COMPARTILHAR</button>
 <div class="menuSecao">BACKUP</div>
-<button class="menuBtn btnExportar" onclick="exportarDados()">⬆️ EXPORTAR</button>
-<button class="menuBtn btnImportar" onclick="document.getElementById('inputImportar').click()">⬇️ IMPORTAR</button>
+<button class="menuBtn" style="background:#1a6fc4;color:#fff" onclick="exportarDados()">⬆️ EXPORTAR</button>
+<button class="menuBtn" style="background:#222;color:#00d2ff;border:1px solid #1a6fc4" onclick="document.getElementById('inputImportar').click()">⬇️ IMPORTAR</button>
 <input type="file" id="inputImportar" accept=".json" style="display:none" onchange="importarDados(event)">
-
 <div class="menuSecao">OUTROS</div>
-<div class="menuItem" onclick="abrirTelaCheia();fecharMenu()"><div><b>⛶ Tela Grande</b><small>Só letra + cifra</small></div><span>›</span></div>
+<div class="menuItem" onclick="abrirTelaCheia();fecharMenu()"><div><b>⛶ Tela Grande</b><br><small>Só letra + cifra</small></div><span>›</span></div>
 </div>
-
 <div id="telaCheia">
 <div class="barra">
 <span style="font-size:12px;font-weight:700">ROLAGEM:</span>
-<button onclick="setRolagem(1)" id="r1">1 Devagar</button><button onclick="setRolagem(2)" id="r2">2</button><button onclick="setRolagem(3)" id="r3">3</button><button onclick="setRolagem(4)" id="r4">4</button><button onclick="setRolagem(5)" id="r5">5</button><button onclick="setRolagem(6)" id="r6">6</button><button onclick="setRolagem(7)" id="r7">7 Rápido</button>
+<button onclick="setRolagem(1)" id="r1">1</button><button onclick="setRolagem(2)" id="r2">2</button><button onclick="setRolagem(3)" id="r3">3</button><button onclick="setRolagem(4)" id="r4">4</button><button onclick="setRolagem(5)" id="r5">5</button><button onclick="setRolagem(6)" id="r6">6</button><button onclick="setRolagem(7)" id="r7">7</button>
 <button onclick="toggleRolagem()" id="btnRolar">▶ Rolar</button>
 <span style="font-size:12px;font-weight:700">LETRA:</span><button onclick="mudarFonte(-2)">A-</button><button onclick="mudarFonte(2)">A+</button>
 <button class="btnSair" onclick="fecharTelaCheia()">✕ SAIR</button>
