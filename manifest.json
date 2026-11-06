@@ -1,38 +1,35 @@
 {
-  "name": "CIFRAFLOW",
-  "short_name": "CIFRAFLOW",
-  "description": "CIFRAFLOW - Suas cifras organizadas por artista, com tom, cifra simplificada, rolagem automática e tela cheia.",
-  "id": "/CIFRA-FLOW-STUDIO-PREMIUM/",
+  "name": "Cifra Flow",
+  "short_name": "Cifra Flow",
+  "description": "Cifra Flow Studio Premium - Suas cifras, VS e playback",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#ffffff",
-  "theme_color": "#3F51B5",
-  "lang": "pt-BR",
+  "background_color": "#1E3A5F",
+  "theme_color": "#1E3A5F",
   "icons": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-512.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/461/461238.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icon-192.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/461/461238.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
     }
-  ]
+  ],
+  "share_target": {
+    "action": "./index.html",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
 }
