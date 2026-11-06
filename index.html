@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Cifra Flow</title>
-<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#5A341E">
+<link rel="manifest" href="manifest.json">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:#E8DDC8;font-family:Arial,sans-serif}
@@ -13,7 +13,6 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
 .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .btn{position:absolute;background:transparent;border:none;cursor:pointer;z-index:5}
 .btn:active{background:rgba(255,255,255,.25);border-radius:12px}
-/* BOTÕES INVISÍVEIS EM CIMA DA FOTO */
 #todos{top:29%;left:57%;width:38%;height:9%}
 #alcione{top:41%;left:57%;width:38%;height:9%}
 #capital{top:53%;left:57%;width:38%;height:9%}
@@ -24,9 +23,6 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
 #playback{top:35%;left:4%;width:46%;height:7%}
 #cifras{top:44%;left:4%;width:46%;height:6%}
 #listas{top:51%;left:4%;width:46%;height:6%}
-#menuBtn{top:4%;left:4%;width:12%;height:8%}
-#plus{top:4%;left:76%;width:10%;height:8%}
-#search{top:4%;left:87%;width:10%;height:8%}
 .cifra{display:none;position:absolute;inset:0;background:#FFF8EA;z-index:20;overflow-y:auto;padding:16px}
 .cifra.show{display:block}
 .cifra h2{font-size:24px;text-align:center}
@@ -47,7 +43,7 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
 </head>
 <body>
 <div class="phone">
-  <img class="bg" src="fundo.jpg?v=2" alt="Cifra Flow">
+  <img class="bg" src="fundo2.jpg">
 
   <button class="btn" id="todos" onclick="openSong('Todos')"></button>
   <button class="btn" id="alcione" onclick="openSong('Alcione')"></button>
@@ -60,9 +56,6 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
   <button class="btn" id="playback" onclick="alert('Playback')"></button>
   <button class="btn" id="cifras" onclick="alert('Minhas Cifras')"></button>
   <button class="btn" id="listas" onclick="alert('Minhas Listas')"></button>
-  <button class="btn" id="menuBtn" onclick="alert('Menu')"></button>
-  <button class="btn" id="plus" onclick="alert('Novo')"></button>
-  <button class="btn" id="search" onclick="alert('Pesquisar')"></button>
 
   <div class="cifra" id="cifra">
     <h2 id="tMusica">Primeiros Erros</h2>
@@ -81,8 +74,8 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
   </div>
 </div>
 <script>
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 function openSong(n){document.getElementById('tMusica').innerText=n;document.getElementById('cifra').classList.add('show')}
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
 </script>
 </body>
 </html>
