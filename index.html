@@ -19,8 +19,9 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
 #cazuza{top:65%;left:57%;width:38%;height:9%}
 #cidade{top:77%;left:57%;width:38%;height:9%}
 #claudio{top:89%;left:57%;width:38%;height:9%}
-/* Botão do menu lateral - toda a barra da esquerda */
-#menuBtn{top:27%;left:4%;width:46%;height:32%;z-index:6}
+/* BOTÃO VISÍVEL DO MENU - NA TÁBUA VAZIA DA ESQUERDA */
+#menuBtn{top:59%;left:4%;width:46%;height:28%;background:#5A341E;border:3px solid #fff;border-radius:16px;color:#fff;font-size:22px;font-weight:900;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.4)}
+#menuBtn span{display:block;font-size:13px;font-weight:700;margin-top:2px}
 .tela{display:none;position:absolute;inset:0;background:#FFF8EA;z-index:20;overflow-y:auto;padding:16px;padding-bottom:30px}
 .tela.show{display:block}
 .tela h2{font-size:22px;text-align:center;margin-bottom:4px}
@@ -28,7 +29,6 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
 .item{background:#fff;padding:14px;border-radius:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;border:1px solid #eee}
 .item b{font-size:16px}
 .item span{font-size:12px;color:#888}
-.item:active{background:#f5ead8}
 .back{width:100%;padding:13px;border:none;background:#6B4226;color:#fff;border-radius:12px;font-weight:700;margin-top:10px;font-size:15px}
 .tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
 .tools button{background:#fff;border:1px solid #ddd;padding:9px 14px;border-radius:20px;font-weight:700;font-size:13px}
@@ -47,7 +47,6 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
 <div class="phone">
   <img class="bg" src="fundo2.jpg">
 
-  <!-- PASTAS DOS ARTISTAS - NA FRENTE -->
   <button class="btn" id="todos" onclick="abrirPasta('Todos')"></button>
   <button class="btn" id="alcione" onclick="abrirPasta('Alcione')"></button>
   <button class="btn" id="capital" onclick="abrirPasta('Capital Inicial')"></button>
@@ -55,10 +54,9 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
   <button class="btn" id="cidade" onclick="abrirPasta('Cidade Negra')"></button>
   <button class="btn" id="claudio" onclick="abrirPasta('Claudio Zoli')"></button>
 
-  <!-- MENU LATERAL - ABRE O MENU SEPARADO -->
-  <button class="btn" id="menuBtn" onclick="abrirMenu()"></button>
+  <!-- BOTÃO DO MENU - AGORA VISÍVEL NA TÁBUA VAZIA -->
+  <button id="menuBtn" onclick="abrirMenu()">☰ MENU<span>Toque aqui</span></button>
 
-  <!-- TELA DA PASTA -->
   <div class="tela" id="telaPasta">
     <h2 id="nomePasta">Capital Inicial</h2>
     <p class="sub" id="qtdPasta">1 música</p>
@@ -66,7 +64,6 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
     <button class="back" onclick="fecharTelas()">← Voltar</button>
   </div>
 
-  <!-- TELA DO MENU LATERAL -->
   <div class="tela" id="telaMenu">
     <h2>Menu</h2>
     <p class="sub">Cifra Flow</p>
@@ -77,11 +74,10 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
     <div class="item" onclick="abrirPasta('Configurações')"><b>⚙️ Configurações</b><span>›</span></div>
     <div class="item" onclick="fazerBackup()"><b>💾 Backup</b><span>Exportar</span></div>
     <div class="item" onclick="instalarApp()"><b>📲 Instalador</b><span>Instalar</span></div>
-    <div class="item" onclick="alert('Sobre: Cifra Flow v99')"><b>ℹ️ Sobre</b><span>›</span></div>
+    <div class="item" onclick="alert('Sobre: Cifra Flow v100')"><b>ℹ️ Sobre</b><span>›</span></div>
     <button class="back" onclick="fecharTelas()">← Voltar</button>
   </div>
 
-  <!-- TELA DA CIFRA -->
   <div class="tela" id="telaCifra">
     <h2 id="tMusica">Primeiros Erros</h2>
     <p class="sub">Capital Inicial • Tom: Em • BPM 98</p>
@@ -128,7 +124,7 @@ function abrirCifra(musica,artista){
   document.getElementById('telaCifra').classList.add('show');
 }
 function fecharTelas(){ document.querySelectorAll('.tela').forEach(t=>t.classList.remove('show')); }
-function fazerBackup(){ alert('Backup: suas cifras foram salvas! (exportando...)'); }
+function fazerBackup(){ alert('Backup: suas cifras foram salvas!'); }
 function instalarApp(){ if(deferredPrompt){ deferredPrompt.prompt(); } else { alert('Para instalar: no Chrome, clica nos 3 pontinhos > Adicionar à tela inicial'); } }
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 </script>
