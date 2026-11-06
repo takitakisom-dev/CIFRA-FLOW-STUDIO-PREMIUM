@@ -4,101 +4,100 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cifra Flow</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#5a3316">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:system-ui, sans-serif;
-  color:#fff;
-  min-height:100vh;
-  background-color:#7a4a21;
-  background-image:url('https://images.unsplash.com/photo-1520262454473-a1a82276a574?w=900&q=80&auto=format&fit=crop');
-  background-size:cover;
-  background-position:center;
-  background-attachment:fixed;
-}
-header{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 16px;
-  background:rgba(0,0,0,.45);
-  position:sticky;top:0;z-index:10;
-}
-#btnMenu{
-  font-size:26px;background:#fff;color:#5a3316;
-  border:0;width:44px;height:44px;border-radius:10px;cursor:pointer;
-}
-h1{font-size:20px}
-#sidebar{
-  position:fixed;top:0;left:-260px;width:250px;height:100vh;
-  background:#2b1a0c;padding:20px;transition:.3s;z-index:20;
-  box-shadow:4px 0 20px rgba(0,0,0,.4);
-}
+body{font-family:system-ui,sans-serif;color:#fff;min-height:100vh;background-color:#7a4a21;background-image:url('https://images.unsplash.com/photo-1520262454473-a1a82276a574?w=900&q=80&auto=format&fit=crop');background-size:cover;background-position:center;background-attachment:fixed}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:rgba(0,0,0,.5);position:sticky;top:0;z-index:10}
+header .left{display:flex;align-items:center;gap:10px}
+#btnMenu{font-size:24px;background:#fff;color:#5a3316;border:0;width:44px;height:44px;border-radius:10px;cursor:pointer}
+h1{font-size:19px}
+.topbtn{background:rgba(255,255,255,.9);color:#2b1a0c;border:0;padding:8px 10px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
+#sidebar{position:fixed;top:0;left:-270px;width:250px;height:100vh;background:#2b1a0c;padding:20px;transition:.3s;z-index:30}
 #sidebar.open{left:0}
-#sidebar h2{margin-bottom:16px;font-size:18px}
-#sidebar button{
-  display:block;width:100%;text-align:left;
-  background:rgba(255,255,255,.12);color:#fff;border:0;
-  padding:12px;border-radius:10px;margin-bottom:10px;font-size:16px;
-}
-#overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.5);
-  display:none;z-index:15;
-}
+#sidebar h2{margin-bottom:14px}
+#sidebar button{display:block;width:100%;text-align:left;background:rgba(255,255,255,.12);color:#fff;border:0;padding:12px;border-radius:10px;margin-bottom:10px;font-size:15px;cursor:pointer}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:20}
 #overlay.show{display:block}
-main{padding:20px 16px 80px}
-.search{
-  width:100%;padding:14px;border:0;border-radius:12px;
-  font-size:16px;margin-bottom:18px;outline:none;
-}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{
-  background:rgba(255,255,255,.92);color:#2b1a0c;
-  border-radius:16px;padding:16px;min-height:110px;
-}
-.card b{font-size:17px;display:block;margin-bottom:6px}
-.card span{font-size:13px;opacity:.7}
-.add{
-  position:fixed;bottom:20px;right:20px;
-  width:60px;height:60px;border-radius:50%;border:0;
-  background:#fff;color:#5a3316;font-size:32px;
-  box-shadow:0 8px 20px rgba(0,0,0,.4);
-}
+main{padding:16px;padding-bottom:180px}
+.card{background:rgba(255,255,255,.95);color:#2b1a0c;border-radius:16px;padding:16px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.card h2{font-size:20px}
+.card p{font-size:13px;opacity:.7;margin:4px 0 12px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.tools button{background:#5a3316;color:#fff;border:0;padding:9px 12px;border-radius:9px;font-size:14px;cursor:pointer}
+.tools button.off{background:#ddd;color:#333}
+#cifra{font-family:monospace;white-space:pre-wrap;line-height:1.8;font-size:16px}
+#cifra b{color:#b3541e}
+.player{position:fixed;left:12px;right:12px;bottom:12px;background:rgba(20,10,2,.92);border-radius:16px;padding:12px;z-index:15}
+.player b{font-size:14px}
+.row{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px}
+.row input{flex:1}
+.row span{width:32px;text-align:center}
+#installBtn{display:none;background:#fff;color:#5a3316;border:0;padding:8px 12px;border-radius:8px;font-weight:700}
 </style>
 </head>
 <body>
-
 <header>
-  <button id="btnMenu" onclick="toggleMenu()">☰</button>
-  <h1>Cifra Flow</h1>
+<div class="left"><button id="btnMenu" onclick="toggleMenu()">☰</button><h1>Cifra Flow</h1></div>
+<div style="display:flex;gap:6px"><button class="topbtn" onclick="importar()">⬆ Importar</button><button class="topbtn" onclick="compartilhar()">↗ Compartilhar</button><button id="installBtn">Instalar</button></div>
 </header>
 
-<div id="sidebar">
-  <h2>Pastas</h2>
-  <button onclick="alert('Louvores')">🎵 Louvores</button>
-  <button onclick="alert('Culto')">⛪ Culto</button>
-  <button onclick="alert('Ensaio')">🎸 Ensaio</button>
-  <button onclick="alert('Favoritas')">⭐ Favoritas</button>
-  <hr style="margin:16px 0;opacity:.3">
-  <button onclick="toggleMenu()">✕ Fechar</button>
-</div>
+<div id="sidebar"><h2>Pastas</h2><button onclick="alert('Louvores')">🎵 Louvores</button><button onclick="alert('Culto')">⛪ Culto</button><button onclick="alert('Ensaio')">🎸 Ensaio</button><button onclick="alert('Favoritas')">⭐ Favoritas</button><hr style="margin:14px 0;opacity:.3"><button onclick="toggleMenu()">✕ Fechar</button></div>
 <div id="overlay" onclick="toggleMenu()"></div>
 
 <main>
-  <input class="search" placeholder="🔍 Buscar cifra...">
-  <div class="grid">
-    <div class="card"><b>Meu Abrigo</b><span>Louvores • Tom de G</span></div>
-    <div class="card"><b>Quão Grande És Tu</b><span>Culto • Tom de C</span></div>
-    <div class="card"><b>Oceanos</b><span>Ensaio • Tom de D</span></div>
-    <div class="card"><b>+ Nova Cifra</b><span>Clique no + para criar</span></div>
-  </div>
+<div class="card">
+<h2 id="titulo">Garota de Ipanema - Tom Jobim</h2>
+<p>Tom atual: <b id="tomAtual">F</b> • Toque em + / - para transpor</p>
+<div class="tools">
+<button onclick="transpor(1)">Tom +</button>
+<button onclick="transpor(-1)">Tom -</button>
+<button id="btnScroll" onclick="toggleScroll()">▶ Rolagem Automática</button>
+<button onclick="window.print()">🖨 Imprimir</button>
+</div>
+<div id="cifra"></div>
+</div>
 </main>
 
-<button class="add" onclick="alert('Criar nova cifra')">+</button>
+<div class="player">
+<b>🎧 Player - Garota de Ipanema</b>
+<div class="row"><button onclick="tocar()" style="background:#fff;border:0;width:38px;height:38px;border-radius:50%;font-size:16px">▶</button><span>Vol</span><input type="range" id="vol" value="80" oninput="document.getElementById('vVol').innerText=this.value"><span id="vVol">80</span></div>
+<div class="row"><span>Pitch</span><input type="range" min="-6" max="6" value="0" oninput="document.getElementById('vPitch').innerText=this.value"><span id="vPitch">0</span><span>Reverb</span><input type="range" value="20" oninput="document.getElementById('vRev').innerText=this.value"><span id="vRev">20</span></div>
+<div class="row"><span>Grave</span><input type="range" value="50" oninput="document.getElementById('vGrave').innerText=this.value"><span id="vGrave">50</span><span>BPM</span><input type="range" min="60" max="160" value="95" oninput="document.getElementById('vBpm').innerText=this.value"><span id="vBpm">95</span></div>
+</div>
 
 <script>
-function toggleMenu(){
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('overlay').classList.toggle('show');
+const tons=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+let tomIndex=5; // F
+let scrollOn=false, scrollId=null;
+const cifraOriginal=`[Intro: F7M | G7(13) | Gm7 | C7(9)]
+(F7M) Olha que coisa mais (G7(13)) linda, mais cheia de (Gm7) graça
+É (Gb7) ela menina que (F7M) vem e que (Gb7(13)) passa
+(Gm7) num doce balanço a (C7(9)) caminho do (F7M) mar`;
+function render(){
+  document.getElementById('tomAtual').innerText=tons[tomIndex];
+  // destaca acordes entre parênteses
+  let html=cifraOriginal.replace(/\(([^)]+)\)/g,'(<b>$1</b>)');
+  document.getElementById('cifra').innerHTML=html;
 }
+function transpor(d){ tomIndex=(tomIndex+d+12)%12; render(); }
+function toggleMenu(){ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('show'); }
+function toggleScroll(){
+  scrollOn=!scrollOn;
+  document.getElementById('btnScroll').innerText=scrollOn?'⏸ Parar Rolagem':'▶ Rolagem Automática';
+  document.getElementById('btnScroll').classList.toggle('off',!scrollOn);
+  if(scrollOn){ scrollId=setInterval(()=>window.scrollBy(0,1),40); } else { clearInterval(scrollId); }
+}
+function importar(){ alert('Escolha um arquivo .txt ou .chordpro na próxima versão. Por enquanto cole a cifra no campo de busca.'); }
+function compartilhar(){ if(navigator.share){ navigator.share({title:'Cifra Flow',text:'Garota de Ipanema - Cifra Flow',url:location.href}); } else { alert('Link copiado: '+location.href); } }
+function tocar(){ alert('Player conectado! Aqui vai tocar o áudio quando você subir o MP3. Ajuste Vol, Pitch, Reverb, Grave e BPM nos controles.'); }
+render();
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').then(()=>console.log('SW ok')).catch(e=>console.log(e)); }
+let deferredPrompt; const installBtn=document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); deferredPrompt=e; installBtn.style.display='block';
+installBtn.onclick=()=>{ installBtn.style.display='none'; deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ deferredPrompt=null; }); };
+});
 </script>
 </body>
 </html>
