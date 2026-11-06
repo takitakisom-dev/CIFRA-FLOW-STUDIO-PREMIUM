@@ -11,6 +11,10 @@
 body{background:#E8DDC8;font-family:Arial,sans-serif}
 .phone{max-width:480px;margin:0 auto;height:100dvh;position:relative;overflow:hidden;background:#E8DDC8}
 .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* TAMPA O MENU DESENHADO NA FOTO - ESSA É A CORREÇÃO */
+.escondeMenu{position:absolute;top:23%;left:0;width:52%;height:77%;background:linear-gradient(180deg,#D8B586,#C69A68,#B98A5A);z-index:4;border-right:3px solid #8B5A2B}
+.escondeMenu p{color:#fff;font-weight:900;text-align:center;margin-top:55%;font-size:18px;text-shadow:0 2px 4px rgba(0,0,0,.4);line-height:1.3}
+.escondeMenu small{display:block;font-size:12px;font-weight:700;opacity:.9;margin-top:6px}
 .btn{position:absolute;background:transparent;border:none;cursor:pointer;z-index:5}
 .btn:active{background:rgba(255,255,255,.30);border-radius:12px}
 #todos{top:29%;left:57%;width:38%;height:9%}
@@ -19,9 +23,8 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
 #cazuza{top:65%;left:57%;width:38%;height:9%}
 #cidade{top:77%;left:57%;width:38%;height:9%}
 #claudio{top:89%;left:57%;width:38%;height:9%}
-/* BOTÃO VISÍVEL DO MENU - NA TÁBUA VAZIA DA ESQUERDA */
-#menuBtn{top:59%;left:4%;width:46%;height:28%;background:#5A341E;border:3px solid #fff;border-radius:16px;color:#fff;font-size:22px;font-weight:900;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.4)}
-#menuBtn span{display:block;font-size:13px;font-weight:700;margin-top:2px}
+/* BOTÃO MENU NO CANTO - PEQUENO, NO CANTO SUPERIOR ESQUERDO */
+#menuBtn{top:2%;left:3%;width:56px;height:56px;background:#5A341E;color:#fff;border:3px solid #fff;border-radius:50%;font-size:26px;font-weight:900;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.5)}
 .tela{display:none;position:absolute;inset:0;background:#FFF8EA;z-index:20;overflow-y:auto;padding:16px;padding-bottom:30px}
 .tela.show{display:block}
 .tela h2{font-size:22px;text-align:center;margin-bottom:4px}
@@ -47,15 +50,19 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
 <div class="phone">
   <img class="bg" src="fundo2.jpg">
 
+  <!-- TAMPA A LATERAL DESENHADA NA FOTO -->
+  <div class="escondeMenu"><p>☰<br>MENU<small>Toque no botão<br>do canto</small></p></div>
+
+  <!-- BOTÃO DO MENU NO CANTO -->
+  <button id="menuBtn" onclick="abrirMenu()">☰</button>
+
+  <!-- PASTAS - SÓ DO LADO DIREITO AGORA -->
   <button class="btn" id="todos" onclick="abrirPasta('Todos')"></button>
   <button class="btn" id="alcione" onclick="abrirPasta('Alcione')"></button>
   <button class="btn" id="capital" onclick="abrirPasta('Capital Inicial')"></button>
   <button class="btn" id="cazuza" onclick="abrirPasta('Cazuza')"></button>
   <button class="btn" id="cidade" onclick="abrirPasta('Cidade Negra')"></button>
   <button class="btn" id="claudio" onclick="abrirPasta('Claudio Zoli')"></button>
-
-  <!-- BOTÃO DO MENU - AGORA VISÍVEL NA TÁBUA VAZIA -->
-  <button id="menuBtn" onclick="abrirMenu()">☰ MENU<span>Toque aqui</span></button>
 
   <div class="tela" id="telaPasta">
     <h2 id="nomePasta">Capital Inicial</h2>
@@ -74,7 +81,7 @@ body{background:#E8DDC8;font-family:Arial,sans-serif}
     <div class="item" onclick="abrirPasta('Configurações')"><b>⚙️ Configurações</b><span>›</span></div>
     <div class="item" onclick="fazerBackup()"><b>💾 Backup</b><span>Exportar</span></div>
     <div class="item" onclick="instalarApp()"><b>📲 Instalador</b><span>Instalar</span></div>
-    <div class="item" onclick="alert('Sobre: Cifra Flow v100')"><b>ℹ️ Sobre</b><span>›</span></div>
+    <div class="item" onclick="alert('Sobre: Cifra Flow v101')"><b>ℹ️ Sobre</b><span>›</span></div>
     <button class="back" onclick="fecharTelas()">← Voltar</button>
   </div>
 
