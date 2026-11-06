@@ -3,101 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cifra Flow</title>
+<title>e-Cifra - Cifra Flow</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#5a3316">
+<meta name="theme-color" content="#1a6fc4">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,sans-serif;color:#fff;min-height:100vh;background-color:#7a4a21;background-image:url('https://images.unsplash.com/photo-1520262454473-a1a82276a574?w=900&q=80&auto=format&fit=crop');background-size:cover;background-position:center;background-attachment:fixed}
-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:rgba(0,0,0,.5);position:sticky;top:0;z-index:10}
-header .left{display:flex;align-items:center;gap:10px}
-#btnMenu{font-size:24px;background:#fff;color:#5a3316;border:0;width:44px;height:44px;border-radius:10px;cursor:pointer}
-h1{font-size:19px}
-.topbtn{background:rgba(255,255,255,.9);color:#2b1a0c;border:0;padding:8px 10px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
-#sidebar{position:fixed;top:0;left:-270px;width:250px;height:100vh;background:#2b1a0c;padding:20px;transition:.3s;z-index:30}
-#sidebar.open{left:0}
-#sidebar h2{margin-bottom:14px}
-#sidebar button{display:block;width:100%;text-align:left;background:rgba(255,255,255,.12);color:#fff;border:0;padding:12px;border-radius:10px;margin-bottom:10px;font-size:15px;cursor:pointer}
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:20}
-#overlay.show{display:block}
-main{padding:16px;padding-bottom:180px}
-.card{background:rgba(255,255,255,.95);color:#2b1a0c;border-radius:16px;padding:16px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
-.card h2{font-size:20px}
-.card p{font-size:13px;opacity:.7;margin:4px 0 12px}
-.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.tools button{background:#5a3316;color:#fff;border:0;padding:9px 12px;border-radius:9px;font-size:14px;cursor:pointer}
-.tools button.off{background:#ddd;color:#333}
-#cifra{font-family:monospace;white-space:pre-wrap;line-height:1.8;font-size:16px}
-#cifra b{color:#b3541e}
-.player{position:fixed;left:12px;right:12px;bottom:12px;background:rgba(20,10,2,.92);border-radius:16px;padding:12px;z-index:15}
-.player b{font-size:14px}
-.row{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px}
-.row input{flex:1}
-.row span{width:32px;text-align:center}
-#installBtn{display:none;background:#fff;color:#5a3316;border:0;padding:8px 12px;border-radius:8px;font-weight:700}
+body{font-family:Arial,sans-serif;background:#f0f2f5;color:#222}
+header{background:#1a6fc4;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;gap:10px;position:sticky;top:0;z-index:10}
+header b{font-size:18px}
+.top{display:flex;gap:6px;flex-wrap:wrap}
+.top button{background:#fff;color:#1a6fc4;border:0;padding:7px 10px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer}
+.top button.blue{background:#0d4d8f;color:#fff}
+.wrap{max-width:1100px;margin:0 auto;padding:14px;display:flex;gap:16px;align-items:flex-start}
+.main{flex:1;background:#fff;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.08);min-width:0}
+.main h1{font-size:26px}
+.main small{color:#666}
+.intro{margin:14px 0;color:#333;font-weight:700}
+.linha{margin:22px 0;line-height:1.4}
+.acorde{color:#1a6fc4;font-weight:800;display:inline-block;min-width:40px}
+.letra{font-size:16px}
+aside{width:260px;background:#fff;border-radius:10px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.08);flex-shrink:0}
+aside h3{font-size:14px;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:8px}
+.conf{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
+.conf span{color:#666}
+.pill{background:#eef4ff;color:#1a6fc4;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700;border:0;cursor:pointer}
+.pill.off{background:#eee;color:#666}
+.player{margin-top:16px;background:#fff;border-radius:10px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.player h3{font-size:13px;margin-bottom:10px}
+.prow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.prow button{background:#1a6fc4;color:#fff;border:0;padding:8px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer}
+.prow button.ghost{background:#eee;color:#333}
+.sliders{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.sliders label{font-size:11px;font-weight:700;color:#666;display:block;text-align:center}
+.sliders input{width:100%;accent-color:#1a6fc4}
+.sliders b{display:block;text-align:center;font-size:13px;margin-top:2px}
+.bottom{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.bottom button{background:#eee;border:0;padding:8px 10px;border-radius:6px;font-size:12px;cursor:pointer}
+.bottom select{padding:8px;border:1px solid #ddd;border-radius:6px}
+#installBtn{display:none}
+@media(max-width:800px){.wrap{flex-direction:column}aside{width:100%}.sliders{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
+
 <header>
-<div class="left"><button id="btnMenu" onclick="toggleMenu()">☰</button><h1>Cifra Flow</h1></div>
-<div style="display:flex;gap:6px"><button class="topbtn" onclick="importar()">⬆ Importar</button><button class="topbtn" onclick="compartilhar()">↗ Compartilhar</button><button id="installBtn">Instalar</button></div>
+<b>🎵 e-Cifra</b>
+<div class="top">
+<button onclick="document.getElementById('file').click()">⬆ IMPORTAR</button>
+<button onclick="compartilhar()">↗ COMPARTILHAR</button>
+<button id="installBtn">📱 INSTALAR NO CELULAR</button>
+<button class="blue" onclick="alert('Saindo...')">SAIR</button>
+</div>
 </header>
+<input type="file" id="file" hidden accept=".txt,.chordpro,.mp3,.wav">
 
-<div id="sidebar"><h2>Pastas</h2><button onclick="alert('Louvores')">🎵 Louvores</button><button onclick="alert('Culto')">⛪ Culto</button><button onclick="alert('Ensaio')">🎸 Ensaio</button><button onclick="alert('Favoritas')">⭐ Favoritas</button><hr style="margin:14px 0;opacity:.3"><button onclick="toggleMenu()">✕ Fechar</button></div>
-<div id="overlay" onclick="toggleMenu()"></div>
-
-<main>
-<div class="card">
-<h2 id="titulo">Garota de Ipanema - Tom Jobim</h2>
-<p>Tom atual: <b id="tomAtual">F</b> • Toque em + / - para transpor</p>
-<div class="tools">
-<button onclick="transpor(1)">Tom +</button>
-<button onclick="transpor(-1)">Tom -</button>
-<button id="btnScroll" onclick="toggleScroll()">▶ Rolagem Automática</button>
-<button onclick="window.print()">🖨 Imprimir</button>
-</div>
+<div class="wrap">
+<div class="main">
+<h1 id="titulo">Garota de Ipanema</h1>
+<small>Tom Jobim & Vinicius de Moraes</small>
+<p class="intro" id="intro">[Intro: F7M | G7(13) | Gm7 | C7(9)]</p>
 <div id="cifra"></div>
-</div>
-</main>
 
 <div class="player">
-<b>🎧 Player - Garota de Ipanema</b>
-<div class="row"><button onclick="tocar()" style="background:#fff;border:0;width:38px;height:38px;border-radius:50%;font-size:16px">▶</button><span>Vol</span><input type="range" id="vol" value="80" oninput="document.getElementById('vVol').innerText=this.value"><span id="vVol">80</span></div>
-<div class="row"><span>Pitch</span><input type="range" min="-6" max="6" value="0" oninput="document.getElementById('vPitch').innerText=this.value"><span id="vPitch">0</span><span>Reverb</span><input type="range" value="20" oninput="document.getElementById('vRev').innerText=this.value"><span id="vRev">20</span></div>
-<div class="row"><span>Grave</span><input type="range" value="50" oninput="document.getElementById('vGrave').innerText=this.value"><span id="vGrave">50</span><span>BPM</span><input type="range" min="60" max="160" value="95" oninput="document.getElementById('vBpm').innerText=this.value"><span id="vBpm">95</span></div>
+<h3>PLAYER DE ÁUDIO</h3>
+<div class="prow">
+<button id="btnPlay" onclick="togglePlay()">⏸ Pausar</button>
+<button class="ghost" onclick="document.getElementById('file').click()">Carregar Playback/VS</button>
+<button class="ghost">From um dispositivo</button>
+<span style="font-size:12px;color:#666">Apoio Musical</span>
+</div>
+<div class="sliders">
+<div><label>VOLUME</label><input type="range" id="vol" value="75" oninput="document.getElementById('vVol').innerText=this.value+'%'"><b id="vVol">75%</b></div>
+<div><label>PITCH</label><input type="range" min="-6" max="6" value="0" oninput="document.getElementById('vPitch').innerText=(this.value>0?'+':'')+this.value"><b id="vPitch">0</b></div>
+<div><label>REVERB</label><input type="range" value="20" oninput="document.getElementById('vRev').innerText=this.value+'%'"><b id="vRev">20%</b></div>
+<div><label>GRAVE</label><input type="range" value="0" min="-10" max="10" oninput="document.getElementById('vGrave').innerText=this.value+' dB'"><b id="vGrave">0 dB</b></div>
+</div>
+<div class="bottom">
+<button onclick="mudarBpm(-5)">- BPM</button><b><span id="bpm">76</span> BPM</b><button onclick="mudarBpm(5)">+ BPM</button>
+<select id="tomSelect" onchange="mudarTom(this.value)"><option>F Maior</option><option>G Maior</option><option>C Maior</option><option>D Maior</option><option>E Maior</option></select>
+<button onclick="toggleScroll()" id="btnScroll">Scroll Automático</button>
+<button onclick="toggleMetro()" id="btnMetro">Metrônomo</button>
+<button onclick="alert('Afinador aberto')">🎸 Tuner</button>
+</div>
+</div>
+</div>
+
+<aside>
+<h3>CONFIGURAÇÕES</h3>
+<div class="conf"><span>Tema</span><div><button class="pill" id="btnClaro" onclick="setTema('claro')">Claro</button> <button class="pill off" id="btnEscuro" onclick="setTema('escuro')">Escuro</button></div></div>
+<div class="conf"><span>Tamanho da Cifra</span><b><span id="tam">16</span>px</b></div>
+<div class="conf"><span>Fonte</span><span>Arial ›</span></div>
+<div class="conf"><span>Transposição de Tom</span><span><button onclick="transpor(-1)">-</button> <b id="tomAtual">F</b> <button onclick="transpor(1)">+</button></span></div>
+<div class="conf"><span>Rolagem Automática</span><button class="pill off" id="btnAuto" onclick="toggleScroll()">Desligada</button></div>
+<div style="margin-top:14px;display:flex;gap:6px">
+<button style="flex:1;background:#1a6fc4;color:#fff;border:0;padding:10px;border-radius:6px" onclick="aumentarFonte()">A+ Aumentar</button>
+<button style="flex:1;background:#eee;border:0;padding:10px;border-radius:6px" onclick="diminuirFonte()">A- Diminuir</button>
+</div>
+</aside>
 </div>
 
 <script>
 const tons=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-let tomIndex=5; // F
-let scrollOn=false, scrollId=null;
-const cifraOriginal=`[Intro: F7M | G7(13) | Gm7 | C7(9)]
-(F7M) Olha que coisa mais (G7(13)) linda, mais cheia de (Gm7) graça
-É (Gb7) ela menina que (F7M) vem e que (Gb7(13)) passa
-(Gm7) num doce balanço a (C7(9)) caminho do (F7M) mar`;
+let tomIdx=5, fontSize=16, playing=true, scrollOn=false, scrollId=null, metroOn=false;
+const dados=[
+{ac:'F7M',txt:'Olha que coisa mais '},{ac:'G7(13)',txt:'linda, mais cheia de '},{ac:'Gm7',txt:'graça'},
+{ac:'F7M',txt:'É ela menina que '},{ac:'Gb7(13)',txt:'vem e que passa'},
+{ac:'Gm7',txt:'num doce balanço a '},{ac:'C7(9)',txt:'caminho do '},{ac:'F7M',txt:'mar'}
+];
 function render(){
-  document.getElementById('tomAtual').innerText=tons[tomIndex];
-  // destaca acordes entre parênteses
-  let html=cifraOriginal.replace(/\(([^)]+)\)/g,'(<b>$1</b>)');
-  document.getElementById('cifra').innerHTML=html;
+ document.getElementById('tomAtual').innerText=tons[tomIdx];
+ let html='';
+ dados.forEach(d=>{
+   let acorde=transporAcorde(d.ac);
+   html+=`<div class="linha"><div class="acorde" style="font-size:${fontSize}px">${acorde}</div><div class="letra" style="font-size:${fontSize}px">${d.txt}</div></div>`;
+ });
+ document.getElementById('cifra').innerHTML=html;
 }
-function transpor(d){ tomIndex=(tomIndex+d+12)%12; render(); }
-function toggleMenu(){ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('show'); }
+function transporAcorde(ac){
+ const raiz=ac.match(/^[A-G][#b]?/)[0];
+ const idx=tons.indexOf(raiz.replace('b',''));
+ let novoIdx=(idx+ (tomIdx-5) + 12)%12;
+ return ac.replace(raiz, tons[novoIdx]);
+}
+function transpor(d){ tomIdx=(tomIdx+d+12)%12; render(); }
+function mudarTom(v){ let t=v.split(' ')[0]; tomIdx=tons.indexOf(t); render(); }
+function aumentarFonte(){ fontSize+=2; document.getElementById('tam').innerText=fontSize; render(); }
+function diminuirFonte(){ fontSize=Math.max(12,fontSize-2); document.getElementById('tam').innerText=fontSize; render(); }
+function setTema(t){
+ if(t==='escuro'){ document.body.style.background='#111'; document.querySelectorAll('.main,aside,.player').forEach(e=>{e.style.background='#222';e.style.color='#fff'}); document.getElementById('btnEscuro').classList.remove('off'); document.getElementById('btnClaro').classList.add('off'); }
+ else{ location.reload(); }
+}
+function togglePlay(){ playing=!playing; document.getElementById('btnPlay').innerText=playing?'⏸ Pausar':'▶ Tocar'; }
 function toggleScroll(){
-  scrollOn=!scrollOn;
-  document.getElementById('btnScroll').innerText=scrollOn?'⏸ Parar Rolagem':'▶ Rolagem Automática';
-  document.getElementById('btnScroll').classList.toggle('off',!scrollOn);
-  if(scrollOn){ scrollId=setInterval(()=>window.scrollBy(0,1),40); } else { clearInterval(scrollId); }
+ scrollOn=!scrollOn;
+ document.getElementById('btnAuto').innerText=scrollOn?'Ligada':'Desligada';
+ document.getElementById('btnAuto').classList.toggle('off',!scrollOn);
+ document.getElementById('btnScroll').innerText=scrollOn?'⏸ Parar Scroll':'Scroll Automático';
+ if(scrollOn) scrollId=setInterval(()=>window.scrollBy(0,1),50); else clearInterval(scrollId);
 }
-function importar(){ alert('Escolha um arquivo .txt ou .chordpro na próxima versão. Por enquanto cole a cifra no campo de busca.'); }
-function compartilhar(){ if(navigator.share){ navigator.share({title:'Cifra Flow',text:'Garota de Ipanema - Cifra Flow',url:location.href}); } else { alert('Link copiado: '+location.href); } }
-function tocar(){ alert('Player conectado! Aqui vai tocar o áudio quando você subir o MP3. Ajuste Vol, Pitch, Reverb, Grave e BPM nos controles.'); }
+function toggleMetro(){ metroOn=!metroOn; document.getElementById('btnMetro').innerText=metroOn?'🔊 Metrônomo ON':'Metrônomo'; alert(metroOn?'Metrônomo ligado em '+document.getElementById('bpm').innerText+' BPM':'Metrônomo desligado'); }
+function mudarBpm(d){ let b=parseInt(document.getElementById('bpm').innerText)+d; document.getElementById('bpm').innerText=b; }
+function compartilhar(){ if(navigator.share) navigator.share({title:'e-Cifra',text:'Garota de Ipanema',url:location.href}); else alert(location.href); }
 render();
-if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').then(()=>console.log('SW ok')).catch(e=>console.log(e)); }
-let deferredPrompt; const installBtn=document.getElementById('installBtn');
-window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); deferredPrompt=e; installBtn.style.display='block';
-installBtn.onclick=()=>{ installBtn.style.display='none'; deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ deferredPrompt=null; }); };
-});
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+let dp; const ib=document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); dp=e; ib.style.display='block'; ib.onclick=()=>{ ib.style.display='none'; dp.prompt(); }; });
 </script>
 </body>
 </html>
