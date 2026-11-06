@@ -9,7 +9,6 @@
 body{font-family:sans-serif;background:#121212;color:#fff;padding:20px}
 .app{max-width:900px;margin:auto;background:#1a1a1a;border:2px solid #1a6fc4;border-radius:10px;overflow:hidden}
 header{background:#1a6fc4;color:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
-header b{font-size:18px}
 .home{padding:14px}
 .busca{width:100%;padding:12px;border:1px solid #333;border-radius:10px;margin-bottom:12px;background:#222;color:#fff}
 .controles{background:#1f1f1f;border:1px solid #333;border-radius:12px;padding:12px;margin-bottom:14px;display:flex;gap:14px;flex-wrap:wrap}
@@ -37,14 +36,10 @@ header b{font-size:18px}
 </style>
 </head>
 <body>
-
 <div class="app">
 <header><b>🎵 Cifra Flow</b><button onclick="abrirTelaCheia()" style="background:#fff;border:0;padding:7px 11px;border-radius:6px;font-weight:700;cursor:pointer">⛶ TELA GRANDE</button></header>
-
 <div class="home">
 <input class="busca" placeholder="🔍 Buscar cantor ou música...">
-
-<!-- CONTROLES NA INICIAL - SEU app.js -->
 <div class="controles">
 <div><label>VOLUME</label><input type="range" id="volume" value="75"><span id="volume-val">75%</span></div>
 <div><label>PITCH (Semitons): <span id="pitch-val">0 st</span></label><input type="range" id="pitch" min="-6" max="6" value="0"></div>
@@ -53,17 +48,13 @@ header b{font-size:18px}
 <div><label>AGUDO (TREBLE)</label><input type="range" id="treble" min="-10" max="10" value="0"><span id="treble-val">0 dB</span></div>
 <div><label>REVERB</label><br><button id="reverbBtn" class="btnReverb on" onclick="toggleReverb()">REVERB: LIGADO</button></div>
 </div>
-
 <h3 style="margin-bottom:10px">Pastas dos Cantores</h3>
 <div class="pastas">
 <div class="pasta"><div><b>🎤 Jorge Ben Jor</b><br><span>1 música</span></div><span>›</span></div>
 <div class="pasta"><div><b>🎤 Caetano Veloso</b><br><span>2 músicas</span></div><span>›</span></div>
 <div class="pasta"><div><b>🎸 Legião Urbana</b><br><span>2 músicas</span></div><span>›</span></div>
 </div>
-
 <div class="btns"><button class="btnAdd" onclick="adicionarCifra()">+ Adicionar Nova Cifra</button><button class="btnEdit" onclick="editarCifra()">✏️ Editar</button></div>
-
-<!-- SEU VIEWER -->
 <div id="viewer">
 <h1 id="song-title"></h1>
 <p id="song-artist" style="color:#aaa;margin-bottom:12px"></p>
@@ -72,8 +63,6 @@ header b{font-size:18px}
 </div>
 </div>
 </div>
-
-<!-- TELA GRANDE - SÓ LETRA + CIFRA -->
 <div id="telaCheia">
 <div class="barra">
 <span style="font-size:12px;font-weight:700">ROLAGEM:</span>
@@ -86,108 +75,6 @@ header b{font-size:18px}
 <p id="artistaCheia" style="color:#aaa"></p>
 <div id="lyrics-cheia" style="font-size:20px;line-height:2"></div>
 </div>
-
-<script>
-// SEU JSON - ARQUIVO 2 - CORRIGIDO
-const dadosMusica = {
-  "title": "Mas Que Nada",
-  "artist": "Jorge Ben Jor",
-  "audioSettings": { "pitch": 0, "bpm": 124, "bass": 0, "treble": 0, "reverb": true },
-  "content": [
-    { "chord": "Abm7", "text": "O-o-h, " },
-    { "chord": "Db7", "text": "m-a-s q-u-e n-a-d-a," },
-    { "chord": "Gbm7", "text": " " },
-    { "chord": "Emaj7", "text": " S-a-m-b-a j-á..." }
-  ]
-};
-
-// SEU app.js - ARQUIVO 3 - CORRIGIDO
-function inicializarApp(musica) {
-    document.getElementById('song-title').innerText = musica.title;
-    document.getElementById('song-artist').innerText = musica.artist;
-    document.getElementById('tituloCheia').innerText = musica.title;
-    document.getElementById('artistaCheia').innerText = musica.artist;
-    document.getElementById('bpm').value = musica.audioSettings.bpm;
-    document.getElementById('bpm-val').innerText = musica.audioSettings.bpm;
-    document.getElementById('pitch').value = musica.audioSettings.pitch;
-    document.getElementById('pitch-val').innerText = musica.audioSettings.pitch + ' st';
-    document.getElementById('bass').value = musica.audioSettings.bass;
-    document.getElementById('bass-val').innerText = musica.audioSettings.bass + ' dB';
-    document.getElementById('treble').value = musica.audioSettings.treble;
-    document.getElementById('treble-val').innerText = musica.audioSettings.treble + ' dB';
-    atualizarBotaoReverb();
-    renderizarCifra(musica.content);
-}
-
-function renderizarCifra(conteudo) {
-    const container = document.getElementById('lyrics-container');
-    const containerCheia = document.getElementById('lyrics-cheia');
-    let pos = 0;
-    let chordHtml = '<div class="chord-line">';
-    let textHtml = '<div class="text-line">';
-    conteudo.forEach(item => {
-        chordHtml += `<span class="chord" style="left:${pos}ch">${item.chord}</span>`;
-        textHtml += `<span>${item.text}</span>`;
-        pos += item.text.length;
-    });
-    chordHtml += '</div>';
-    textHtml += '</div>';
-    container.innerHTML = chordHtml + textHtml;
-    containerCheia.innerHTML = chordHtml + textHtml;
-}
-
-function atualizarBotaoReverb(){
-  const btn = document.getElementById('reverbBtn');
-  if(dadosMusica.audioSettings.reverb){ btn.innerText='REVERB: LIGADO'; btn.classList.add('on'); }
-  else { btn.innerText='REVERB: DESLIGADO'; btn.classList.remove('on'); }
-}
-function toggleReverb(){ dadosMusica.audioSettings.reverb = !dadosMusica.audioSettings.reverb; atualizarBotaoReverb(); }
-
-document.getElementById('bpm').addEventListener('input', (e) => {
-    document.getElementById('bpm-val').innerText = e.target.value;
-    dadosMusica.audioSettings.bpm = parseInt(e.target.value);
-});
-document.getElementById('pitch').addEventListener('input', (e) => {
-    document.getElementById('pitch-val').innerText = e.target.value + ' st';
-    dadosMusica.audioSettings.pitch = parseInt(e.target.value);
-});
-document.getElementById('bass').addEventListener('input', (e) => {
-    document.getElementById('bass-val').innerText = e.target.value + ' dB';
-    dadosMusica.audioSettings.bass = parseInt(e.target.value);
-});
-document.getElementById('treble').addEventListener('input', (e) => {
-    document.getElementById('treble-val').innerText = e.target.value + ' dB';
-    dadosMusica.audioSettings.treble = parseInt(e.target.value);
-});
-document.getElementById('volume').addEventListener('input', (e) => {
-    document.getElementById('volume-val').innerText = e.target.value + '%';
-});
-
-function salvarConfiguracao() {
-    localStorage.setItem('cifra_' + dadosMusica.title, JSON.stringify(dadosMusica));
-    console.log("Configurações salvas:", dadosMusica.audioSettings);
-    alert("Setup salvo com sucesso para " + dadosMusica.title + "!");
-}
-function adicionarCifra(){
-  let nome = prompt('Nome da nova cifra:','');
-  if(nome) alert('Cifra "'+nome+'" adicionada!');
-}
-function editarCifra(){
-  let nome = prompt('Editar nome:', dadosMusica.title);
-  if(nome){ dadosMusica.title = nome; document.getElementById('song-title').innerText = nome; document.getElementById('tituloCheia').innerText = nome; }
-}
-
-let velRolagem=3, rolando=false, timerRolagem=null, tamanhoFonte=20;
-function abrirTelaCheia(){ document.getElementById('telaCheia').classList.add('show'); }
-function fecharTelaCheia(){ pararRolagem(); document.getElementById('telaCheia').classList.remove('show'); }
-function setRolagem(v){ velRolagem=v; for(let i=1;i<=7;i++) document.getElementById('r'+i).classList.remove('ativo'); document.getElementById('r'+v).classList.add('ativo'); if(rolando){ pararRolagem(); iniciarRolagem(); } }
-function iniciarRolagem(){ let vel={1:4,2:8,3:14,4:22,5:32,6:45,7:60}; let px=vel[velRolagem]/60; timerRolagem=setInterval(()=>{ let el=document.getElementById('telaCheia'); el.scrollTop+=px; if(el.scrollTop+el.clientHeight>=el.scrollHeight-5) pararRolagem(); },16); }
-function pararRolagem(){ rolando=false; clearInterval(timerRolagem); document.getElementById('btnRolar').innerText='▶ Rolar'; }
-function toggleRolagem(){ if(rolando) pararRolagem(); else{ rolando=true; document.getElementById('btnRolar').innerText='⏸ Pausar'; iniciarRolagem(); } }
-function mudarFonte(d){ tamanhoFonte=Math.max(14,Math.min(36,tamanhoFonte+d)); document.getElementById('lyrics-cheia').style.fontSize=tamanhoFonte+'px'; }
-
-inicializarApp(dadosMusica);
-setRolagem(3);
-</script>
+<script src="app.js"></script>
 </body>
 </html>
