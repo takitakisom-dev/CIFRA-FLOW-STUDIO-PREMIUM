@@ -1,271 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Cifra Flow</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#6B4226">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#f5f0e8;color:#111;overflow-x:hidden}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-
-/* TOPO MADEIRA */
-.topo{
-  background:linear-gradient(180deg,#8B5A2B 0%,#6B4226 45%,#5A341E 100%);
-  padding:14px 14px 12px;position:sticky;top:0;z-index:50;
-  box-shadow:0 4px 14px rgba(0,0,0,.35);
-  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 2px,transparent 2px 18px),linear-gradient(180deg,#8B5A2B,#6B4226 45%,#5A341E);
+{
+  "name": "Cifra Flow",
+  "short_name": "Cifra Flow",
+  "description": "Suas cifras, do seu jeito. Com VS, Playback e pastas com violão.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#6B4226",
+  "theme_color": "#6B4226",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }
-.topo-linha{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.topo-esq{display:flex;align-items:center;gap:12px}
-.icone-topo{color:#fff;font-size:22px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:10px}
-.icone-topo:active{background:rgba(255,255,255,.15)}
-.logo{color:#fff;font-size:22px;font-weight:800;letter-spacing:.3px;text-shadow:0 1px 2px rgba(0,0,0,.4)}
-.logo span{font-weight:400;opacity:.9}
-.topo-dir{display:flex;gap:2px}
-.subtopo{display:flex;align-items:center;justify-content:space-between;margin-top:12px;background:rgba(0,0,0,.18);border-radius:12px;padding:10px 12px}
-.subtopo b{color:#fff;font-size:15px}
-.subtopo small{color:#ffe9c9;font-size:12px}
-
-/* MENU LATERAL */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90;display:none}
-.overlay.aberto{display:block}
-.menu{position:fixed;left:0;top:0;bottom:0;width:285px;background:#fff;z-index:100;transform:translateX(-100%);transition:.28s;overflow-y:auto;box-shadow:4px 0 20px rgba(0,0,0,.3)}
-.menu.aberto{transform:translateX(0)}
-.menu-topo{background:linear-gradient(180deg,#8B5A2B,#6B4226);padding:20px 16px;color:#fff}
-.menu-topo h2{font-size:22px}
-.menu-topo p{font-size:13px;opacity:.85;margin-top:3px}
-.menu-item{display:flex;align-items:center;gap:13px;padding:13px 16px;font-size:15px;color:#222;border-bottom:1px solid #f0e8dd;width:100%;text-align:left}
-.menu-item:active{background:#FFF3E0}
-.menu-item .ic{font-size:19px;width:28px;text-align:center}
-.menu-item.destaque{background:#FFF8E7;font-weight:700}
-.menu-sep{padding:10px 16px 4px;font-size:11px;letter-spacing:1px;color:#999;font-weight:700}
-.menu-rodape{padding:14px 16px;font-size:12px;color:#999;text-align:center}
-
-/* CONTEUDO */
-.conteudo{padding:14px 12px 90px}
-.titulo-secao{display:flex;justify-content:space-between;align-items:center;margin:4px 4px 12px}
-.titulo-secao h3{font-size:17px}
-.titulo-secao button{font-size:18px}
-
-/* PASTAS */
-.pasta{background:#fff;border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.08);width:100%;text-align:left;border:1px solid #eee}
-.pasta:active{transform:scale(.98)}
-.pasta-icone{width:58px;height:48px;position:relative;flex-shrink:0}
-.pasta-icone .folder{position:absolute;bottom:0;left:0;right:0;height:36px;background:#FFC107;border-radius:0 6px 6px 6px;box-shadow:inset 0 -6px 10px rgba(0,0,0,.08)}
-.pasta-icone .folder:before{content:"";position:absolute;top:-8px;left:0;width:26px;height:9px;background:#FFC107;border-radius:6px 6px 0 0}
-.pasta-icone .violao{position:absolute;top:-4px;left:50%;transform:translateX(-50%);font-size:28px;z-index:2;filter:drop-shadow(0 2px 2px rgba(0,0,0,.3))}
-.pasta-info{flex:1;min-width:0}
-.pasta-info b{font-size:16px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pasta-info small{color:#888;font-size:12px}
-.pontos{font-size:22px;color:#999;padding:4px 6px}
-
-/* LISTA MUSICAS DENTRO DA PASTA */
-.lista-musicas{display:none;margin:-4px 0 14px 10px;border-left:3px solid #E8DCC8;padding-left:8px}
-.lista-musicas.aberta{display:block}
-.musica-item{background:#fff;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;box-shadow:0 1px 5px rgba(0,0,0,.06);width:100%;text-align:left}
-.musica-item.ativa{border:2px solid #6B4226;background:#FFF8E7}
-.musica-item b{font-size:15px}
-.musica-item small{color:#888;font-size:12px}
-
-/* TELA CIFRA - TRAVADA IGUAL SUA FOTO */
-.tela-cifra{display:none;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.12);margin-top:6px}
-.tela-cifra.aberta{display:block}
-.cifra-header{padding:14px 14px 10px;text-align:center;border-bottom:1px solid #eee}
-.cifra-header h2{font-size:21px;line-height:1.2}
-.cifra-header p{font-size:13px;color:#666;margin-top:4px}
-.cifra-botoes{display:flex;gap:8px;justify-content:center;padding:10px;flex-wrap:wrap;background:#FFFBF2;border-bottom:1px solid #eee}
-.cifra-botoes button{background:#fff;border:1px solid #E8DCC8;padding:8px 12px;border-radius:20px;font-size:13px;font-weight:600}
-.cifra-botoes button.ativo{background:#6B4226;color:#fff;border-color:#6B4226}
-.linhas-madeira{display:flex;justify-content:center;gap:10px;padding:10px 0 2px}
-.linhas-madeira i{display:block;width:38px;height:5px;background:#8B5A2B;border-radius:99px}
-.cifra-corpo{padding:16px 18px 10px}
-.bloco{margin-bottom:22px}
-.linha-cifra{font-size:19px;font-weight:800;color:#111;letter-spacing:.5px;line-height:1.3;white-space:pre}
-.linha-letra-grande{font-size:22px;font-weight:800;color:#111;line-height:1.15;letter-spacing:-.2px}
-.linha-letra-peq{font-size:14px;color:#222;line-height:1.4;margin-top:6px}
-.player{margin:10px 14px 14px;background:#1a1a1a;color:#fff;border-radius:14px;padding:12px}
-.player-top{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px}
-.barra{height:6px;background:#444;border-radius:99px;overflow:hidden}
-.barra i{display:block;width:22%;height:100%;background:#FFC107}
-.player-botoes{display:flex;justify-content:center;gap:16px;margin-top:10px;font-size:20px}
-.btn-voltar{background:#eee;padding:10px 14px;border-radius:10px;font-weight:700;margin:0 14px 14px}
-
-/* FAB + */
-.fab{position:fixed;right:16px;bottom:18px;width:56px;height:56px;border-radius:50%;background:#6B4226;color:#fff;font-size:30px;box-shadow:0 6px 16px rgba(0,0,0,.35);z-index:60}
-.fab-menu{position:fixed;right:16px;bottom:84px;background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.25);padding:8px;display:none;z-index:60;width:230px}
-.fab-menu.aberto{display:block}
-.fab-menu button{display:block;width:100%;text-align:left;padding:12px;font-size:15px;border-radius:10px}
-.fab-menu button:active{background:#FFF3E0}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 16px;border-radius:99px;font-size:13px;display:none;z-index:200}
-.toast.mostrar{display:block}
-</style>
-</head>
-<body>
-
-<!-- TOPO MADEIRA -->
-<header class="topo">
-  <div class="topo-linha">
-    <div class="topo-esq">
-      <button class="icone-topo" onclick="abrirMenu()">☰</button>
-      <div class="logo">Cifra <span>Flow</span></div>
-    </div>
-    <div class="topo-dir">
-      <button class="icone-topo" onclick="toast('Pesquisa')">🔍</button>
-      <button class="icone-topo" onclick="toast('Salvo')">🔖</button>
-      <button class="icone-topo" onclick="toast('Mais opções')">⋮</button>
-    </div>
-  </div>
-  <div class="subtopo"><b>Minhas músicas</b><small>▼ Filtrar</small></div>
-</header>
-
-<!-- MENU -->
-<div class="overlay" id="overlay" onclick="fecharMenu()"></div>
-<nav class="menu" id="menu">
-  <div class="menu-topo"><h2>🎸 Cifra Flow</h2><p>Suas cifras, do seu jeito</p></div>
-  <div class="menu-sep">MINHAS CIFRAS</div>
-  <button class="menu-item destaque" onclick="irPara('vs')"><span class="ic">🎸</span> Minhas Cifras com VS</button>
-  <button class="menu-item destaque" onclick="irPara('playback')"><span class="ic">🎵</span> Minhas Cifras com Playback</button>
-  <button class="menu-item destaque" onclick="irPara('todas')"><span class="ic">📁</span> Minhas Cifras</button>
-  <div class="menu-sep">BIBLIOTECA</div>
-  <button class="menu-item" onclick="toast('Minhas Listas')"><span class="ic">📋</span> Minhas Listas</button>
-  <button class="menu-item" onclick="toast('Procurar Música')"><span class="ic">🔍</span> Procurar Música</button>
-  <button class="menu-item" onclick="toast('Importar .txt')"><span class="ic">📄</span> Importar .txt</button>
-  <button class="menu-item" onclick="toast('Backup e Restauração')"><span class="ic">💾</span> Backup e Restauração</button>
-  <div class="menu-sep">AJUSTES</div>
-  <button class="menu-item" onclick="toast('Preferências')"><span class="ic">⚙️</span> Preferências</button>
-  <button class="menu-item" onclick="toast('Ajuda')"><span class="ic">❓</span> Ajuda</button>
-  <button class="menu-item" onclick="toast('Sobre')"><span class="ic">ℹ️</span> Sobre</button>
-  <div class="menu-rodape">Cifra Flow • v1.0 • Feito para o palco</div>
-</nav>
-
-<main class="conteudo">
-  <div class="titulo-secao"><h3>Pastas</h3><button onclick="toast('Filtrar')">⩓</button></div>
-
-  <!-- PASTA TODOS -->
-  <button class="pasta" onclick="togglePasta('todos',this)">
-    <div class="pasta-icone"><div class="violao">🎸</div><div class="folder"></div></div>
-    <div class="pasta-info"><b>Todos</b><small>12 músicas</small></div><span class="pontos">⋮</span>
-  </button>
-
-  <!-- PASTA ALCIONE -->
-  <button class="pasta" onclick="togglePasta('alcione',this)">
-    <div class="pasta-icone"><div class="violao">🎸</div><div class="folder"></div></div>
-    <div class="pasta-info"><b>Alcione</b><small>8 músicas</small></div><span class="pontos">⋮</span>
-  </button>
-  <div class="lista-musicas" id="lista-alcione">
-    <button class="musica-item" onclick="abrirCifra('Você Me Vira A Cabeça','Alcione')"><span><b>Você Me Vira A Cabeça</b><br><small>Alcione • Tom: Gm</small></span><span>›</span></button>
-  </div>
-
-  <!-- PASTA CAPITAL INICIAL - A QUE ESTÁ NA FOTO -->
-  <button class="pasta" onclick="togglePasta('capital',this)">
-    <div class="pasta-icone"><div class="violao">🎸</div><div class="folder"></div></div>
-    <div class="pasta-info"><b>Capital Inicial</b><small>3 músicas</small></div><span class="pontos">⋮</span>
-  </button>
-  <div class="lista-musicas" id="lista-capital">
-    <button class="musica-item" onclick="abrirCifra('Mais','Capital Inicial')"><span><b>Mais</b><br><small>Capital Inicial</small></span><span>›</span></button>
-    <button class="musica-item ativa" onclick="abrirCifra('Primeiros Erros','Capital Inicial')"><span><b>Primeiros Erros</b><br><small>Capital Inicial • Tom: Em • BPM 98</small></span><span>›</span></button>
-    <button class="musica-item" onclick="abrirCifra('Tudo Que Vai','Capital Inicial')"><span><b>Tudo Que Vai</b><br><small>Capital Inicial</small></span><span>›</span></button>
-  </div>
-
-  <!-- OUTRAS PASTAS -->
-  <button class="pasta" onclick="togglePasta('cazuza',this)">
-    <div class="pasta-icone"><div class="violao">🎸</div><div class="folder"></div></div>
-    <div class="pasta-info"><b>Cazuza</b><small>5 músicas</small></div><span class="pontos">⋮</span>
-  </button>
-  <button class="pasta" onclick="togglePasta('cidade',this)">
-    <div class="pasta-icone"><div class="violao">🎸</div><div class="folder"></div></div>
-    <div class="pasta-info"><b>Cidade Negra</b><small>4 músicas</small></div><span class="pontos">⋮</span>
-  </button>
-  <button class="pasta" onclick="togglePasta('claudio',this)">
-    <div class="pasta-icone"><div class="violao">🎸</div><div class="folder"></div></div>
-    <div class="pasta-info"><b>Claudio Zoli</b><small>2 músicas</small></div><span class="pontos">⋮</span>
-  </button>
-
-  <!-- TELA CIFRA TRAVADA - IGUAL SUA FOTO -->
-  <section class="tela-cifra aberta" id="telaCifra">
-    <div class="cifra-header">
-      <h2 id="tituloMusica">Primeiros Erros</h2>
-      <p id="subMusica">Capital Inicial • Tom: Em • BPM 98</p>
-    </div>
-    <div class="cifra-botoes">
-      <button onclick="toast('Tom: Em')">Tom: Em ▼</button>
-      <button onclick="toggleRolagem(this)">Rolagem ▶</button>
-      <button onclick="telaCheia()">Tela Cheia ⛶</button>
-      <button class="ativo">VS VS</button>
-    </div>
-    <div class="linhas-madeira"><i></i><i></i><i></i></div>
-    <div class="cifra-corpo" id="cifraCorpo">
-      <div class="bloco">
-        <div class="linha-cifra">Em           C           G           D</div>
-        <div class="linha-letra-grande">Foram   errei   Tentei   que</div>
-        <div class="linha-letra-peq">foram tantos erros, eu só queria acertar</div>
-      </div>
-      <div class="bloco">
-        <div class="linha-cifra">Em           C</div>
-        <div class="linha-letra-grande">Foram   errei</div>
-        <div class="linha-letra-peq">foram tantos erros, eu sei que eu errei demais</div>
-      </div>
-      <div class="bloco">
-        <div class="linha-cifra">G            D</div>
-        <div class="linha-letra-grande">Tentei   que</div>
-        <div class="linha-letra-peq">tentei mudar o rumo, mas segui o que não quis jamais</div>
-      </div>
-      <div class="bloco">
-        <div class="linha-cifra">Em           C</div>
-        <div class="linha-letra-grande">Agora   respirar</div>
-        <div class="linha-letra-peq">agora é tarde pra voltar, eu só preciso respirar</div>
-      </div>
-    </div>
-    <div class="player">
-      <div class="player-top"><span>▶ Reproduzir VS / Playback</span><span>0:32 / 3:45</span></div>
-      <div class="barra"><i></i></div>
-      <div class="player-botoes"><span>⏮</span><span style="font-size:28px">▶</span><span>⏭</span></div>
-    </div>
-    <button class="btn-voltar" onclick="voltarPastas()">← Voltar para pastas</button>
-  </section>
-
-</main>
-
-<button class="fab" onclick="toggleFab()">+</button>
-<div class="fab-menu" id="fabMenu">
-  <button onclick="toast('Criar manualmente')">✏️ Criar manualmente</button>
-  <button onclick="toast('Procurar na internet')">🌐 Procurar na internet</button>
-  <button onclick="toast('Colar endereço')">🔗 Colar endereço</button>
-  <button onclick="toast('Importar arquivo')">📁 Importar arquivo</button>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-function abrirMenu(){document.getElementById('menu').classList.add('aberto');document.getElementById('overlay').classList.add('aberto')}
-function fecharMenu(){document.getElementById('menu').classList.remove('aberto');document.getElementById('overlay').classList.remove('aberto')}
-function togglePasta(id,el){
-  document.querySelectorAll('.lista-musicas').forEach(e=>{if(e.id!=='lista-'+id) e.classList.remove('aberta')});
-  var l=document.getElementById('lista-'+id);
-  if(l){l.classList.toggle('aberta'); if(l.classList.contains('aberta')) l.scrollIntoView({behavior:'smooth',block:'nearest'})}
-  // Se for capital, já deixa a cifra visível
-  if(id==='capital') document.getElementById('telaCifra').classList.add('aberta');
-}
-function abrirCifra(nome,artista){
-  document.getElementById('tituloMusica').innerText=nome;
-  document.getElementById('subMusica').innerText=artista+' • Tom: Em • BPM 98';
-  document.getElementById('telaCifra').classList.add('aberta');
-  document.getElementById('telaCifra').scrollIntoView({behavior:'smooth'});
-  fecharMenu();
-}
-function voltarPastas(){document.getElementById('telaCifra').classList.remove('aberta');window.scrollTo({top:0,behavior:'smooth'})}
-function toggleFab(){document.getElementById('fabMenu').classList.toggle('aberto')}
-function irPara(t){fecharMenu();toast(t==='vs'?'Minhas Cifras com VS':t==='playback'?'Minhas Cifras com Playback':'Minhas Cifras');window.scrollTo({top:0,behavior:'smooth'})}
-function toggleRolagem(btn){btn.classList.toggle('ativo');btn.innerText=btn.classList.contains('ativo')?'Rolagem ⏸':'Rolagem ▶';toast(btn.classList.contains('ativo')?'Rolagem ligada':'Rolagem pausada')}
-function telaCheia(){if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}else{document.exitFullscreen&&document.exitFullscreen()}}
-function toast(msg){var t=document.getElementById('toast');t.innerText=msg;t.classList.add('mostrar');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('mostrar'),2200)}
-document.addEventListener('click',e=>{if(!e.target.closest('.fab')&&!e.target.closest('.fab-menu')) document.getElementById('fabMenu').classList.remove('aberto')});
-if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
-</script>
-</body>
-</html>
