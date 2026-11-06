@@ -5,142 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Cifra Flow</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#5A341E">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#E8DDC8}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-.phone{max-width:480px;margin:0 auto;min-height:100vh;background:#F5EFE4;position:relative;overflow:hidden;display:flex;flex-direction:column}
-
-/* MADEIRA VERNIZADA - IGUAL DA FOTO, COM BRILHO */
-.wood{
-  background:
-    radial-gradient(ellipse 90% 60% at 20% 0%, rgba(255,255,255,.35) 0%, transparent 50%),
-    repeating-linear-gradient(90deg, rgba(0,0,0,.18) 0 2px, transparent 2px 16px),
-    repeating-linear-gradient(92deg, rgba(255,255,255,.08) 0 2px, transparent 2px 32px),
-    linear-gradient(180deg,#8B5A2B 0%,#7A4A22 30%,#6B3E1E 55%,#4A2A16 100%);
-  box-shadow:inset 0 2px 6px rgba(255,255,255,.45), inset 0 -4px 10px rgba(0,0,0,.5), 0 8px 20px rgba(0,0,0,.4);
-}
-.shine{position:absolute;top:6px;left:14px;right:14px;height:24px;background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,0));border-radius:20px;pointer-events:none}
-.shine2{position:absolute;top:14px;left:10px;width:70px;height:40px;background:radial-gradient(ellipse at center, rgba(255,255,255,.6), transparent 70%);pointer-events:none}
-
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000}
+.phone{max-width:480px;margin:0 auto;height:100dvh;position:relative;overflow:hidden;background:#000}
+/* A FOTO BONITA É O APP INTEIRO - NADA DE DESENHO */
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* BOTÕES INVISÍVEIS EM CIMA DA FOTO */
+.btn{position:absolute;background:transparent;border:none;cursor:pointer}
+.btn:active{background:rgba(255,255,255,.15);border-radius:12px}
+/* POSIÇÃO DE CADA PASTA NA FOTO */
+#todos{top:31%;left:56%;width:38%;height:10%}
+#alcione{top:42%;left:56%;width:38%;height:10%}
+#capital{top:53%;left:56%;width:38%;height:10%}
+#cazuza{top:64%;left:56%;width:38%;height:10%}
+#cidade{top:75%;left:56%;width:38%;height:10%}
+#claudio{top:86%;left:56%;width:38%;height:10%}
+/* MENU ESQUERDO */
+#vs{top:29%;left:4%;width:46%;height:6%}
+#playback{top:36%;left:4%;width:46%;height:7%}
+#cifras{top:45%;left:4%;width:46%;height:6%}
+#listas{top:52%;left:4%;width:46%;height:6%}
 /* TOPO */
-.topo{position:relative;padding:20px 16px 30px;border-radius:0 0 20px 20px;z-index:20;overflow:hidden;margin:8px 8px 0}
-.topo-row{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:3}
-.topo-row button{color:#fff;font-size:30px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;text-shadow:0 3px 8px rgba(0,0,0,.9);font-weight:800}
-.logo{color:#fff;font-size:34px;font-weight:800;letter-spacing:.5px;text-shadow:0 3px 8px rgba(0,0,0,.9)}
-.topo-dir{display:flex;gap:4px}
+#menuBtn{top:5%;left:5%;width:12%;height:7%}
+#plus{top:5%;left:76%;width:10%;height:7%}
+#search{top:5%;left:88%;width:10%;height:7%}
 
-/* LAYOUT */
-.layout{display:flex;flex:1;min-height:0;margin-top:-10px}
-.menu{width:238px;flex-shrink:0;background:#F8F1E6;box-shadow:6px 0 18px rgba(0,0,0,.35);z-index:10;overflow-y:auto;padding-bottom:20px;border-radius:0 0 16px 0;position:relative}
-.menu-card{margin:22px 10px 8px;border-radius:12px;padding:16px 12px 14px;text-align:center;color:#fff;position:relative;box-shadow:0 6px 14px rgba(0,0,0,.4);overflow:hidden;border:1px solid rgba(0,0,0,.3)}
-.menu-card>*{position:relative;z-index:3}
-.menu-card h2{font-size:23px;margin-top:4px;text-shadow:0 2px 6px rgba(0,0,0,.9)}
-.menu-card p{font-size:11px;opacity:.9;margin-top:3px;color:#FFE9B0}
-.menu-item{display:flex;align-items:center;gap:12px;padding:14px 12px;font-size:14px;color:#111;border-bottom:1px solid #E8DDCC;width:100%;text-align:left;font-weight:600}
-.menu-item:active{background:#FFF3D6}
-.menu-item .ic{font-size:21px;width:28px;text-align:center;flex-shrink:0}
-
-/* PASTAS */
-.right{flex:1;padding:18px 10px 90px;min-width:0;overflow-y:auto}
-.right-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 4px}
-.right-head h3{font-size:19px;font-weight:700}
-.right-head span{font-size:26px}
-.pasta{background:#FFF8EA;border-radius:12px;padding:12px 10px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #E8DDCC;width:100%;text-align:left;overflow:visible}
-.folder-wrap{width:74px;height:58px;position:relative;flex-shrink:0;overflow:visible}
-.folder-svg{width:74px;height:58px;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25))}
-.pasta b{font-size:16px;font-weight:600}
-.songs{display:none;background:#FFF8EA;padding:6px 10px 10px}
-.songs.show{display:block}
-.song{background:#fff;border-radius:10px;padding:10px;display:flex;justify-content:space-between;margin-bottom:6px;width:100%;text-align:left}
-.song.active{border:2px solid #6B4226;background:#FFF3D6}
-.song b{font-size:13px}
-.song small{color:#888;font-size:11px}
-
-/* CIFRA */
-.cifra-view{display:none;position:fixed;inset:0;background:#F5EFE4;z-index:60;overflow-y:auto;padding:14px 12px 90px}
-.cifra-view.show{display:block}
-.cifra-card{background:#fff;border-radius:16px;overflow:hidden}
-.cifra-head{padding:14px;text-align:center;border-bottom:1px solid #eee}
-.cifra-head h2{font-size:20px}
-.cifra-head p{font-size:12px;color:#666;margin-top:3px}
-.cifra-btns{display:flex;gap:6px;justify-content:center;padding:10px;flex-wrap:wrap;background:#FFFBF2;border-bottom:1px solid #eee}
-.cifra-btns button{background:#fff;border:1px solid #E8DCC8;padding:7px 10px;border-radius:20px;font-size:12px;font-weight:700}
-.cifra-btns button.dark{background:#6B4226;color:#fff}
-.corpo{padding:14px 16px}
-.bloco{margin-bottom:18px}
-.lc{font-size:18px;font-weight:800;white-space:pre}
-.ll{font-size:21px;font-weight:800}
-.lp{font-size:13px;margin-top:5px}
-.player{margin:10px 12px;background:#111;color:#fff;border-radius:12px;padding:10px}
-.player-top{display:flex;justify-content:space-between;font-size:11px}
-.bar{height:6px;background:#444;border-radius:99px;margin-top:8px;overflow:hidden}
-.bar i{display:block;width:22%;height:100%;background:#FFC107}
-.btn-back{margin:0 12px 12px;background:#eee;padding:10px 14px;border-radius:10px;font-weight:700;width:calc(100% - 24px);text-align:left}
-.full{position:fixed;inset:0;background:#000;color:#fff;z-index:200;display:none;overflow-y:auto;padding:48px 26px 60px}
+/* TELA DA CIFRA - QUANDO CLICA NA PASTA */
+.cifra{display:none;position:absolute;inset:0;background:#FFF8EA;z-index:20;overflow-y:auto;padding:16px}
+.cifra.show{display:block}
+.cifra h2{font-size:24px;text-align:center}
+.cifra p{text-align:center;color:#666;font-size:13px;margin:6px 0 14px}
+.cifra .tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.cifra .tools button{background:#fff;border:1px solid #ddd;padding:9px 14px;border-radius:20px;font-weight:700}
+.cifra .tools button.dark{background:#6B4226;color:#fff}
+.bloco{margin-bottom:22px;background:#fff;padding:14px;border-radius:14px}
+.chord{font-size:19px;font-weight:800}
+.lyric{font-size:22px;font-weight:800;margin-top:4px}
+.small{font-size:14px;margin-top:6px}
+.back{width:100%;padding:12px;border:none;background:#eee;border-radius:12px;font-weight:700;margin-top:10px}
+.full{position:fixed;inset:0;background:#000;color:#fff;z-index:50;display:none;padding:50px 26px;overflow-y:auto}
 .full.show{display:block}
-.full h3{font-size:13px;opacity:.4;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px}
-.full .big{font-size:32px;font-weight:800;line-height:1.35;margin-bottom:26px}
-.full .small{font-size:19px;opacity:.75;margin-top:-16px;margin-bottom:26px}
-.fab{position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;background:#6B4226;color:#fff;font-size:30px;z-index:80}
+.full .big{font-size:32px;font-weight:800;line-height:1.35;margin-bottom:24px}
+.full .small2{font-size:19px;opacity:.75;margin-bottom:24px}
 </style>
 </head>
 <body>
 <div class="phone">
+  <!-- AQUI É A SUA FOTO BONITA -->
+  <img class="bg" src="fundo.jpg" alt="Cifra Flow">
 
-<header class="topo wood"><div class="shine"></div><div class="shine2"></div><div class="topo-row"><button>☰</button><div class="logo">Cifra Flow</div><div class="topo-dir"><button>+</button><button>⌕</button></div></div></header>
+  <!-- BOTÕES INVISÍVEIS EM CIMA DAS PASTAS -->
+  <button class="btn" id="todos" onclick="openSong('Todos')"></button>
+  <button class="btn" id="alcione" onclick="openSong('Alcione')"></button>
+  <button class="btn" id="capital" onclick="openSong('Primeiros Erros')"></button>
+  <button class="btn" id="cazuza" onclick="openSong('Cazuza')"></button>
+  <button class="btn" id="cidade" onclick="openSong('Cidade Negra')"></button>
+  <button class="btn" id="claudio" onclick="openSong('Claudio Zoli')"></button>
 
-<div class="layout">
-<nav class="menu">
-<div class="menu-card wood"><div class="shine"></div>
-<!-- VIOLÃOZINHO NA DIAGONAL IGUAL DA FOTO -->
-<svg width="36" height="52" viewBox="0 0 60 90" style="transform:rotate(20deg)"><g><ellipse cx="30" cy="68" rx="18" ry="19" fill="#F2C94C" stroke="#8B5A2B" stroke-width="2"/><circle cx="30" cy="68" r="7" fill="#111"/><rect x="27" y="18" width="6" height="38" fill="#6B4226"/><rect x="22" y="2" width="16" height="18" rx="4" fill="#8B5A2B"/><circle cx="24" cy="6" r="2" fill="#fff"/><circle cx="36" cy="6" r="2" fill="#fff"/><circle cx="24" cy="12" r="2" fill="#fff"/><circle cx="36" cy="12" r="2" fill="#fff"/></g></svg>
-<h2>Cifra Flow</h2><p>Sua coleção de cifras</p></div>
-<button class="menu-item"><span class="ic">🎸</span> Minhas Cifras com VS</button>
-<button class="menu-item"><span class="ic">♫</span> Minhas Cifras com Playback</button>
-<button class="menu-item"><span class="ic">🗂</span> Minhas Cifras</button>
-<button class="menu-item"><span class="ic">☰</span> Minhas Listas</button>
-<button class="menu-item"><span class="ic">⌕</span> Procurar Musica</button>
-<button class="menu-item"><span class="ic">⇪</span> Importar .txt</button>
-<button class="menu-item"><span class="ic">☁</span> Backup e Restauração</button>
-<button class="menu-item"><span class="ic">⚙</span> Preferencias</button>
-<button class="menu-item"><span class="ic">?</span> Ajuda</button>
-<button class="menu-item"><span class="ic">ⓘ</span> Sobre</button>
-</nav>
+  <button class="btn" id="vs" onclick="alert('Minhas Cifras com VS')"></button>
+  <button class="btn" id="playback" onclick="alert('Playback')"></button>
+  <button class="btn" id="cifras" onclick="alert('Minhas Cifras')"></button>
+  <button class="btn" id="listas" onclick="alert('Minhas Listas')"></button>
+  <button class="btn" id="menuBtn" onclick="alert('Menu')"></button>
+  <button class="btn" id="plus" onclick="alert('Novo')"></button>
+  <button class="btn" id="search" onclick="alert('Pesquisar')"></button>
 
-<main class="right">
-<div class="right-head"><h3>Minhas musicas</h3><span>⩓</span></div>
+  <!-- CIFRA -->
+  <div class="cifra" id="cifra">
+    <h2 id="tMusica">Primeiros Erros</h2>
+    <p>Capital Inicial • Tom: Em • BPM 98</p>
+    <div class="tools"><button>Tom: Em ▼</button><button>Rolagem ▶</button><button class="dark" onclick="document.getElementById('full').classList.add('show')">Tela Cheia ⛶</button><button>VS VS</button></div>
+    <div class="bloco"><div class="chord">Em &nbsp;&nbsp; C &nbsp;&nbsp; G &nbsp;&nbsp; D</div><div class="lyric">Foram &nbsp; errei &nbsp; Tentei &nbsp; que</div><div class="small">foram tantos erros, eu só queria acertar</div></div>
+    <div class="bloco"><div class="chord">Em &nbsp;&nbsp; C</div><div class="lyric">Foram &nbsp; errei</div><div class="small">foram tantos erros, eu sei que eu errei demais</div></div>
+    <button class="back" onclick="document.getElementById('cifra').classList.remove('show')">← Voltar</button>
+  </div>
 
-<!-- PASTA - SÓ A CABEÇA DO VIOLÃO SAINDO, IGUAL A FOTO -->
-<button class="pasta" onclick="toggle('todos')">
-<div class="folder-wrap">
-<svg style="position:absolute;top:-18px;right:6px;z-index:5;transform:rotate(28deg);filter:drop-shadow(0 3px 3px rgba(0,0,0,.4))" width="18" height="32" viewBox="0 0 30 52"><g><rect x="11" y="28" width="8" height="22" fill="#5A341E"/><rect x="7" y="2" width="16" height="30" rx="6" fill="#8B5A2B" stroke="#3A1F0E" stroke-width="1"/><circle cx="9" cy="8" r="2.2" fill="#D8CFC2" stroke="#111" stroke-width=".5"/><circle cx="21" cy="8" r="2.2" fill="#D8CFC2" stroke="#111" stroke-width=".5"/><circle cx="9" cy="16" r="2.2" fill="#D8CFC2" stroke="#111" stroke-width=".5"/><circle cx="21" cy="16" r="2.2" fill="#D8CFC2" stroke="#111" stroke-width=".5"/><circle cx="9" cy="24" r="2.2" fill="#D8CFC2" stroke="#111" stroke-width=".5"/><circle cx="21" cy="24" r="2.2" fill="#D8CFC2" stroke="#111" stroke-width=".5"/><line x1="12" y1="4" x2="12" y2="30" stroke="#FFE9B0" stroke-width=".8"/><line x1="15" y1="4" x2="15" y2="30" stroke="#FFE9B0" stroke-width=".8"/><line x1="18" y1="4" x2="18" y2="30" stroke="#FFE9B0" stroke-width=".8"/></g></svg>
-<svg class="folder-svg" viewBox="0 0 74 58"><path d="M2 14 Q2 6 10 6 L24 6 L30 14 L54 14 Q72 14 72 20 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#D9A82E"/><path d="M2 18 Q2 12 8 12 L64 12 Q72 12 72 18 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#E9C98A"/><path d="M2 18 Q2 12 8 12 L64 12 L64 24 L2 24 Z" fill="#FFF2B0" opacity=".6"/></svg>
-</div><b>Todos</b>
-</button>
-<div class="songs" id="songs-todos"><button class="song" onclick="openSong('Primeiros Erros','Capital Inicial')"><span><b>Primeiros Erros</b><br><small>Capital Inicial</small></span><span>›</span></button></div>
-
-<button class="pasta" onclick="toggle('alcione')"><div class="folder-wrap"><svg style="position:absolute;top:-18px;right:6px;z-index:5;transform:rotate(28deg)" width="18" height="32" viewBox="0 0 30 52"><g><rect x="11" y="28" width="8" height="22" fill="#5A341E"/><rect x="7" y="2" width="16" height="30" rx="6" fill="#8B5A2B" stroke="#3A1F0E"/><circle cx="9" cy="8" r="2.2" fill="#D8CFC2"/><circle cx="21" cy="8" r="2.2" fill="#D8CFC2"/><circle cx="9" cy="16" r="2.2" fill="#D8CFC2"/><circle cx="21" cy="16" r="2.2" fill="#D8CFC2"/><circle cx="9" cy="24" r="2.2" fill="#D8CFC2"/><circle cx="21" cy="24" r="2.2" fill="#D8CFC2"/></g></svg><svg class="folder-svg" viewBox="0 0 74 58"><path d="M2 14 Q2 6 10 6 L24 6 L30 14 L54 14 Q72 14 72 20 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#D9A82E"/><path d="M2 18 Q2 12 8 12 L64 12 Q72 12 72 18 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#E9C98A"/></svg></div><b>Alcione</b></button>
-
-<button class="pasta" onclick="toggle('capital')"><div class="folder-wrap"><svg style="position:absolute;top:-18px;right:6px;z-index:5;transform:rotate(28deg)" width="18" height="32" viewBox="0 0 30 52"><g><rect x="11" y="28" width="8" height="22" fill="#5A341E"/><rect x="7" y="2" width="16" height="30" rx="6" fill="#8B5A2B"/><circle cx="9" cy="8" r="2.2" fill="#D8CFC2"/><circle cx="21" cy="8" r="2.2" fill="#D8CFC2"/><circle cx="9" cy="16" r="2.2" fill="#D8CFC2"/><circle cx="21" cy="16" r="2.2" fill="#D8CFC2"/></g></svg><svg class="folder-svg" viewBox="0 0 74 58"><path d="M2 14 Q2 6 10 6 L24 6 L30 14 L54 14 Q72 14 72 20 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#D9A82E"/><path d="M2 18 Q2 12 8 12 L64 12 Q72 12 72 18 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#E9C98A"/></svg></div><b>Capital Inicial</b></button>
-<div class="songs" id="songs-capital"><button class="song" onclick="openSong('Mais','Capital Inicial')"><span><b>Mais</b><br><small>Capital Inicial</small></span><span>›</span></button><button class="song active" onclick="openSong('Primeiros Erros','Capital Inicial')"><span><b>Primeiros Erros</b><br><small>Capital Inicial • Tom: Em • BPM 98</small></span><span>›</span></button><button class="song" onclick="openSong('Tudo Que Vai','Capital Inicial')"><span><b>Tudo Que Vai</b><br><small>Capital Inicial</small></span><span>›</span></button></div>
-
-<button class="pasta" onclick="toggle('cazuza')"><div class="folder-wrap"><svg style="position:absolute;top:-18px;right:6px;z-index:5;transform:rotate(28deg)" width="18" height="32" viewBox="0 0 30 52"><g><rect x="11" y="28" width="8" height="22" fill="#5A341E"/><rect x="7" y="2" width="16" height="30" rx="6" fill="#8B5A2B"/><circle cx="9" cy="8" r="2.2" fill="#D8CFC2"/><circle cx="21" cy="8" r="2.2" fill="#D8CFC2"/><circle cx="9" cy="16" r="2.2" fill="#D8CFC2"/><circle cx="21" cy="16" r="2.2" fill="#D8CFC2"/></g></svg><svg class="folder-svg" viewBox="0 0 74 58"><path d="M2 14 Q2 6 10 6 L24 6 L30 14 L54 14 Q72 14 72 20 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#D9A82E"/><path d="M2 18 Q2 12 8 12 L64 12 Q72 12 72 18 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#E9C98A"/></svg></div><b>Cazuza</b></button>
-<button class="pasta" onclick="toggle('cidade')"><div class="folder-wrap"><svg style="position:absolute;top:-18px;right:6px;z-index:5;transform:rotate(28deg)" width="18" height="32" viewBox="0 0 30 52"><g><rect x="11" y="28" width="8" height="22" fill="#5A341E"/><rect x="7" y="2" width="16" height="30" rx="6" fill="#8B5A2B"/><circle cx="9" cy="8" r="2.2" fill="#D8CFC2"/><circle cx="21" cy="8" r="2.2" fill="#D8CFC2"/></g></svg><svg class="folder-svg" viewBox="0 0 74 58"><path d="M2 14 Q2 6 10 6 L24 6 L30 14 L54 14 Q72 14 72 20 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#D9A82E"/><path d="M2 18 Q2 12 8 12 L64 12 Q72 12 72 18 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#E9C98A"/></svg></div><b>Cidade Negra</b></button>
-<button class="pasta" onclick="toggle('claudio')"><div class="folder-wrap"><svg style="position:absolute;top:-18px;right:6px;z-index:5;transform:rotate(28deg)" width="18" height="32" viewBox="0 0 30 52"><g><rect x="11" y="28" width="8" height="22" fill="#5A341E"/><rect x="7" y="2" width="16" height="30" rx="6" fill="#8B5A2B"/><circle cx="9" cy="8" r="2.2" fill="#D8CFC2"/><circle cx="21" cy="8" r="2.2" fill="#D8CFC2"/></g></svg><svg class="folder-svg" viewBox="0 0 74 58"><path d="M2 14 Q2 6 10 6 L24 6 L30 14 L54 14 Q72 14 72 20 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#D9A82E"/><path d="M2 18 Q2 12 8 12 L64 12 Q72 12 72 18 L72 42 Q72 52 54 52 L10 52 Q2 52 2 40 Z" fill="#E9C98A"/></svg></div><b>Claudio Zoli</b></button>
-</main>
+  <div class="full" id="full" onclick="this.classList.remove('show')">
+    <div class="big">Foram errei<br>Tentei que</div><div class="small2">foram tantos erros, eu só queria acertar</div>
+    <div class="big">Foram errei</div><div class="small2">foram tantos erros, eu sei que eu errei demais</div>
+    <p style="opacity:.4;font-size:12px;text-align:center;margin-top:40px">Toque para sair</p>
+  </div>
 </div>
-
-<div class="cifra-view" id="cifraView"><section class="cifra-card"><div class="cifra-head"><h2 id="tMusica">Primeiros Erros</h2><p id="sMusica">Capital Inicial • Tom: Em • BPM 98</p></div><div class="cifra-btns"><button>Tom: Em ▼</button><button>Rolagem ▶</button><button class="dark" onclick="openFull()">Tela Cheia ⛶</button><button>VS VS</button></div><div class="corpo"><div class="bloco"><div class="lc">Em           C           G           D</div><div class="ll">Foram   errei   Tentei   que</div><div class="lp">foram tantos erros, eu só queria acertar</div></div></div><div class="player"><div class="player-top"><span>▶ Reproduzir VS</span><span>0:32 / 3:45</span></div><div class="bar"><i></i></div></div><button class="btn-back" onclick="closeSong()">← Voltar</button></section></div>
-<div class="full" id="full" onclick="closeFull()"><h3>Primeiros Erros • Capital Inicial</h3><div class="big">Foram errei<br>Tentei que</div><div class="small">foram tantos erros, eu só queria acertar</div></div>
-<button class="fab">+</button></div>
 <script>
-function toggle(id){document.querySelectorAll('.songs').forEach(e=>{if(e.id!=='songs-'+id) e.classList.remove('show')});var el=document.getElementById('songs-'+id);if(el) el.classList.toggle('show')}
-function openSong(n,a){document.getElementById('tMusica').innerText=n;document.getElementById('sMusica').innerText=a+' • Tom: Em • BPM 98';document.getElementById('cifraView').classList.add('show')}
-function closeSong(){document.getElementById('cifraView').classList.remove('show')}
-function openFull(){document.getElementById('full').classList.add('show')}
-function closeFull(){document.getElementById('full').classList.remove('show')}
+function openSong(n){document.getElementById('tMusica').innerText=n;document.getElementById('cifra').classList.add('show')}
 </script>
 </body>
 </html>
