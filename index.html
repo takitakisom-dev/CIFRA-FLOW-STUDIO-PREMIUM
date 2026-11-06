@@ -8,110 +8,116 @@
 <meta name="theme-color" content="#1a6fc4">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f0f2f5;color:#222}
-header{background:#1a6fc4;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 12px;gap:10px;position:sticky;top:0;z-index:20}
+body{font-family:Arial,sans-serif;background:#f0f2f5}
+.app{max-width:1000px;margin:10px auto;background:#fff;border:2px solid #1a6fc4;border-radius:6px;overflow:hidden}
+header{background:#1a6fc4;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:6px 12px}
 header .l{display:flex;align-items:center;gap:8px}
-#btnMenu{font-size:20px;background:#fff;color:#1a6fc4;border:0;width:38px;height:38px;border-radius:6px;cursor:pointer}
-header b{font-size:17px}
-.top{display:flex;gap:6px;flex-wrap:wrap}
-.top button{background:#fff;color:#1a6fc4;border:0;padding:7px 10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px}
-.top button.blue{background:#0d7ae0;color:#fff}
+#btnMenu{background:#fff;border:0;width:34px;height:34px;border-radius:5px;font-size:18px;cursor:pointer;color:#333}
+header b{font-size:18px;display:flex;align-items:center;gap:4px}
+.avatar{width:26px;height:26px;background:#eee;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#333;font-size:14px}
 #sidebar{position:fixed;top:0;left:-280px;width:260px;height:100vh;background:#0d2a4a;color:#fff;padding:20px;transition:.3s;z-index:50}
 #sidebar.open{left:0}
 #sidebar button{display:block;width:100%;text-align:left;background:rgba(255,255,255,.12);color:#fff;border:0;padding:12px;border-radius:10px;margin-bottom:8px;font-size:15px;cursor:pointer}
 #overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:40}
 #overlay.show{display:block}
-.wrap{max-width:1100px;margin:0 auto;padding:14px}
-.busca{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;font-size:15px;margin-bottom:14px}
-.pastas{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
-.pasta{background:#fff;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:2px solid transparent;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.pasta.ativa{border-color:#1a6fc4}
-.pasta b{display:block;font-size:15px}
-.pasta span{font-size:12px;color:#888}
-.musica{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.musica b{font-size:16px}
-.musica small{color:#666;display:block}
-.musica i{color:#1a6fc4;font-style:normal;font-weight:700}
-.card{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden}
-.flex{display:flex}
-.main{flex:1;padding:18px;min-width:0}
-.main h1{font-size:26px}
-.main small{color:#666}
-.intro{margin:14px 0;font-weight:700;font-size:14px}
-.estrofe{font-size:15px;line-height:1.9;margin-top:10px}
-.ac{color:#1a6fc4;font-weight:700}
-aside{width:250px;border-left:1px solid #eee;padding:14px;flex-shrink:0;background:#f8f8f8}
-aside h3{font-size:13px;margin-bottom:8px}
-.conf{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #eee;font-size:13px;cursor:pointer}
-.conf span{color:#333}
-.seg{display:flex;background:#eee;border-radius:6px;overflow:hidden}
-.seg button{border:0;padding:6px 12px;font-size:12px;cursor:pointer;background:#eee}
+.body{display:flex}
+.left{flex:1;padding:14px 16px;min-width:0}
+.left h1{font-size:26px}
+.left small{color:#555}
+.intro{margin:14px 0;font-weight:700;font-size:14px;color:#333}
+.estrofe{font-size:14px;line-height:1.2}
+.linha{position:relative;height:44px;white-space:nowrap}
+.acorde{position:absolute;top:0;color:#1a6fc4;font-weight:700;font-size:14px}
+.letra{position:absolute;top:22px;font-size:14px}
+.right{width:250px;border-left:1px solid #eee;padding:14px;background:#fff;flex-shrink:0}
+.right h3{font-size:13px;margin-bottom:12px}
+.conf{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
+.conf small{color:#666}
+.seg{display:flex;background:#eee;border-radius:5px;overflow:hidden}
+.seg button{border:0;padding:6px 14px;font-size:12px;cursor:pointer;background:#eee}
 .seg button.on{background:#1a6fc4;color:#fff}
-.player{border-top:1px solid #eee;padding:12px 14px}
-.player-top{display:flex;justify-content:space-between;align-items:center}
-.player-top h3{font-size:12px}
-.player-top span{font-size:12px;color:#666}
-.player-body{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
-.player-left{flex:1;min-width:220px}
-.prow{display:flex;gap:6px;flex-wrap:wrap}
-.prow button{background:#f0f0f0;border:1px solid #ddd;padding:7px 10px;border-radius:6px;font-size:11px;cursor:pointer}
-.prow button.play{background:#1a6fc4;color:#fff;border-color:#1a6fc4}
-.ctrl{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
-.ctrl button{background:#eee;border:0;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px}
-.ctrl input{width:110px;accent-color:#1a6fc4}
-.ctrl select{padding:6px;border:1px solid #ddd;border-radius:6px;font-size:12px}
+.topbtns{display:flex;gap:8px;margin-bottom:14px}
+.topbtns button{background:#eef6ff;border:1px solid #bcd8f5;color:#1a6fc4;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px}
+.topbtns button span{background:#1a6fc4;color:#fff;padding:3px 8px;border-radius:5px;font-size:11px}
+.player{border-top:1px solid #eee;padding:10px 14px}
+.player-head{display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#333}
+.player-head span{font-weight:400;color:#666}
+.player-main{display:flex;gap:12px;margin-top:8px}
+.player-left{flex:1}
+.load{display:flex;gap:6px}
+.load button{background:#fff;border:1px solid #ddd;padding:6px 8px;border-radius:6px;font-size:11px;cursor:pointer}
+.controls{display:flex;align-items:center;gap:8px;margin-top:10px}
+.controls button{background:#eee;border:0;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:13px}
+.controls button.blue{background:#1a6fc4;color:#fff}
+.controls input{width:90px;accent-color:#1a6fc4}
+.controls b{font-size:12px}
+.controls select{padding:5px;border:1px solid #ddd;border-radius:6px;font-size:12px}
 .knobs{display:flex;gap:14px}
 .knob{text-align:center}
-.knob label{font-size:10px;font-weight:700;color:#666;display:block}
-.knob input{width:52px;height:52px;accent-color:#1a6fc4;appearance:none;background:#eee;border-radius:50%;border:4px solid #1a6fc4;cursor:pointer}
-.knob b{font-size:11px;display:block;margin-top:2px}
-.bottom2{display:flex;gap:14px;align-items:center;margin-top:10px;flex-wrap:wrap;font-size:11px;color:#555}
-.bottom2 button{background:none;border:0;cursor:pointer;font-size:11px;color:#555}
-.voltar{background:#eee;border:0;padding:10px 14px;border-radius:8px;margin-bottom:12px;cursor:pointer;font-weight:700}
-@media(max-width:800px){.flex{flex-direction:column}aside{width:100%;border-left:0;border-top:1px solid #eee}.pastas{grid-template-columns:repeat(2,1fr)}.knobs{width:100%}}
+.knob label{font-size:10px;font-weight:700;color:#666}
+.knob .k{width:44px;height:44px;border-radius:50%;border:4px solid #1a6fc4;background:#eee;position:relative;margin:4px auto}
+.knob .k:after{content:'';position:absolute;left:50%;top:2px;width:3px;height:16px;background:#333;transform:translateX(-50%)}
+.knob b{font-size:11px}
+.bottom{display:flex;gap:16px;align-items:center;margin-top:8px;font-size:11px;color:#555}
+.bottom button{background:none;border:0;cursor:pointer;font-size:11px;color:#555;display:flex;flex-direction:column;align-items:center;gap:2px}
+.home{padding:14px}
+.busca{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-bottom:12px}
+.pastas{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.pasta{background:#fff;border:2px solid transparent;border-radius:12px;padding:14px;text-align:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.pasta.ativa{border-color:#1a6fc4}
+.musica{background:#fff;border-radius:12px;padding:13px;margin-bottom:8px;display:flex;justify-content:space-between;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+@media(max-width:700px){.body{flex-direction:column}.right{width:100%;border-left:0;border-top:1px solid #eee}.pastas{grid-template-columns:repeat(2,1fr)}.player-main{flex-direction:column}}
 </style>
 </head>
 <body>
-<header><div class="l"><button id="btnMenu" onclick="toggleMenu()">☰</button><b>🎵 e-Cifra</b></div><div class="top"><button onclick="alert('Importar')">🌐 IMPORTAR</button><button onclick="compartilhar()">↗ COMPARTILHAR</button><button>📱 INSTALAR NO CELULAR</button><button class="blue" id="installBtn">Instalar</button><button class="blue" onclick="mostrarHome()">INÍCIO</button></div></header>
-<div id="sidebar"><h2 style="margin-bottom:16px">☰ Menu</h2><button onclick="mostrarHome();toggleMenu()">🏠 Página Inicial</button><button onclick="filtrar('Louvores');toggleMenu()">🎵 Louvores</button><button onclick="filtrar('Culto');toggleMenu()">⛪ Culto</button><button onclick="filtrar('Ensaio');toggleMenu()">🎸 Ensaio</button><button onclick="filtrar('Favoritas');toggleMenu()">⭐ Favoritas</button><hr style="margin:14px 0;opacity:.3"><button onclick="toggleMenu()">✕ Fechar</button></div>
+<div id="sidebar"><h2 style="margin-bottom:14px">☰ Menu</h2><button onclick="mostrarHome();toggleMenu()">🏠 Página Inicial</button><button onclick="filtrar('Louvores');toggleMenu()">🎵 Louvores</button><button onclick="filtrar('Culto');toggleMenu()">⛪ Culto</button><button onclick="filtrar('Ensaio');toggleMenu()">🎸 Ensaio</button><button onclick="filtrar('Favoritas');toggleMenu()">⭐ Favoritas</button><hr style="margin:14px 0;opacity:.3"><button onclick="toggleMenu()">✕ Fechar</button></div>
 <div id="overlay" onclick="toggleMenu()"></div>
 
-<div id="home" class="wrap">
+<div class="app">
+<header><div class="l"><button id="btnMenu" onclick="toggleMenu()">☰</button><span>📶</span><b>🎵 e-Cifra</b></div><div class="avatar">👤</div></header>
+
+<div id="home" style="display:none" class="home">
 <input class="busca" placeholder="🔍 Buscar música..." oninput="buscar(this.value)">
-<div class="pastas"><div class="pasta ativa" id="p-Todas" onclick="filtrar('Todas')">📁<b>Todas</b><span>4 músicas</span></div><div class="pasta" id="p-Louvores" onclick="filtrar('Louvores')">🎵<b>Louvores</b><span>2 músicas</span></div><div class="pasta" id="p-Culto" onclick="filtrar('Culto')">⛪<b>Culto</b><span>1 música</span></div><div class="pasta" id="p-Ensaio" onclick="filtrar('Ensaio')">🎸<b>Ensaio</b><span>1 música</span></div></div>
-<h3 style="margin-bottom:10px">Todas as músicas</h3><div id="lista"></div>
+<div class="pastas"><div class="pasta ativa" id="p-Todas" onclick="filtrar('Todas')">📁<br><b>Todas</b></div><div class="pasta" id="p-Louvores" onclick="filtrar('Louvores')">🎵<br><b>Louvores</b></div><div class="pasta" id="p-Culto" onclick="filtrar('Culto')">⛪<br><b>Culto</b></div><div class="pasta" id="p-Ensaio" onclick="filtrar('Ensaio')">🎸<br><b>Ensaio</b></div></div>
+<div id="lista"></div>
 </div>
 
-<div id="cifraPage" class="wrap" style="display:none">
-<button class="voltar" onclick="mostrarHome()">← Voltar para Início</button>
-<div class="card"><div class="flex">
-<div class="main">
+<div id="cifraPage">
+<div class="body">
+<div class="left">
+<div class="topbtns"><button>🌐 IMPORTAR <span>+</span></button><button>↗ COMPARTILHAR</button><button>📱 INSTALAR NO CELULAR <span>Instalar</span></button></div>
 <h1 id="titulo">Garota de Ipanema</h1><small>Tom Jobim & Vinicius de Moraes</small>
 <p class="intro">[Intro: F7M | G7(13) | Gm7 | C7(9) | F7M]</p>
-<div class="estrofe" id="cifra"></div>
+<div class="estrofe">
+<p>[Estrofe 1:</p>
+<div class="linha"><span class="acorde" style="left:0" data-ac="F7M">(F7M)</span><span class="acorde" style="left:150px" data-ac="G7(13)">G7(13)</span><span class="acorde" style="left:350px" data-ac="Gm7">Gm7</span><span class="letra">Olha que coisa mais linda, mais cheia de graça</span></div>
+<div class="linha"><span class="acorde" style="left:0" data-ac="F7M">F7M)</span><span class="acorde" style="left:280px" data-ac="Gb7(13)">Gb7(13)</span><span class="letra">É ela menina que vem e que passa</span></div>
+<div class="linha"><span class="acorde" style="left:20px" data-ac="Gm7">Gm7</span><span class="acorde" style="left:180px" data-ac="C7(9)">C7(9)</span><span class="letra">num doce balanço a caminho do mar</span></div>
 </div>
-<aside><h3>CONFIGURAÇÕES</h3>
+</div>
+<div class="right">
+<h3>CONFIGURAÇÕES</h3>
 <div class="conf"><span>Tema</span><div class="seg"><button class="on" id="btnClaro" onclick="setTema('claro')">Claro</button><button id="btnEscuro" onclick="setTema('escuro')">Escuro</button></div></div>
 <div class="conf" onclick="aumentarFonte()"><span>Tamanho da Cifra</span><span>›</span></div>
 <div class="conf"><span>Fonte</span><span>›</span></div>
 <div class="conf" onclick="transpor(1)"><span>Transposição de Tom</span><span>›</span></div>
 <div class="conf" onclick="toggleScroll()"><span>Rolagem Automática</span><span>›</span></div>
-</aside>
+</div>
 </div>
 
 <div class="player">
-<div class="player-top"><h3>PLAYER DE ÁUDIO</h3><span>Apoio Musical &nbsp; ✕</span></div>
-<div class="player-body">
+<div class="player-head"><span>PLAYER DE ÁUDIO</span><span>Apoio Musical &nbsp; ✕</span></div>
+<div class="player-main">
 <div class="player-left">
-<div class="prow"><button>⬇ Carregar Playback/VS</button><button>From um dispositivo</button></div>
-<div class="ctrl"><button id="btnPlay" onclick="togglePlay()">⏸</button><button onclick="togglePlay()">⏹</button><input type="range" value="60"><button onclick="mudarBpm(-1)">◀</button><button onclick="mudarBpm(1)">▶</button><b><span id="bpm">76</span> BPM</b><input type="range" min="60" max="160" value="76" style="width:80px" oninput="document.getElementById('bpm').innerText=this.value"></div>
-<div class="bottom2"><select id="tomSelect" onchange="mudarTom(this.value)"><option>F Major</option><option>G Major</option><option>C Major</option><option>D Major</option></select><button>Scroll Speed</button><button>Automação</button><button onclick="toggleMetro()">Metrônomo</button><button>🎸 Tuner</button></div>
+<div class="load"><button>⬇ Carregar Playback/VS</button><button>From um dispositivo</button></div>
+<div class="controls"><button class="blue">⏸</button><button>⏹</button><input type="range" value="60"><button onclick="mudarBpm(-1)">◀</button><button onclick="mudarBpm(1)">▶</button><b><span id="bpm">76</span> BPM</b><input type="range" min="60" max="160" value="76" style="width:70px" oninput="document.getElementById('bpm').innerText=this.value"></div>
+<div class="bottom"><select id="tomSelect" onchange="mudarTom(this.value)"><option>F Major</option><option>G Major</option><option>C Major</option><option>D Major</option></select><button>↕<br>Scroll Speed</button><button>⇄<br>Automação</button><button onclick="toggleMetro()">🎵<br>Metronomo</button><button>🎸<br>Tuner</button></div>
 </div>
 <div class="knobs">
-<div class="knob"><label>VOLUME</label><input type="range" value="75" oninput="document.getElementById('vVol').innerText=this.value+'%'"><b id="vVol">75%</b></div>
-<div class="knob"><label>PITCH</label><input type="range" min="-6" max="6" value="2" oninput="document.getElementById('vPitch').innerText='+'+this.value+' st'"><b id="vPitch">+2 st</b></div>
-<div class="knob"><label>REVERB</label><input type="range" value="30" oninput="document.getElementById('vRev').innerText=this.value+'%'"><b id="vRev">30%</b></div>
-<div class="knob"><label>GRAVE</label><input type="range" min="-10" max="10" value="4" oninput="document.getElementById('vGrave').innerText='+'+this.value+' dB'"><b id="vGrave">+4 dB</b></div>
+<div class="knob"><label>VOLUME</label><div class="k"></div><b>75%</b></div>
+<div class="knob"><label>PITCH</label><div class="k"></div><b>+2 st</b></div>
+<div class="knob"><label>REVERB</label><div class="k"></div><b>30%</b></div>
+<div class="knob"><label>GRAVE</label><div class="k"></div><b>+4 dB</b></div>
 </div>
 </div>
 </div>
@@ -119,32 +125,23 @@ aside h3{font-size:13px;margin-bottom:8px}
 </div>
 
 <script>
-const tons=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];let tomIdx=5,fontSize=15,playing=true,scrollOn=false,scrollId=null,filtro='Todas',buscaTxt='';
+const tons=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];let tomIdx=5,filtro='Todas',buscaTxt='';
 const musicas=[{titulo:'Garota de Ipanema',artista:'Tom Jobim',tom:'F',pasta:'Louvores'},{titulo:'Como É Grande o Meu Amor',artista:'Roberto Carlos',tom:'C',pasta:'Culto'},{titulo:'Aquarela',artista:'Toquinho',tom:'G',pasta:'Ensaio'},{titulo:'Oceano',artista:'Djavan',tom:'D',pasta:'Louvores'}];
-function renderLista(){let list=musicas.filter(m=>(filtro==='Todas'||m.pasta===filtro)&&m.titulo.toLowerCase().includes(buscaTxt));document.getElementById('lista').innerHTML=list.map(m=>`<div class="musica" onclick="abrirCifra('${m.titulo}')"><div><b>${m.titulo}</b><small>${m.artista} • ${m.pasta}</small></div><i>Tom ${m.tom} ›</i></div>`).join('');document.querySelectorAll('.pasta').forEach(p=>p.classList.remove('ativa'));let el=document.getElementById('p-'+filtro);if(el)el.classList.add('ativa');}
+function renderLista(){let list=musicas.filter(m=>(filtro==='Todas'||m.pasta===filtro)&&m.titulo.toLowerCase().includes(buscaTxt));document.getElementById('lista').innerHTML=list.map(m=>`<div class="musica" onclick="abrirCifra('${m.titulo}')"><div><b>${m.titulo}</b><br><small>${m.artista} • ${m.pasta}</small></div><i>Tom ${m.tom} ›</i></div>`).join('');document.querySelectorAll('.pasta').forEach(p=>p.classList.remove('ativa'));let el=document.getElementById('p-'+filtro);if(el)el.classList.add('ativa');}
 function filtrar(f){filtro=f;mostrarHome();renderLista();}
 function buscar(v){buscaTxt=v.toLowerCase();renderLista();}
 function mostrarHome(){document.getElementById('home').style.display='block';document.getElementById('cifraPage').style.display='none';}
-function abrirCifra(t){document.getElementById('titulo').innerText=t;document.getElementById('home').style.display='none';document.getElementById('cifraPage').style.display='block';render();}
+function abrirCifra(t){document.getElementById('titulo').innerText=t;document.getElementById('home').style.display='none';document.getElementById('cifraPage').style.display='block';}
 function toggleMenu(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
-function t(ac){const r=ac.match(/^[A-G][#b]?/)[0];const idx=tons.indexOf(r.replace('b',''));return ac.replace(r,tons[(idx+(tomIdx-5)+12)%12]);}
-function render(){
- let html=`[Estrofe 1:<br><span class="ac">(${t('F7M')})</span> Olha que coisa mais <span class="ac">(${t('G7(13)')})</span> linda, mais cheia de <span class="ac">(${t('Gm7')})</span> graça<br><span class="ac">(${t('F7M')})</span> É ela menina que <span class="ac">(${t('Gb7(13)')})</span> vem e que passa<br>num doce balanço a <span class="ac">(${t('Gm7')})</span> caminho do <span class="ac">(${t('C7(9)')})</span> mar`;
- document.getElementById('cifra').innerHTML=html;
- document.getElementById('cifra').style.fontSize=fontSize+'px';
-}
-function transpor(d){tomIdx=(tomIdx+d+12)%12;render();}
-function mudarTom(v){tomIdx=tons.indexOf(v.split(' ')[0]);render();}
-function aumentarFonte(){fontSize+=1;render();}
-function setTema(t){if(t==='escuro'){document.body.style.background='#111';document.querySelector('.card').style.background='#222';document.querySelector('.card').style.color='#fff';document.getElementById('btnEscuro').classList.add('on');document.getElementById('btnClaro').classList.remove('on');}else location.reload();}
-function togglePlay(){playing=!playing;document.getElementById('btnPlay').innerText=playing?'⏸':'▶';}
-function toggleScroll(){scrollOn=!scrollOn;if(scrollOn)scrollId=setInterval(()=>window.scrollBy(0,1),50);else clearInterval(scrollId);alert(scrollOn?'Rolagem ligada':'Rolagem desligada');}
+function transpor(d){tomIdx=(tomIdx+d+12)%12;document.querySelectorAll('[data-ac]').forEach(el=>{let ac=el.getAttribute('data-ac');let r=ac.match(/^[A-G][#b]?/)[0];let idx=tons.indexOf(r.replace('b',''));let novo=tons[(idx+(tomIdx-5)+12)%12];el.innerText=el.innerText.replace(r,novo);});document.getElementById('tomSelect').value=tons[tomIdx]+' Major';}
+function mudarTom(v){tomIdx=tons.indexOf(v.split(' ')[0]);}
+function aumentarFonte(){alert('Tamanho da cifra: toque em Transposição para mudar o tom');}
+function setTema(t){if(t==='escuro'){document.querySelector('.app').style.background='#222';document.querySelector('.app').style.color='#fff';document.getElementById('btnEscuro').classList.add('on');document.getElementById('btnClaro').classList.remove('on');}else location.reload();}
+function toggleScroll(){alert('Rolagem Automática ligada');}
 function toggleMetro(){alert('Metrônomo em '+document.getElementById('bpm').innerText+' BPM');}
 function mudarBpm(d){document.getElementById('bpm').innerText=parseInt(document.getElementById('bpm').innerText)+d;}
-function compartilhar(){if(navigator.share)navigator.share({title:'e-Cifra',url:location.href});else alert(location.href);}
-renderLista();render();
+renderLista();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
-let dp;const ib=document.getElementById('installBtn');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.style.display='block';ib.onclick=()=>{ib.style.display='none';dp.prompt();};});
 </script>
 </body>
 </html>
