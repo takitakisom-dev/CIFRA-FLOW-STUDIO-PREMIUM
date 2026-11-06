@@ -1,205 +1,38 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cifra Flow</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1a6fc4">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f0f2f5}
-.app{max-width:1000px;margin:10px auto;background:#fff;border:2px solid #1a6fc4;border-radius:6px;overflow:hidden}
-header{background:#1a6fc4;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 12px}
-#btnMenu{background:#fff;border:0;width:36px;height:36px;border-radius:6px;font-size:18px;cursor:pointer}
-header b{font-size:18px}
-#sidebar{position:fixed;top:0;left:-290px;width:290px;height:100vh;background:#0d2a4a;color:#fff;padding:20px;transition:.3s;z-index:50;overflow-y:auto}
-#sidebar.open{left:0}
-#sidebar button{display:block;width:100%;text-align:left;background:rgba(255,255,255,.12);color:#fff;border:0;padding:12px;border-radius:10px;margin-bottom:8px;font-size:15px;cursor:pointer}
-#sidebar button.prim{background:#1a6fc4;color:#fff;font-weight:700}
-#sidebar small{color:#9db4d0;font-size:11px;display:block;margin:14px 0 6px}
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:40}
-#overlay.show{display:block}
-.body{display:flex}
-.left{flex:1;padding:14px 16px;min-width:0}
-.left h1{font-size:26px}
-.linha{position:relative;height:44px;white-space:nowrap}
-.acorde{position:absolute;top:0;color:#1a6fc4;font-weight:700;font-size:14px}
-.letra{position:absolute;top:22px;font-size:14px}
-.right{width:250px;border-left:1px solid #eee;padding:14px;flex-shrink:0}
-.conf{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px;cursor:pointer}
-.seg{display:flex;background:#eee;border-radius:5px;overflow:hidden}
-.seg button{border:0;padding:6px 14px;font-size:12px;cursor:pointer;background:#eee}
-.seg button.on{background:#1a6fc4;color:#fff}
-.topbtns{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.topbtns button{background:#eef6ff;border:1px solid #bcd8f5;color:#1a6fc4;padding:9px 11px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer}
-.topbtns button.grande{background:#1a6fc4;color:#fff;border-color:#1a6fc4;font-size:13px}
-.player{border-top:1px solid #eee;padding:10px 14px}
-.load{display:flex;gap:6px;flex-wrap:wrap}
-.load button{background:#fff;border:1px solid #ddd;padding:7px 9px;border-radius:6px;font-size:11px;cursor:pointer}
-.load button.prim{background:#1a6fc4;color:#fff;border-color:#1a6fc4;font-weight:700}
-.home{padding:14px}
-.busca{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-bottom:12px}
-.controlesHome{background:#f8f9fb;border:1px solid #eee;border-radius:12px;padding:12px;margin-bottom:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between}
-.knob{text-align:center}
-.knob label{font-size:10px;font-weight:700;color:#666}
-.knob input{width:48px;height:48px;accent-color:#1a6fc4;appearance:none;background:#eee;border-radius:50%;border:4px solid #1a6fc4;cursor:pointer}
-.knob b{font-size:11px;display:block}
-.pastas{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.pasta{background:#fff;border:1px solid #eee;border-radius:12px;padding:13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
-.pasta b{font-size:15px;display:block}
-.pasta span{font-size:12px;color:#888}
-.musica{background:#fff;border:1px solid #eee;border-radius:12px;padding:13px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
-.btnsHome{display:flex;gap:8px;margin:12px 0}
-.btnsHome button{flex:1;padding:13px;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px}
-.btnAdd{background:#1a6fc4;color:#fff;border:0}
-.btnEdit{background:#fff;color:#1a6fc4;border:1px solid #1a6fc4}
-#telaCheia{position:fixed;inset:0;background:#fff;z-index:100;display:none;overflow-y:auto}
-#telaCheia.show{display:block}
-#telaCheia .barra{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;padding:8px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-#telaCheia .barra button{background:#eef6ff;border:1px solid #bcd8f5;color:#1a6fc4;padding:7px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer}
-#telaCheia .barra button.ativo{background:#1a6fc4;color:#fff}
-#telaCheia .conteudo{padding:20px}
-#telaCheia .linha{height:52px}
-#telaCheia .acorde{font-size:18px}
-#telaCheia .letra{font-size:20px;top:26px}
-.btnSair{background:#1a6fc4!important;color:#fff!important;margin-left:auto}
-@media(max-width:700px){.body{flex-direction:column}.right{width:100%;border-left:0;border-top:1px solid #eee}}
-</style>
+    <meta charset="UTF-8">
+    <title>Chord Wizard</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: #fff; margin: 0; padding: 20px; }
+        #viewer { max-width: 600px; margin: auto; font-size: 1.2rem; line-height: 2; }
+        .chord-line { font-weight: bold; color: #00d2ff; position: relative; height: 1.5em; }
+        .text-line { margin-bottom: 1em; }
+        .chord { position: absolute; }
+        #controls { position: fixed; bottom: 0; left: 0; width: 100%; background: #1f1f1f; padding: 15px; box-sizing: border-box; }
+        .control-group { margin-bottom: 10px; }
+    </style>
 </head>
 <body>
-<div id="sidebar">
-<h2>☰ Menu - Cifra Flow</h2>
-<button onclick="mostrarHome();toggleMenu()">🏠 Página Inicial</button>
-<small>MENU - NOVO, SEM LOUVORES / CULTO / ENSAIO / FAVORITAS</small>
-<button onclick="filtrar('VS');toggleMenu()">🎹 Cifras Salvas com VS</button>
-<button onclick="filtrar('Playback');toggleMenu()">▶️ Cifras Salvas com Playback</button>
-<button onclick="filtrar('Salvas');toggleMenu()">💾 Cifras Salvas</button>
-<button onclick="filtrar('Repertorio');toggleMenu()">📋 Repertório</button>
-<button onclick="filtrar('Biblioteca');toggleMenu()">📚 Biblioteca de Músicas</button>
-<small>BACKUP</small>
-<button class="prim" onclick="exportarBackup()">⬆ Exportar Backup</button>
-<button class="prim" onclick="importarBackup()">⬇ Importar Backup</button>
-<small>APP</small>
-<button class="prim" onclick="instalarApp()">📱 Instalar Direto</button>
-<button class="prim" onclick="compartilhar()">↗ Compartilhar o Aplicativo</button>
-<button onclick="toggleMenu()">✕ Fechar</button>
-</div>
-<div id="overlay" onclick="toggleMenu()"></div>
 
-<div class="app">
-<header><div><button id="btnMenu" onclick="toggleMenu()">☰</button> <b>🎵 Cifra Flow</b></div><button onclick="abrirTelaCheia()" style="background:#fff;border:0;padding:7px 11px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer">⛶ TELA GRANDE</button></header>
-
-<div id="home" class="home">
-<input class="busca" placeholder="🔍 Buscar cantor ou música..." oninput="buscar(this.value)">
-<div class="controlesHome">
-<div class="knob"><label>VOLUME</label><input type="range" value="75" oninput="document.getElementById('vVol').innerText=this.value+'%'"><b id="vVol">75%</b></div>
-<div class="knob"><label>PITCH</label><input type="range" min="-6" max="6" value="2" oninput="document.getElementById('vPitch').innerText='+'+this.value+' st'"><b id="vPitch">+2 st</b></div>
-<div class="knob"><label>REVERB</label><input type="range" value="30" oninput="document.getElementById('vRev').innerText=this.value+'%'"><b id="vRev">30%</b></div>
-<div class="knob"><label>GRAVE</label><input type="range" min="-10" max="10" value="4" oninput="document.getElementById('vGrave').innerText='+'+this.value+' dB'"><b id="vGrave">+4 dB</b></div>
-<div class="knob"><label>AGUDO</label><input type="range" min="-10" max="10" value="3" oninput="document.getElementById('vAgudo').innerText='+'+this.value+' dB'"><b id="vAgudo">+3 dB</b></div>
-<div class="knob"><label>BPM</label><input type="range" min="60" max="160" value="76" oninput="document.getElementById('bpmHome').innerText=this.value"><b id="bpmHome">76</b></div>
-</div>
-<h3 style="margin-bottom:10px">Pastas dos Cantores</h3>
-<div class="pastas">
-<div class="pasta" onclick="filtrar('Todas')"><div><b>📁 Todas</b><span>6 músicas</span></div><span>›</span></div>
-<div class="pasta" onclick="filtrar('Caetano Veloso')"><div><b>🎤 Caetano Veloso</b><span>2 músicas</span></div><span>›</span></div>
-<div class="pasta" onclick="filtrar('Legião Urbana')"><div><b>🎸 Legião Urbana</b><span>2 músicas</span></div><span>›</span></div>
-<div class="pasta" onclick="filtrar('Tom Jobim')"><div><b>🎵 Tom Jobim</b><span>1 música</span></div><span>›</span></div>
-<div class="pasta" onclick="filtrar('Djavan')"><div><b>🎶 Djavan</b><span>1 música</span></div><span>›</span></div>
-</div>
-<div class="btnsHome"><button class="btnAdd" onclick="adicionarCifra()">+ Adicionar Nova Cifra</button><button class="btnEdit" onclick="editarCifra()">✏️ Editar</button></div>
-<h3 id="tituloLista">Todas as músicas</h3>
-<div id="lista"></div>
-<p style="font-size:12px;color:#666;margin-top:10px">📚 Biblioteca: toda música que você colocar vai pra Biblioteca. Depois a gente trabalha nela.</p>
+<div id="viewer">
+    <h1 id="song-title"></h1>
+    <div id="lyrics-container"></div>
 </div>
 
-<div id="cifraPage" style="display:none">
-<div class="body">
-<div class="left">
-<div class="topbtns"><button onclick="importarBackup()">🌐 IMPORTAR</button><button onclick="compartilhar()">↗ COMPARTILHAR</button><button onclick="instalarApp()">📱 INSTALAR</button><button class="grande" onclick="abrirTelaCheia()">⛶ TELA GRANDE - SÓ CIFRA</button><button onclick="toggleSimplificada()" id="btnSimp">✨ CIFRA SIMPLIFICADA</button></div>
-<h1 id="titulo">Garota de Ipanema</h1><small>Tom Jobim & Vinicius de Moraes</small>
-<p style="margin:14px 0;font-weight:700">[Intro: F7M | G7(13) | Gm7 | C7(9) | F7M]</p>
-<div class="linha"><span class="acorde" style="left:0">F7M</span><span class="acorde" style="left:150px">G7(13)</span><span class="acorde" style="left:350px">Gm7</span><span class="letra">Olha que coisa mais linda, mais cheia de graça</span></div>
-<div class="linha"><span class="acorde" style="left:0">F7M</span><span class="acorde" style="left:280px">Gb7(13)</span><span class="letra">É ela menina que vem e que passa</span></div>
-<div class="linha"><span class="acorde" style="left:20px">Gm7</span><span class="acorde" style="left:180px">C7(9)</span><span class="letra">num doce balanço a caminho do mar</span></div>
-</div>
-<div class="right">
-<h3>CONFIGURAÇÕES</h3>
-<div class="conf" onclick="abrirTelaCheia()"><span>⛶ Tela Grande - Só Cifra</span><span>›</span></div>
-<div class="conf" onclick="toggleSimplificada()"><span>✨ Cifra Simplificada</span><span id="simpStatus">Desligada ›</span></div>
-<div class="conf"><span>Tema</span><div class="seg"><button class="on">Claro</button><button>Escuro</button></div></div>
-<div class="conf"><span>Tamanho da Cifra</span><span>›</span></div>
-<div class="conf"><span>Rolagem Automática 1 a 7</span><span>›</span></div>
-</div>
-</div>
-<div class="player"><div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700"><span>PLAYER DE ÁUDIO</span><span>Apoio Musical ✕</span></div><div class="load" style="margin-top:8px"><button onclick="buscarVS()">⬇ Buscar VS</button><button onclick="buscarPlayback()">⬇ Buscar Playback</button><button class="prim" onclick="salvarComCifra()">💾 SALVAR JUNTO COM A CIFRA</button></div></div>
-</div>
-</div>
+<div id="controls">
+    <div class="control-group">
+        <label>BPM: <span id="bpm-val">124</span></label>
+        <input type="range" id="bpm" min="60" max="200" value="124">
+    </div>
+    <div class="control-group">
+        <label>Pitch (Semitons):</label>
+        <input type="range" id="pitch" min="-6" max="6" value="0">
+    </div>
+    <button onclick="salvarConfiguracao()">Salvar Setup</button>
 </div>
 
-<div id="telaCheia">
-<div class="barra">
-<span style="font-size:12px;font-weight:700">ROLAGEM:</span>
-<button onclick="setRolagem(1)" id="r1">1 Devagar</button><button onclick="setRolagem(2)" id="r2">2</button><button onclick="setRolagem(3)" id="r3">3</button><button onclick="setRolagem(4)" id="r4">4</button><button onclick="setRolagem(5)" id="r5">5</button><button onclick="setRolagem(6)" id="r6">6</button><button onclick="setRolagem(7)" id="r7">7 Rápido</button>
-<button onclick="toggleRolagem()" id="btnRolar">▶ Rolar</button>
-<span style="font-size:12px;font-weight:700">LETRA:</span><button onclick="mudarFonte(-2)">A-</button><button onclick="mudarFonte(2)">A+</button>
-<button class="btnSair" onclick="fecharTelaCheia()">✕ SAIR</button>
-</div>
-<div class="conteudo">
-<h1 id="tituloCheia">Garota de Ipanema</h1><small>Tom Jobim & Vinicius de Moraes</small>
-<p style="margin:14px 0;font-weight:700">[Intro: F7M | G7(13) | Gm7 | C7(9)]</p>
-<div class="linha"><span class="acorde" style="left:0">F7M</span><span class="acorde" style="left:150px">G7(13)</span><span class="acorde" style="left:350px">Gm7</span><span class="letra">Olha que coisa mais linda, mais cheia de graça</span></div>
-<div class="linha"><span class="acorde" style="left:0">F7M</span><span class="acorde" style="left:280px">Gb7(13)</span><span class="letra">É ela menina que vem e que passa</span></div>
-<div class="linha"><span class="acorde" style="left:20px">Gm7</span><span class="acorde" style="left:180px">C7(9)</span><span class="letra">num doce balanço a caminho do mar</span></div>
-<p style="margin-top:30px;color:#999;font-size:12px">Tela Grande - só letra + cifra</p>
-</div>
-</div>
-
-<script>
-let filtro='Todas',buscaTxt='',simplificada=false,velRolagem=3,rolando=false,timerRolagem=null,tamanhoFonte=20;
-let musicas=[
-{titulo:'Garota de Ipanema',cantor:'Tom Jobim',tom:'F',vs:true,playback:false},
-{titulo:'Sozinho',cantor:'Caetano Veloso',tom:'C',vs:false,playback:true},
-{titulo:'Cálice',cantor:'Caetano Veloso',tom:'G',vs:true,playback:false},
-{titulo:'Tempo Perdido',cantor:'Legião Urbana',tom:'D',vs:false,playback:true},
-{titulo:'Pais e Filhos',cantor:'Legião Urbana',tom:'A',vs:true,playback:true},
-{titulo:'Oceano',cantor:'Djavan',tom:'D',vs:false,playback:false}
-];
-function renderLista(){
- let list=musicas.filter(m=>(filtro==='Todas'||m.cantor===filtro||filtro==='Biblioteca')&&(m.titulo.toLowerCase().includes(buscaTxt)||m.cantor.toLowerCase().includes(buscaTxt)));
- if(filtro==='VS') list=musicas.filter(m=>m.vs);
- if(filtro==='Playback') list=musicas.filter(m=>m.playback);
- if(filtro==='Salvas') list=musicas.slice(0,3);
- if(filtro==='Repertorio') list=musicas.slice(0,2);
- document.getElementById('lista').innerHTML=list.map(m=>`<div class="musica" onclick="abrirCifra('${m.titulo}')"><div><b>${m.titulo}</b><br><small>${m.cantor} ${m.vs?'• 🎹 Com VS':''} ${m.playback?'• ▶️ Com Playback':''}</small></div><div><button onclick="event.stopPropagation();editarCifra('${m.titulo}')" style="background:#eef6ff;border:1px solid #1a6fc4;color:#1a6fc4;padding:6px 10px;border-radius:6px;cursor:pointer">✏️ Editar</button> <span>Tom ${m.tom} ›</span></div></div>`).join('');
- document.getElementById('tituloLista').innerText=filtro==='Todas'?'Todas as músicas - Biblioteca':filtro==='Biblioteca'?'Biblioteca de Músicas - tudo que você colocou':'Pasta: '+filtro;
-}
-function filtrar(f){filtro=f;mostrarHome();renderLista();}
-function buscar(v){buscaTxt=v.toLowerCase();renderLista();}
-function mostrarHome(){document.getElementById('home').style.display='block';document.getElementById('cifraPage').style.display='none';}
-function abrirCifra(t){document.getElementById('titulo').innerText=t;document.getElementById('tituloCheia').innerText=t;document.getElementById('home').style.display='none';document.getElementById('cifraPage').style.display='block';}
-function toggleMenu(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
-function adicionarCifra(){let nome=prompt('Nome da nova cifra:','');let cantor=prompt('Cantor:','');if(nome&&cantor){musicas.push({titulo:nome,cantor:cantor,tom:'C',vs:false,playback:false});renderLista();alert('Cifra "'+nome+'" adicionada! Já foi pra Biblioteca e pra pasta '+cantor+'!');}}
-function editarCifra(t){let nome=prompt('Editar nome da cifra:',t||document.getElementById('titulo').innerText);if(nome)alert('Cifra "'+nome+'" salva!');}
-function buscarVS(){alert('Buscar VS');}
-function buscarPlayback(){alert('Buscar Playback');}
-function salvarComCifra(){alert('✅ SALVO JUNTO COM A CIFRA! VS + Playback + BPM + Volume + Grave + Agudo');}
-function exportarBackup(){alert('⬆ Exportar Backup - baixa arquivo com tudo');}
-function importarBackup(){alert('⬇ Importar Backup - escolhe o arquivo');}
-function toggleSimplificada(){simplificada=!simplificada;document.getElementById('simpStatus').innerText=simplificada?'Ligada ›':'Desligada ›';document.getElementById('btnSimp').innerText=simplificada?'✨ SIMPLIFICADA: LIGADA':'✨ CIFRA SIMPLIFICADA';}
-function abrirTelaCheia(){document.getElementById('telaCheia').classList.add('show');document.getElementById('telaCheia').scrollTop=0;}
-function fecharTelaCheia(){pararRolagem();document.getElementById('telaCheia').classList.remove('show');}
-function setRolagem(v){velRolagem=v;for(let i=1;i<=7;i++)document.getElementById('r'+i).classList.remove('ativo');document.getElementById('r'+v).classList.add('ativo');if(rolando){pararRolagem();iniciarRolagem();}}
-function iniciarRolagem(){let vel={1:4,2:8,3:14,4:22,5:32,6:45,7:60};let px=vel[velRolagem]/60;timerRolagem=setInterval(()=>{let el=document.getElementById('telaCheia');el.scrollTop+=px;if(el.scrollTop+el.clientHeight>=el.scrollHeight-5)pararRolagem();},16);}
-function pararRolagem(){rolando=false;clearInterval(timerRolagem);document.getElementById('btnRolar').innerText='▶ Rolar';}
-function toggleRolagem(){if(rolando)pararRolagem();else{rolando=true;document.getElementById('btnRolar').innerText='⏸ Pausar';iniciarRolagem();}}
-function mudarFonte(d){tamanhoFonte=Math.max(14,Math.min(36,tamanhoFonte+d));document.querySelectorAll('#telaCheia .letra').forEach(el=>el.style.fontSize=tamanhoFonte+'px');document.querySelectorAll('#telaCheia .acorde').forEach(el=>el.style.fontSize=(tamanhoFonte-2)+'px');document.querySelectorAll('#telaCheia .linha').forEach(el=>el.style.height=(tamanhoFonte+32)+'px');}
-function compartilhar(){if(navigator.share)navigator.share({title:'Cifra Flow',url:location.href});else alert(location.href);}
-let dp=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;});
-function instalarApp(){if(dp)dp.prompt();else alert('No celular: 3 pontinhos > Adicionar à tela inicial / Instalar app');}
-renderLista();setRolagem(3);
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
-</script>
+<script src="app.js"></script>
 </body>
 </html>
+
