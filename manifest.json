@@ -1,20 +1,19 @@
 {
-  "name": "Cifra Flow",
-  "short_name": "Cifra Flow",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#5a3316",
-  "theme_color": "#5a3316",
-  "icons": [
-    {
-      "src": "icon.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+  "title": "Mas Que Nada",
+  "artist": "Jorge Ben Jor",
+  "audioSettings": {
+    "pitch": 0,
+    "bpm": 124,
+    "bass": 0,
+    "treble": 0,
+    "reverb": true
+  },
+  "content": [
+    { "chord": "Abm7", "text": "O-o-h, " },
+    { "chord": "Db7", "text": "m-a-s q-u-e n-a-d-a," },
+    { "chord": "Gbm7", "text": " " },
+    { "chord": "Db7", "text": "Db7" },
+    { "chord": "Emaj7", "text": " S-a-m-b-a j-á..." }
   ]
 }
+
