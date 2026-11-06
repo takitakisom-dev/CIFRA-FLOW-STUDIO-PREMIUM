@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>e-Cifra</title>
+<title>Cifra Flow</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1a6fc4">
 <style>
@@ -32,11 +32,10 @@ header b{font-size:18px;display:flex;align-items:center;gap:4px}
 .right{width:250px;border-left:1px solid #eee;padding:14px;background:#fff;flex-shrink:0}
 .right h3{font-size:13px;margin-bottom:12px}
 .conf{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
-.conf small{color:#666}
 .seg{display:flex;background:#eee;border-radius:5px;overflow:hidden}
 .seg button{border:0;padding:6px 14px;font-size:12px;cursor:pointer;background:#eee}
 .seg button.on{background:#1a6fc4;color:#fff}
-.topbtns{display:flex;gap:8px;margin-bottom:14px}
+.topbtns{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .topbtns button{background:#eef6ff;border:1px solid #bcd8f5;color:#1a6fc4;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px}
 .topbtns button span{background:#1a6fc4;color:#fff;padding:3px 8px;border-radius:5px;font-size:11px}
 .player{border-top:1px solid #eee;padding:10px 14px}
@@ -44,9 +43,9 @@ header b{font-size:18px;display:flex;align-items:center;gap:4px}
 .player-head span{font-weight:400;color:#666}
 .player-main{display:flex;gap:12px;margin-top:8px}
 .player-left{flex:1}
-.load{display:flex;gap:6px}
+.load{display:flex;gap:6px;flex-wrap:wrap}
 .load button{background:#fff;border:1px solid #ddd;padding:6px 8px;border-radius:6px;font-size:11px;cursor:pointer}
-.controls{display:flex;align-items:center;gap:8px;margin-top:10px}
+.controls{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
 .controls button{background:#eee;border:0;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:13px}
 .controls button.blue{background:#1a6fc4;color:#fff}
 .controls input{width:90px;accent-color:#1a6fc4}
@@ -58,7 +57,7 @@ header b{font-size:18px;display:flex;align-items:center;gap:4px}
 .knob .k{width:44px;height:44px;border-radius:50%;border:4px solid #1a6fc4;background:#eee;position:relative;margin:4px auto}
 .knob .k:after{content:'';position:absolute;left:50%;top:2px;width:3px;height:16px;background:#333;transform:translateX(-50%)}
 .knob b{font-size:11px}
-.bottom{display:flex;gap:16px;align-items:center;margin-top:8px;font-size:11px;color:#555}
+.bottom{display:flex;gap:16px;align-items:center;margin-top:8px;font-size:11px;color:#555;flex-wrap:wrap}
 .bottom button{background:none;border:0;cursor:pointer;font-size:11px;color:#555;display:flex;flex-direction:column;align-items:center;gap:2px}
 .home{padding:14px}
 .busca{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-bottom:12px}
@@ -70,11 +69,11 @@ header b{font-size:18px;display:flex;align-items:center;gap:4px}
 </style>
 </head>
 <body>
-<div id="sidebar"><h2 style="margin-bottom:14px">☰ Menu</h2><button onclick="mostrarHome();toggleMenu()">🏠 Página Inicial</button><button onclick="filtrar('Louvores');toggleMenu()">🎵 Louvores</button><button onclick="filtrar('Culto');toggleMenu()">⛪ Culto</button><button onclick="filtrar('Ensaio');toggleMenu()">🎸 Ensaio</button><button onclick="filtrar('Favoritas');toggleMenu()">⭐ Favoritas</button><hr style="margin:14px 0;opacity:.3"><button onclick="toggleMenu()">✕ Fechar</button></div>
+<div id="sidebar"><h2 style="margin-bottom:14px">☰ Menu - Cifra Flow</h2><button onclick="mostrarHome();toggleMenu()">🏠 Página Inicial</button><button onclick="filtrar('Louvores');toggleMenu()">🎵 Louvores</button><button onclick="filtrar('Culto');toggleMenu()">⛪ Culto</button><button onclick="filtrar('Ensaio');toggleMenu()">🎸 Ensaio</button><button onclick="filtrar('Favoritas');toggleMenu()">⭐ Favoritas</button><hr style="margin:14px 0;opacity:.3"><button onclick="toggleMenu()">✕ Fechar</button></div>
 <div id="overlay" onclick="toggleMenu()"></div>
 
 <div class="app">
-<header><div class="l"><button id="btnMenu" onclick="toggleMenu()">☰</button><span>📶</span><b>🎵 e-Cifra</b></div><div class="avatar">👤</div></header>
+<header><div class="l"><button id="btnMenu" onclick="toggleMenu()">☰</button><span>📶</span><b>🎵 Cifra Flow</b></div><div class="avatar">👤</div></header>
 
 <div id="home" style="display:none" class="home">
 <input class="busca" placeholder="🔍 Buscar música..." oninput="buscar(this.value)">
