@@ -1,124 +1,24 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cifra Flow - Chord Wizard</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:sans-serif;background:#121212;color:#fff;padding:20px}
-.app{max-width:900px;margin:auto;background:#1a1a1a;border:2px solid #1a6fc4;border-radius:10px;overflow:hidden}
-header{background:#1a6fc4;color:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-header button{background:#fff;border:0;padding:8px 12px;border-radius:6px;font-weight:700;cursor:pointer}
-.home{padding:14px}
-.busca{width:100%;padding:12px;border:1px solid #333;border-radius:10px;margin-bottom:12px;background:#222;color:#fff}
-.controles{background:#1f1f1f;border:1px solid #333;border-radius:12px;padding:12px;margin-bottom:14px;display:flex;gap:14px;flex-wrap:wrap}
-.controles label{font-size:11px;font-weight:700;color:#aaa;display:block}
-.controles input{width:100%}
-.controles div{flex:1;min-width:120px}
-.pastas{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
-.pasta{background:#222;border:1px solid #333;border-radius:14px;padding:12px;cursor:pointer;display:flex;gap:12px;align-items:center}
-.pasta.aberta{border-color:#1a6fc4}
-.pasta-foto{width:52px;height:52px;border-radius:50%;background:#1a6fc4;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;flex-shrink:0}
-.pasta-info{flex:1}
-.pasta-info b{font-size:15px}
-.pasta-info small{color:#aaa}
-.musicas-dentro{display:none;margin-top:12px;flex-direction:column;gap:8px;width:100%}
-.pasta.aberta .musicas-dentro{display:flex}
-.musica-item{background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:12px;display:flex;justify-content:space-between;cursor:pointer}
-.btns{display:flex;gap:8px;margin:12px 0}
-.btns button{flex:1;padding:12px;border-radius:10px;font-weight:700;cursor:pointer}
-.btnAdd{background:#1a6fc4;color:#fff;border:0}
-.btnEdit{background:#222;color:#00d2ff;border:1px solid #1a6fc4}
-#viewer{max-width:600px;margin:auto;font-size:1.2rem;line-height:2;padding:14px;display:none}
-#viewer.mostrar{display:block}
-.chord-line{font-weight:bold;color:#00d2ff;position:relative;height:1.5em}
-.text-line{margin-bottom:1em}
-.chord{position:absolute}
-.btnReverb{padding:8px 12px;border-radius:8px;border:1px solid #1a6fc4;background:#222;color:#00d2ff;font-weight:700;cursor:pointer}
-.btnReverb.on{background:#1a6fc4;color:#fff}
-.btnVoltar{background:#222;color:#fff;border:1px solid #333;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer;margin-bottom:12px}
-#menuFundo{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;display:none}
-#menuFundo.show{display:block}
-#menuLateral{position:fixed;top:0;left:0;bottom:0;width:280px;max-width:85vw;background:#1a1a1a;border-right:2px solid #1a6fc4;z-index:100;padding:16px;overflow-y:auto;transform:translateX(-100%);transition:.25s}
-#menuLateral.show{transform:translateX(0)}
-.menuSecao{font-size:11px;font-weight:700;color:#888;margin:16px 0 8px}
-.menuItem{background:#222;border:1px solid #333;border-radius:10px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;cursor:pointer}
-.menuItem.ativo{border-color:#1a6fc4;background:#1a6fc4}
-.menuBtn{width:100%;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;border:0;margin-bottom:8px}
-#telaCheia{position:fixed;inset:0;background:#121212;z-index:200;display:none;overflow-y:auto;padding:20px}
-#telaCheia.show{display:block}
-#telaCheia .barra{position:sticky;top:0;background:#121212;padding:10px 0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-#telaCheia .barra button{background:#1f1f1f;border:1px solid #1a6fc4;color:#00d2ff;padding:7px 10px;border-radius:8px;font-weight:700;cursor:pointer}
-#telaCheia .barra button.ativo{background:#1a6fc4;color:#fff}
-.btnSair{background:#1a6fc4!important;color:#fff!important;margin-left:auto}
-</style>
-</head>
-<body>
-<div class="app">
-<header>
-<button onclick="abrirMenu()">☰ MENU</button>
-<b>🎵 Cifra Flow</b>
-<button onclick="abrirTelaCheia()">⛶ TELA GRANDE</button>
-</header>
-<div class="home">
-<input class="busca" id="busca" placeholder="🔍 Buscar cantor ou música..." oninput="filtrar()">
-<div class="controles">
-<div><label>VOLUME</label><input type="range" id="volume" value="75"><span id="volume-val">75%</span></div>
-<div><label>PITCH: <span id="pitch-val">0 st</span></label><input type="range" id="pitch" min="-6" max="6" value="0"></div>
-<div><label>BPM: <span id="bpm-val">124</span></label><input type="range" id="bpm" min="60" max="200" value="124"></div>
-<div><label>GRAVE</label><input type="range" id="bass" min="-10" max="10" value="0"><span id="bass-val">0 dB</span></div>
-<div><label>AGUDO</label><input type="range" id="treble" min="-10" max="10" value="0"><span id="treble-val">0 dB</span></div>
-<div><label>REVERB</label><br><button id="reverbBtn" class="btnReverb on" onclick="toggleReverb()">REVERB: LIGADO</button></div>
-</div>
-
-<h3 style="margin-bottom:10px" id="tituloSecao">Pastas dos Cantores</h3>
-<div class="pastas" id="lista-pastas"></div>
-
-<div class="btns"><button class="btnAdd" onclick="adicionarCifra()">+ Adicionar Nova Cifra</button><button class="btnEdit" onclick="editarCifra()">✏️ Editar</button></div>
-
-<div id="viewer">
-<button class="btnVoltar" onclick="voltarPastas()">← Voltar para Pastas</button>
-<h1 id="song-title"></h1>
-<p id="song-artist" style="color:#aaa;margin-bottom:12px"></p>
-<div id="lyrics-container"></div>
-<button onclick="salvarConfiguracao()" style="background:#1a6fc4;color:#fff;border:0;padding:12px 18px;border-radius:10px;font-weight:700;cursor:pointer;margin-top:10px">💾 Salvar Setup</button>
-</div>
-</div>
-</div>
-
-<div id="menuFundo" onclick="fecharMenu()"></div>
-<div id="menuLateral">
-<h2 style="color:#00d2ff">🎵 Cifra Flow</h2>
-<p style="color:#aaa;font-size:13px;margin-bottom:10px">Taki Artesanal • Seu repertório</p>
-<button onclick="fecharMenu()" style="background:#222;color:#fff;border:1px solid #333;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:10px">✕ Fechar</button>
-<div class="menuSecao">MINHAS CIFRAS</div>
-<div class="menuItem" onclick="irPara('vs')" id="menu-vs"><div><b>🎹 Com VS</b><br><small id="count-vs">0 cifras</small></div><span>›</span></div>
-<div class="menuItem" onclick="irPara('playback')" id="menu-playback"><div><b>▶️ Com Playback</b><br><small id="count-playback">0 cifras</small></div><span>›</span></div>
-<div class="menuItem" onclick="irPara('todas')" id="menu-todas"><div><b>📚 Biblioteca</b><br><small id="count-todas">Tudo que você baixar ou criar</small></div><span>›</span></div>
-<div class="menuSecao">APP</div>
-<button class="menuBtn" style="background:#00c853;color:#fff" onclick="instalarApp()">📲 INSTALAR APLICATIVO</button>
-<button class="menuBtn" style="background:#fff;color:#1a6fc4" onclick="compartilharApp()">🔗 COMPARTILHAR</button>
-<div class="menuSecao">BACKUP</div>
-<button class="menuBtn" style="background:#1a6fc4;color:#fff" onclick="exportarDados()">⬆️ EXPORTAR</button>
-<button class="menuBtn" style="background:#222;color:#00d2ff;border:1px solid #1a6fc4" onclick="document.getElementById('inputImportar').click()">⬇️ IMPORTAR</button>
-<input type="file" id="inputImportar" accept=".json" style="display:none" onchange="importarDados(event)">
-<div class="menuSecao">OUTROS</div>
-<div class="menuItem" onclick="abrirTelaCheia();fecharMenu()"><div><b>⛶ Tela Grande</b><br><small>Só letra + cifra</small></div><span>›</span></div>
-</div>
-
-<div id="telaCheia">
-<div class="barra">
-<span style="font-size:12px;font-weight:700">ROLAGEM:</span>
-<button onclick="setRolagem(1)" id="r1">1</button><button onclick="setRolagem(2)" id="r2">2</button><button onclick="setRolagem(3)" id="r3">3</button><button onclick="setRolagem(4)" id="r4">4</button><button onclick="setRolagem(5)" id="r5">5</button><button onclick="setRolagem(6)" id="r6">6</button><button onclick="setRolagem(7)" id="r7">7</button>
-<button onclick="toggleRolagem()" id="btnRolar">▶ Rolar</button>
-<span style="font-size:12px;font-weight:700">LETRA:</span><button onclick="mudarFonte(-2)">A-</button><button onclick="mudarFonte(2)">A+</button>
-<button class="btnSair" onclick="fecharTelaCheia()">✕ SAIR</button>
-</div>
-<h1 id="tituloCheia"></h1>
-<p id="artistaCheia" style="color:#aaa"></p>
-<div id="lyrics-cheia" style="font-size:20px;line-height:2"></div>
-</div>
-<script src="app.js"></script>
-</body>
-</html>
+{
+  "name": "Cifra Flow - Chord Wizard",
+  "short_name": "Cifra Flow",
+  "description": "Seu repertório de cifras com VS e Playback - Taki Artesanal",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#1a6fc4",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/727/727245.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/727/727245.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
