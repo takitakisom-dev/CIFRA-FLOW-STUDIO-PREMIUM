@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Cifra Flow</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#E8DDC8;font-family:Arial,sans-serif}
+.phone{max-width:480px;margin:0 auto;height:100dvh;position:relative;overflow:hidden;background:#E8DDC8}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.escondeMenu{position:absolute;top:23%;left:0;width:52%;height:77%;background:linear-gradient(180deg,#D8B586,#C69A68,#B98A5A);z-index:4;border-right:3px solid #8B5A2B}
+.escondeMenu p{color:#fff;font-weight:900;text-align:center;margin-top:55%;font-size:18px;text-shadow:0 2px 4px rgba(0,0,0,.4);line-height:1.3}
+.escondeMenu small{display:block;font-size:12px;font-weight:700;opacity:.9;margin-top:6px}
+.btn{position:absolute;background:transparent;border:none;cursor:pointer;z-index:5}
+#todos{top:29%;left:57%;width:38%;height:9%}
+#alcione{top:41%;left:57%;width:38%;height:9%}
+#capital{top:53%;left:57%;width:38%;height:9%}
+#cazuza{top:65%;left:57%;width:38%;height:9%}
+#cidade{top:77%;left:57%;width:38%;height:9%}
+#claudio{top:89%;left:57%;width:38%;height:9%}
+#menuBtn{top:2%;left:3%;width:56px;height:56px;background:#5A341E;color:#fff;border:3px solid #fff;border-radius:50%;font-size:26px;font-weight:900;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.5)}
+.tela{display:none;position:absolute;inset:0;background:#FFF8EA;z-index:20;overflow-y:auto;padding:16px;padding-bottom:30px}
+.tela.show{display:block}
+.tela h2{font-size:22px;text-align:center;margin-bottom:4px}
+.tela p.sub{text-align:center;color:#666;font-size:13px;margin-bottom:14px}
+.item{background:#fff;padding:14px;border-radius:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;border:1px solid #eee}
+.item b{font-size:16px}
+.back{width:100%;padding:13px;border:none;background:#6B4226;color:#fff;border-radius:12px;font-weight:700;margin-top:10px;font-size:15px}
+.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.tools button{background:#fff;border:1px solid #ddd;padding:9px 14px;border-radius:20px;font-weight:700;font-size:13px}
+.tools button.dark{background:#6B4226;color:#fff}
+.bloco{margin-bottom:16px;background:#fff;padding:14px;border-radius:14px}
+.chord{font-size:19px;font-weight:800}
+.lyric{font-size:22px;font-weight:800;margin-top:4px}
+.small{font-size:14px;margin-top:6px}
+.full{position:fixed;inset:0;background:#000;color:#fff;z-index:50;display:none;padding:50px 26px;overflow-y:auto}
+.full.show{display:block}
+.full .big{font-size:32px;font-weight:800;line-height:1.35;margin-bottom:24px}
+.full .small2{font-size:19px;opacity:.75;margin-bottom:24px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <img class="bg" src="fundo2.jpg">
+  <div class="escondeMenu"><p>☰<br>MENU<small>Toque no botão<br>do canto</small></p></div>
+  <button id="menuBtn" onclick="abrirMenu()">☰</button>
+  <button class="btn" id="todos" onclick="abrirPasta('Todos')"></button>
+  <button class="btn" id="alcione" onclick="abrirPasta('Alcione')"></button>
+  <button class="btn" id="capital" onclick="abrirPasta('Capital Inicial')"></button>
+  <button class="btn" id="cazuza" onclick="abrirPasta('Cazuza')"></button>
+  <button class="btn" id="cidade" onclick="abrirPasta('Cidade Negra')"></button>
+  <button class="btn" id="claudio" onclick="abrirPasta('Claudio Zoli')"></button>
+
+  <div class="tela" id="telaPasta"><h2 id="nomePasta">Capital Inicial</h2><p class="sub" id="qtdPasta">1 música</p><div id="listaMusicas"></div><button class="back" onclick="fecharTelas()">← Voltar</button></div>
+
+  <div class="tela" id="telaMenu">
+    <h2>Menu</h2><p class="sub">Cifra Flow</p>
+    <div class="item" onclick="abrirPasta('Minhas Cifras com VS')"><b>⭐ Minhas Cifras com VS</b><span>›</span></div>
+    <div class="item" onclick="abrirPasta('Playback')"><b>▶ Playback</b><span>›</span></div>
+    <div class="item" onclick="abrirPasta('Minhas Cifras')"><b>📄 Minhas Cifras</b><span>›</span></div>
+    <div class="item" onclick="abrirPasta('Minhas Listas')"><b>☰ Minhas Listas</b><span>›</span></div>
+    <div class="item" onclick="abrirPasta('Configurações')"><b>⚙️ Configurações</b><span>›</span></div>
+    <div class="item" onclick="fazerBackup()"><b>💾 Backup</b><span>Exportar</span></div>
+    <div class="item" onclick="instalarApp()"><b>📲 Instalador</b><span>Instalar</span></div>
+    <button class="back" onclick="fecharTelas()">← Voltar</button>
+  </div>
+
+  <div class="tela" id="telaCifra">
+    <h2 id="tMusica">Primeiros Erros</h2><p class="sub">Capital Inicial • Tom: Em • BPM 98</p>
+    <div class="tools"><button>Tom: Em ▼</button><button>Rolagem ▶</button><button class="dark" onclick="document.getElementById('full').classList.add('show')">Tela Cheia ⛶</button><button>VS</button></div>
+    <div class="bloco"><div class="chord">Em &nbsp; C &nbsp; G &nbsp; D</div><div class="lyric">Foram &nbsp; errei &nbsp; Tentei &nbsp; que</div><div class="small">foram tantos erros, eu só queria acertar</div></div>
+    <div class="bloco"><div class="chord">Em &nbsp; C</div><div class="lyric">Foram &nbsp; errei</div><div class="small">foram tantos erros, eu sei que eu errei demais</div></div>
+    <div class="bloco"><div class="chord">G &nbsp; D</div><div class="lyric">Tentei &nbsp; que</div><div class="small">tentei mudar o rumo, mas segui o que não quis jamais</div></div>
+    <button class="back" onclick="document.getElementById('telaCifra').classList.remove('show')">← Voltar</button>
+  </div>
+
+  <div class="full" id="full" onclick="this.classList.remove('show')"><div class="big">Foram errei<br>Tentei que</div><div class="small2">foram tantos erros, eu só queria acertar</div><div class="big">Foram errei</div><div class="small2">foram tantos erros, eu sei que eu errei demais</div><p style="opacity:.4;font-size:12px;text-align:center;margin-top:40px">Toque para sair</p></div>
+</div>
+<script>
+if('serviceWorker' in navigator){ navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister())); }
+const DADOS={'Todos':[['Primeiros Erros','Capital Inicial'],['Não Deixe o Samba Morrer','Alcione'],['Exagerado','Cazuza']],'Alcione':[['Não Deixe o Samba Morrer','Alcione'],['Meu Ébano','Alcione']],'Capital Inicial':[['Primeiros Erros','Capital Inicial'],['Fogo','Capital Inicial']],'Cazuza':[['Exagerado','Cazuza'],['Ideologia','Cazuza']],'Cidade Negra':[['Onde Você Mora?','Cidade Negra']],'Claudio Zoli':[['À Francesa','Claudio Zoli']],'Minhas Cifras com VS':[['Primeiros Erros (VS)','Capital Inicial']],'Playback':[['Playback - Primeiros Erros','Capital Inicial']],'Minhas Cifras':[['Primeiros Erros','Capital Inicial']],'Minhas Listas':[['Set Acústico - 12 músicas','Lista']],'Configurações':[['Ajustar Tom Padrão','Sistema'],['Velocidade de Rolagem','Sistema']]};
+function abrirMenu(){ fecharTelas(); document.getElementById('telaMenu').classList.add('show'); }
+function abrirPasta(n){ fecharTelas(); document.getElementById('nomePasta').innerText=n; let l=DADOS[n]||[['Sem músicas','-']]; document.getElementById('qtdPasta').innerText=l.length+' música(s)'; document.getElementById('listaMusicas').innerHTML=l.map(m=>`<div class="item" onclick="abrirCifra('${m[0]}')"><b>${m[0]}</b><span>${m[1]} ›</span></div>`).join(''); document.getElementById('telaPasta').classList.add('show'); }
+function abrirCifra(m){ document.getElementById('tMusica').innerText=m; document.getElementById('telaCifra').classList.add('show'); }
+function fecharTelas(){ document.querySelectorAll('.tela').forEach(t=>t.classList.remove('show')); }
+function fazerBackup(){ alert('Backup salvo!'); }
+function instalarApp(){ alert('Para instalar: 3 pontinhos > Adicionar à tela inicial'); }
+</script>
+</body>
+</html>
