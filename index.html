@@ -7,44 +7,35 @@
 <link rel="manifest" href="manifest.json">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000}
-.phone{max-width:480px;margin:0 auto;height:100dvh;position:relative;overflow:hidden;background:#000}
-/* A FOTO BONITA É O APP INTEIRO - NADA DE DESENHO */
+body{background:#E8DDC8}
+.phone{max-width:480px;margin:0 auto;height:100dvh;position:relative;overflow:hidden}
 .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-/* BOTÕES INVISÍVEIS EM CIMA DA FOTO */
 .btn{position:absolute;background:transparent;border:none;cursor:pointer}
-.btn:active{background:rgba(255,255,255,.15);border-radius:12px}
-/* POSIÇÃO DE CADA PASTA NA FOTO */
-#todos{top:31%;left:56%;width:38%;height:10%}
-#alcione{top:42%;left:56%;width:38%;height:10%}
-#capital{top:53%;left:56%;width:38%;height:10%}
-#cazuza{top:64%;left:56%;width:38%;height:10%}
-#cidade{top:75%;left:56%;width:38%;height:10%}
-#claudio{top:86%;left:56%;width:38%;height:10%}
-/* MENU ESQUERDO */
-#vs{top:29%;left:4%;width:46%;height:6%}
-#playback{top:36%;left:4%;width:46%;height:7%}
-#cifras{top:45%;left:4%;width:46%;height:6%}
-#listas{top:52%;left:4%;width:46%;height:6%}
-/* TOPO */
-#menuBtn{top:5%;left:5%;width:12%;height:7%}
-#plus{top:5%;left:76%;width:10%;height:7%}
-#search{top:5%;left:88%;width:10%;height:7%}
-
-/* TELA DA CIFRA - QUANDO CLICA NA PASTA */
-.cifra{display:none;position:absolute;inset:0;background:#FFF8EA;z-index:20;overflow-y:auto;padding:16px}
+.btn:active{background:rgba(255,255,255,.2);border-radius:12px}
+/* BOTÕES INVISÍVEIS EM CIMA DA FOTO */
+#todos{top:29%;left:57%;width:38%;height:9%}
+#alcione{top:41%;left:57%;width:38%;height:9%}
+#capital{top:53%;left:57%;width:38%;height:9%}
+#cazuza{top:65%;left:57%;width:38%;height:9%}
+#cidade{top:77%;left:57%;width:38%;height:9%}
+#claudio{top:89%;left:57%;width:38%;height:9%}
+#vs{top:27%;left:4%;width:46%;height:6%}
+#playback{top:35%;left:4%;width:46%;height:7%}
+#cifras{top:44%;left:4%;width:46%;height:6%}
+#listas{top:51%;left:4%;width:46%;height:6%}
+.cifra{display:none;position:absolute;inset:0;background:#FFF8EA;z-index:20;overflow-y:auto;padding:16px;font-family:Arial,sans-serif}
 .cifra.show{display:block}
 .cifra h2{font-size:24px;text-align:center}
 .cifra p{text-align:center;color:#666;font-size:13px;margin:6px 0 14px}
-.cifra .tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
-.cifra .tools button{background:#fff;border:1px solid #ddd;padding:9px 14px;border-radius:20px;font-weight:700}
-.cifra .tools button.dark{background:#6B4226;color:#fff}
-.bloco{margin-bottom:22px;background:#fff;padding:14px;border-radius:14px}
+.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.tools button{background:#fff;border:1px solid #ddd;padding:9px 14px;border-radius:20px;font-weight:700}
+.tools button.dark{background:#6B4226;color:#fff}
+.bloco{margin-bottom:16px;background:#fff;padding:14px;border-radius:14px}
 .chord{font-size:19px;font-weight:800}
 .lyric{font-size:22px;font-weight:800;margin-top:4px}
 .small{font-size:14px;margin-top:6px}
 .back{width:100%;padding:12px;border:none;background:#eee;border-radius:12px;font-weight:700;margin-top:10px}
-.full{position:fixed;inset:0;background:#000;color:#fff;z-index:50;display:none;padding:50px 26px;overflow-y:auto}
+.full{position:fixed;inset:0;background:#000;color:#fff;z-index:50;display:none;padding:50px 26px}
 .full.show{display:block}
 .full .big{font-size:32px;font-weight:800;line-height:1.35;margin-bottom:24px}
 .full .small2{font-size:19px;opacity:.75;margin-bottom:24px}
@@ -52,10 +43,8 @@ body{background:#000}
 </head>
 <body>
 <div class="phone">
-  <!-- AQUI É A SUA FOTO BONITA -->
-  <img class="bg" src="fundo.jpg" alt="Cifra Flow">
+  <img class="bg" src="fundo.jpg">
 
-  <!-- BOTÕES INVISÍVEIS EM CIMA DAS PASTAS -->
   <button class="btn" id="todos" onclick="openSong('Todos')"></button>
   <button class="btn" id="alcione" onclick="openSong('Alcione')"></button>
   <button class="btn" id="capital" onclick="openSong('Primeiros Erros')"></button>
@@ -67,23 +56,18 @@ body{background:#000}
   <button class="btn" id="playback" onclick="alert('Playback')"></button>
   <button class="btn" id="cifras" onclick="alert('Minhas Cifras')"></button>
   <button class="btn" id="listas" onclick="alert('Minhas Listas')"></button>
-  <button class="btn" id="menuBtn" onclick="alert('Menu')"></button>
-  <button class="btn" id="plus" onclick="alert('Novo')"></button>
-  <button class="btn" id="search" onclick="alert('Pesquisar')"></button>
 
-  <!-- CIFRA -->
   <div class="cifra" id="cifra">
     <h2 id="tMusica">Primeiros Erros</h2>
     <p>Capital Inicial • Tom: Em • BPM 98</p>
     <div class="tools"><button>Tom: Em ▼</button><button>Rolagem ▶</button><button class="dark" onclick="document.getElementById('full').classList.add('show')">Tela Cheia ⛶</button><button>VS VS</button></div>
-    <div class="bloco"><div class="chord">Em &nbsp;&nbsp; C &nbsp;&nbsp; G &nbsp;&nbsp; D</div><div class="lyric">Foram &nbsp; errei &nbsp; Tentei &nbsp; que</div><div class="small">foram tantos erros, eu só queria acertar</div></div>
-    <div class="bloco"><div class="chord">Em &nbsp;&nbsp; C</div><div class="lyric">Foram &nbsp; errei</div><div class="small">foram tantos erros, eu sei que eu errei demais</div></div>
+    <div class="bloco"><div class="chord">Em &nbsp; C &nbsp; G &nbsp; D</div><div class="lyric">Foram &nbsp; errei &nbsp; Tentei &nbsp; que</div><div class="small">foram tantos erros, eu só queria acertar</div></div>
+    <div class="bloco"><div class="chord">Em &nbsp; C</div><div class="lyric">Foram &nbsp; errei</div><div class="small">foram tantos erros, eu sei que eu errei demais</div></div>
     <button class="back" onclick="document.getElementById('cifra').classList.remove('show')">← Voltar</button>
   </div>
 
   <div class="full" id="full" onclick="this.classList.remove('show')">
     <div class="big">Foram errei<br>Tentei que</div><div class="small2">foram tantos erros, eu só queria acertar</div>
-    <div class="big">Foram errei</div><div class="small2">foram tantos erros, eu sei que eu errei demais</div>
     <p style="opacity:.4;font-size:12px;text-align:center;margin-top:40px">Toque para sair</p>
   </div>
 </div>
