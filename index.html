@@ -2,41 +2,45 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Cifra Flow</title>
-<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1a6fc4">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,sans-serif;background:#eef4fb;color:#111;padding:14px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:system-ui,sans-serif;background:#eef4fb;color:#111;padding:10px}
 .app{max-width:900px;margin:auto;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08)}
-header{background:#1a6fc4;padding:14px;display:flex;justify-content:space-between;align-items:center;color:#fff}
-header button{background:#fff;border:0;padding:9px 13px;border-radius:10px;font-weight:800;cursor:pointer;color:#1a6fc4}
-.home{padding:16px}
-.busca{width:100%;padding:13px;border:1px solid #dce6f2;border-radius:12px;background:#f4f8fc;color:#111;margin-bottom:14px}
-.controles{background:#f1f6fc;border-radius:14px;padding:14px;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap}
+header{background:#1a6fc4;padding:12px;display:flex;justify-content:space-between;align-items:center;color:#fff;gap:8px}
+header button{background:#fff;border:0;padding:10px 12px;border-radius:10px;font-weight:800;cursor:pointer;color:#1a6fc4;touch-action:manipulation}
+.home{padding:14px}
+.busca{width:100%;padding:13px;border:1px solid #dce6f2;border-radius:12px;background:#f4f8fc;color:#111;margin-bottom:12px;font-size:16px}
+.controles{background:#f1f6fc;border-radius:14px;padding:12px;margin-bottom:12px;display:flex;gap:12px;flex-wrap:wrap}
+.controles div{flex:1;min-width:130px}
 .controles label{font-size:11px;font-weight:800;color:#777;display:block}
-.controles input{width:100%}
-.controles div{flex:1;min-width:120px}
-/* PASTAS - UMA EMBAIXO DA OUTRA, AZUL MARINHO, NOME DENTRO */
+.controles input[type=range]{width:100%;height:30px}
+/* BUSCAR VS / PLAYBACK - NOVO */
+.buscar-box{background:#fff;border:2px dashed #1a6fc4;border-radius:14px;padding:12px;margin-bottom:14px}
+.buscar-box h3{font-size:14px;margin-bottom:8px}
+.buscar-linha{display:flex;gap:8px;flex-wrap:wrap}
+.btnBuscar{flex:1;min-width:140px;padding:13px;border-radius:12px;font-weight:800;cursor:pointer;border:0;color:#fff;font-size:14px;touch-action:manipulation}
+.btnVS{background:#7c3aed}
+.btnPB{background:#ea580c}
+.arquivo-selecionado{font-size:12px;color:#333;margin-top:8px;background:#f1f6fc;padding:8px;border-radius:8px;display:none}
 .pastas{display:flex;flex-direction:column;gap:12px;margin-bottom:14px}
 .pasta{cursor:pointer}
 .pasta-folder{position:relative;width:100%;height:72px}
 .pasta-tab{position:absolute;top:0;left:0;width:90px;height:20px;background:#1e3a5f;border-radius:10px 10px 0 0}
 .pasta-back{position:absolute;inset:11px 0 0 0;background:#16324f;border-radius:10px}
-.pasta-front{position:absolute;inset:19px 0 0 0;background:linear-gradient(180deg,#2a5a8f,#1e3a5f);border-radius:6px 12px 12px 12px;box-shadow:0 6px 14px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
-.pasta-front b{font-size:18px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pasta-front small{font-size:12px;font-weight:800;color:#1a6fc4;background:#e8f2ff;padding:5px 10px;border-radius:20px;white-space:nowrap;margin-left:10px}
-.pasta.aberta .pasta-front{background:linear-gradient(180deg,#3a6ea8,#234d7a)}
-.musicas-dentro{display:none;flex-direction:column;gap:8px;background:#f1f6fc;border-radius:14px;padding:10px;margin-top:8px}
-.pasta.aberta + .musicas-dentro{display:flex}
-.musica-item{background:#fff;border:1px solid #e2ecf5;border-radius:12px;padding:13px;display:flex;justify-content:space-between;cursor:pointer;align-items:center}
-.btnSet{font-size:11px;background:#1a6fc4;color:#fff;border:0;padding:6px 10px;border-radius:20px;font-weight:800;cursor:pointer;white-space:nowrap}
+.pasta-front{position:absolute;inset:19px 0 0 0;background:linear-gradient(180deg,#2a5a8f,#1e3a5f);border-radius:6px 12px 12px 12px;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.pasta-front b{font-size:16px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pasta-front small{font-size:12px;font-weight:800;color:#1a6fc4;background:#e8f2ff;padding:5px 10px;border-radius:20px;white-space:nowrap;margin-left:8px}
+.musicas-dentro{display:flex;flex-direction:column;gap:8px;background:#f1f6fc;border-radius:14px;padding:10px;margin-top:8px}
+.musica-item{background:#fff;border:1px solid #e2ecf5;border-radius:12px;padding:13px;display:flex;justify-content:space-between;cursor:pointer;align-items:center;gap:8px}
+.btnSet{font-size:11px;background:#1a6fc4;color:#fff;border:0;padding:7px 10px;border-radius:20px;font-weight:800;cursor:pointer;white-space:nowrap}
 .btns{display:flex;gap:8px;margin:12px 0}
-.btns button{flex:1;padding:13px;border-radius:12px;font-weight:800;cursor:pointer}
+.btns button{flex:1;padding:14px;border-radius:12px;font-weight:800;cursor:pointer;font-size:15px}
 .btnAdd{background:#1a6fc4;color:#fff;border:0}
 .btnEdit{background:#fff;color:#1a6fc4;border:1px solid #1a6fc4}
-#viewer{max-width:600px;margin:auto;font-size:1.2rem;line-height:2;padding:14px;display:none}
+#viewer{max-width:600px;margin:auto;font-size:1.2rem;line-height:2;padding:6px;display:none}
 #viewer.mostrar{display:block}
 .chord-line{font-weight:bold;color:#1a6fc4;position:relative;height:1.5em;white-space:nowrap}
 .text-line{margin-bottom:1em;white-space:nowrap}
@@ -58,17 +62,16 @@ header button{background:#fff;border:0;padding:9px 13px;border-radius:10px;font-
 .btnConfigGrande{width:100%;padding:16px;border-radius:16px;background:#1a6fc4;color:#fff;border:0;font-weight:900;font-size:16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
 #telaCheia{position:fixed;inset:0;background:#fff;color:#111;z-index:200;display:none;overflow-y:auto;padding:22px 18px 130px}
 #telaCheia.show{display:block}
-#telaCheia h1{font-size:28px;margin-top:8px}
 #lyrics-cheia{font-size:22px;line-height:2.1;white-space:nowrap;overflow-x:auto}
 .barra-flutuante{position:fixed;left:12px;right:12px;bottom:14px;background:#fff;border:1px solid #ddd;border-radius:20px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;z-index:210;box-shadow:0 10px 30px rgba(0,0,0,.15)}
-.linha-float{display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none}
-.linha-float button{background:#eef4fb;border:0;color:#111;padding:8px 11px;border-radius:20px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.linha-float{display:flex;gap:6px;align-items:center;overflow-x:auto}
+.linha-float button{background:#eef4fb;border:0;color:#111;padding:9px 11px;border-radius:20px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .linha-float button.ativo{background:#1a6fc4;color:#fff}
 .linha-float button.azul{background:#1a6fc4;color:#fff}
 #modalAcorde{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
 #modalAcorde.show{display:flex}
 .modal-box{background:#fff;border-radius:20px;padding:20px;width:100%;max-width:320px;text-align:center;color:#111}
-.casa{display:flex;gap:0;justify-content:center;margin:14px 0}
+.casa{display:flex;justify-content:center;margin:14px 0}
 .corda{width:38px;text-align:center}
 .corda b{display:block;font-size:12px;color:#888;margin-bottom:6px}
 .bolinha{width:26px;height:26px;border-radius:50%;background:#1a6fc4;color:#fff;margin:4px auto;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
@@ -77,48 +80,65 @@ header button{background:#fff;border:0;padding:9px 13px;border-radius:10px;font-
 #telaSetlist.show,#telaConfig.show,#telaCriar.show,#telaTreino.show{display:block}
 .set-item{background:#fff;border-radius:14px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
 .configCard{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px}
-.configCard h3{font-size:14px;margin-bottom:10px}
 .cores{display:flex;gap:8px;flex-wrap:wrap}
 .corBtn{width:34px;height:34px;border-radius:50%;border:3px solid transparent;cursor:pointer}
 .corBtn.sel{border-color:#1a6fc4}
-.inputConfig{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:6px}
+.inputConfig{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:6px;font-size:16px}
 .criarCard{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+audio{width:100%;margin-top:8px}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
-<button onclick="abrirMenu()">☰ MENU</button>
+<button type="button" onclick="abrirMenu()">☰ MENU</button>
 <b>🎵 Cifra Flow <span id="nomeMusicoTopo"></span></b>
-<button onclick="abrirTelaCheia()">⛶ TELA GRANDE</button>
+<button type="button" onclick="abrirTelaCheia()">⛶ TELA GRANDE</button>
 </header>
 <div class="home">
 <input class="busca" id="busca" placeholder="🔍 Buscar cantor ou música..." oninput="filtrar()">
+
 <div class="controles">
 <div><label>VOLUME</label><input type="range" id="volume" value="75"><span id="volume-val">75%</span></div>
 <div><label>PITCH: <span id="pitch-val">0 st</span></label><input type="range" id="pitch" min="-6" max="6" value="0"></div>
 <div><label>BPM: <span id="bpm-val">124</span></label><input type="range" id="bpm" min="60" max="200" value="124"></div>
 <div><label>GRAVE</label><input type="range" id="bass" min="-10" max="10" value="0"><span id="bass-val">0 dB</span></div>
 <div><label>AGUDO</label><input type="range" id="treble" min="-10" max="10" value="0"><span id="treble-val">0 dB</span></div>
-<div><label>REVERB</label><br><button id="reverbBtn" class="btnAcao on" onclick="toggleReverb()">REVERB: LIGADO</button></div>
+<div><label>REVERB</label><br><button type="button" id="reverbBtn" class="btnAcao on" onclick="toggleReverb()">REVERB: LIGADO</button></div>
 </div>
+
+<!-- BUSCAR VS / PLAYBACK - NOVO, PERTO DOS CONTROLES -->
+<div class="buscar-box">
+<h3>🎹 Buscar VS / Playback pra tocar junto</h3>
+<div class="buscar-linha">
+<button type="button" class="btnBuscar btnVS" onclick="document.getElementById('inputVS').click()">🎹 BUSCAR VS</button>
+<button type="button" class="btnBuscar btnPB" onclick="document.getElementById('inputPB').click()">▶️ BUSCAR PLAYBACK</button>
+</div>
+<input type="file" id="inputVS" accept="audio/*,.mp3,.wav,.m4a" style="display:none" onchange="carregarAudio(event,'VS')">
+<input type="file" id="inputPB" accept="audio/*,.mp3,.wav,.m4a" style="display:none" onchange="carregarAudio(event,'Playback')">
+<div id="audioBox" class="arquivo-selecionado"></div>
+<audio id="playerAudio" controls style="display:none"></audio>
+<p style="font-size:12px;color:#888;margin-top:6px">Escolhe o arquivo do celular. Ele toca aqui mesmo, junto com a cifra. O nome fica salvo pra essa música.</p>
+</div>
+
 <h3 style="margin-bottom:14px" id="tituloSecao">Pastas dos Cantores</h3>
 <div class="pastas" id="lista-pastas"></div>
-<div class="btns"><button class="btnAdd" onclick="adicionarCifra()">+ Adicionar Nova Cifra</button><button class="btnEdit" onclick="editarCifra()">✏️ Editar</button></div>
+<div class="btns"><button type="button" class="btnAdd" onclick="adicionarCifra()">+ Adicionar Nova Cifra</button><button type="button" class="btnEdit" onclick="editarCifra()">✏️ Editar</button></div>
+
 <div id="viewer">
-<button class="btnVoltar" onclick="voltarPastas()">← Voltar</button>
+<button type="button" class="btnVoltar" onclick="voltarPastas()">← Voltar</button>
 <h1 id="song-title"></h1>
 <p id="song-artist" style="color:#777;margin-bottom:12px"></p>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-<button class="btnAcao" id="btnSimp" onclick="toggleSimplificada()">🎸 Simplificada</button>
-<button class="btnAcao" onclick="mudarTom(-1)">- Tom</button>
-<button class="btnAcao" id="tomAtual">Original</button>
-<button class="btnAcao" onclick="mudarTom(1)">+ Tom</button>
-<button class="btnAcao" style="background:#00c853;border-color:#00c853;color:#fff" onclick="adicionarAtualNaSetlist()">+ Setlist</button>
+<button type="button" class="btnAcao" id="btnSimp" onclick="toggleSimplificada()">🎸 Simplificada</button>
+<button type="button" class="btnAcao" onclick="mudarTom(-1)">- Tom</button>
+<button type="button" class="btnAcao" id="tomAtual">Original</button>
+<button type="button" class="btnAcao" onclick="mudarTom(1)">+ Tom</button>
+<button type="button" class="btnAcao" style="background:#00c853;border-color:#00c853;color:#fff" onclick="adicionarAtualNaSetlist()">+ Setlist</button>
 </div>
 <p style="font-size:12px;color:#888;margin-bottom:10px">💡 Toca no acorde azul pra ver como faz no violão</p>
 <div id="lyrics-container"></div>
-<button onclick="salvarConfiguracao()" style="background:#1a6fc4;color:#fff;border:0;padding:12px 18px;border-radius:12px;font-weight:800;cursor:pointer;margin-top:10px">💾 Salvar Setup</button>
+<button type="button" onclick="salvarConfiguracao()" style="background:#1a6fc4;color:#fff;border:0;padding:12px 18px;border-radius:12px;font-weight:800;cursor:pointer;margin-top:10px">💾 Salvar Setup</button>
 </div>
 </div>
 </div>
@@ -128,10 +148,10 @@ header button{background:#fff;border:0;padding:9px 13px;border-radius:10px;font-
 <div class="menu-top">
 <div class="menu-avatar" id="avatarTopo">TA</div>
 <b style="font-size:18px" id="nomeMenuTopo">Taki Artesanal</b><br><small style="opacity:.9">Seu repertório • Cifra Flow</small><br>
-<button onclick="fecharMenu()" style="background:rgba(255,255,255,.25);color:#fff;border:0;padding:7px 12px;border-radius:20px;margin-top:12px;cursor:pointer">✕ Fechar</button>
+<button type="button" onclick="fecharMenu()" style="background:rgba(255,255,255,.25);color:#fff;border:0;padding:7px 12px;border-radius:20px;margin-top:12px;cursor:pointer">✕ Fechar</button>
 </div>
 <div class="menu-body">
-<button class="btnConfigGrande" onclick="abrirConfig();fecharMenu()">⚙️ CONFIGURAÇÕES <span>›</span></button>
+<button type="button" class="btnConfigGrande" onclick="abrirConfig();fecharMenu()">⚙️ CONFIGURAÇÕES <span>›</span></button>
 <p style="font-size:12px;color:#888;margin:8px 0 0">Cor, letra, temas, dia/noite, login, nome do músico</p>
 <div class="menuSecao">SHOW</div>
 <div class="menuItem" onclick="abrirSetlist()"><div><b>🎤 Setlist do Show</b><br><small id="count-setlist" style="color:#888">0 músicas</small></div><span>›</span></div>
@@ -142,31 +162,31 @@ header button{background:#fff;border:0;padding:9px 13px;border-radius:10px;font-
 <div class="menuItem" onclick="irPara('todas')" id="menu-todas"><div><b>📁 Cifras Salvas</b><br><small id="count-todas" style="color:#888">Todas</small></div><span>›</span></div>
 <div class="menuItem" onclick="irPara('todas')" id="menu-biblio"><div><b>📚 Biblioteca das Cifras</b><br><small style="color:#888">Tudo que você criar</small></div><span>›</span></div>
 <div class="menuSecao">APP</div>
-<button class="menuBtn" style="background:#00c853;color:#fff" onclick="instalarApp()">📲 INSTALADOR DIRETO</button>
-<button class="menuBtn" style="background:#1a6fc4;color:#fff" onclick="compartilharApp()">🔗 COMPARTILHAR</button>
-<button class="menuBtn" style="background:#25D366;color:#fff" onclick="abrirWhats()">💬 GRUPO DE WHATSAPP</button>
-<button class="menuBtn" style="background:#fff;color:#111;border:1px solid #ddd" onclick="abrirTreino()">🎸 TREINAR ACORDES</button>
+<button type="button" class="menuBtn" style="background:#00c853;color:#fff" onclick="instalarApp()">📲 INSTALADOR DIRETO</button>
+<button type="button" class="menuBtn" style="background:#1a6fc4;color:#fff" onclick="compartilharApp()">🔗 COMPARTILHAR</button>
+<button type="button" class="menuBtn" style="background:#25D366;color:#fff" onclick="abrirWhats()">💬 GRUPO DE WHATSAPP</button>
+<button type="button" class="menuBtn" style="background:#fff;color:#111;border:1px solid #ddd" onclick="abrirTreino()">🎸 TREINAR ACORDES</button>
 <div class="menuSecao">BACKUP</div>
-<button class="menuBtn" style="background:#1a6fc4;color:#fff" onclick="exportarDados()">⬆️ EXPORTAR</button>
-<button class="menuBtn" style="background:#fff;color:#1a6fc4;border:1px solid #1a6fc4" onclick="document.getElementById('inputImportar').click()">⬇️ IMPORTAR</button>
+<button type="button" class="menuBtn" style="background:#1a6fc4;color:#fff" onclick="exportarDados()">⬆️ EXPORTAR</button>
+<button type="button" class="menuBtn" style="background:#fff;color:#1a6fc4;border:1px solid #1a6fc4" onclick="document.getElementById('inputImportar').click()">⬇️ IMPORTAR</button>
 <input type="file" id="inputImportar" accept=".json" style="display:none" onchange="importarDados(event)">
-<button class="menuBtn" style="background:#eef4fb;color:#111" onclick="alert('Pasta VS - em breve')">📂 PASTA VS</button>
-<button class="menuBtn" style="background:#eef4fb;color:#111" onclick="alert('Pasta Playbacks - em breve')">📂 PASTA PLAYBACKS</button>
+<button type="button" class="menuBtn" style="background:#eef4fb;color:#111" onclick="document.getElementById('inputVS').click()">📂 PASTA VS</button>
+<button type="button" class="menuBtn" style="background:#eef4fb;color:#111" onclick="document.getElementById('inputPB').click()">📂 PASTA PLAYBACKS</button>
 <div class="menuSecao">OUTROS</div>
 <div class="menuItem" onclick="abrirTelaCheia();fecharMenu()"><div><b>⛶ Tela Grande</b><br><small style="color:#888">Só letra + cifra</small></div><span>›</span></div>
 </div>
 </div>
 
 <div id="telaConfig">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>⚙️ Configurações</h2><button onclick="fecharConfig()" style="background:#1a6fc4;color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800;cursor:pointer">✕ Fechar</button></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>⚙️ Configurações</h2><button type="button" onclick="fecharConfig()" style="background:#1a6fc4;color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800;cursor:pointer">✕ Fechar</button></div>
 <div class="configCard"><h3>🎨 Cor de Fundo - 10 opções</h3><div class="cores" id="coresFundo"></div></div>
 <div class="configCard"><h3>✍️ Cor da Letra - 10 opções</h3><div class="cores" id="coresLetra"></div></div>
 <div class="configCard"><h3>🎭 10 Temas</h3><div style="display:flex;gap:8px;flex-wrap:wrap" id="listaTemas"></div></div>
-<div class="configCard"><h3>☀️ Dia / Noite</h3><div style="display:flex;gap:8px"><button class="btnAcao" id="btnDia" onclick="setModo('dia')">☀️ Dia - Claro</button><button class="btnAcao" id="btnNoite" onclick="setModo('noite')">🌙 Noite - Escuro p/ palco</button></div></div>
-<div class="configCard"><h3>🔐 Login e Senha</h3><input class="inputConfig" id="cfgLogin" placeholder="Login / e-mail"><input class="inputConfig" id="cfgSenha" type="password" placeholder="Senha"><p style="font-size:12px;color:#888;margin-top:6px">Por enquanto só salva no aparelho. Login real vem depois.</p></div>
-<div class="configCard"><h3>👤 Nome do Músico</h3><input class="inputConfig" id="cfgNomeMusico" placeholder="Ex: João Musicista"><p style="font-size:12px;color:#888;margin-top:6px">Aparece em todas as telas, no topo.</p></div>
-<div class="configCard"><h3>🔠 Tamanho da Letra Geral</h3><div style="display:flex;gap:8px;align-items:center"><button class="btnAcao" onclick="mudarFonteGeral(-2)">A-</button><span id="fonteGeralVal">22px</span><button class="btnAcao" onclick="mudarFonteGeral(2)">A+</button></div><p style="font-size:12px;color:#888;margin-top:6px">Controla TODAS as telas.</p></div>
-<button onclick="salvarConfigGeral()" style="width:100%;background:#00c853;color:#fff;border:0;padding:16px;border-radius:14px;font-weight:900;cursor:pointer">💾 SALVAR CONFIGURAÇÕES</button>
+<div class="configCard"><h3>☀️ Dia / Noite</h3><div style="display:flex;gap:8px"><button type="button" class="btnAcao" id="btnDia" onclick="setModo('dia')">☀️ Dia - Claro</button><button type="button" class="btnAcao" id="btnNoite" onclick="setModo('noite')">🌙 Noite - Escuro p/ palco</button></div></div>
+<div class="configCard"><h3>🔐 Login e Senha</h3><input class="inputConfig" id="cfgLogin" placeholder="Login / e-mail"><input class="inputConfig" id="cfgSenha" type="password" placeholder="Senha"></div>
+<div class="configCard"><h3>👤 Nome do Músico</h3><input class="inputConfig" id="cfgNomeMusico" placeholder="Ex: João Musicista"></div>
+<div class="configCard"><h3>🔠 Tamanho da Letra Geral</h3><div style="display:flex;gap:8px;align-items:center"><button type="button" class="btnAcao" onclick="mudarFonteGeral(-2)">A-</button><span id="fonteGeralVal">22px</span><button type="button" class="btnAcao" onclick="mudarFonteGeral(2)">A+</button></div></div>
+<button type="button" onclick="salvarConfigGeral()" style="width:100%;background:#00c853;color:#fff;border:0;padding:16px;border-radius:14px;font-weight:900;cursor:pointer">💾 SALVAR CONFIGURAÇÕES</button>
 </div>
 
 <div id="telaCheia">
@@ -174,30 +194,30 @@ header button{background:#fff;border:0;padding:9px 13px;border-radius:10px;font-
 <p id="artistaCheia" style="color:#888;margin-bottom:16px"></p>
 <div id="lyrics-cheia"></div>
 <div class="barra-flutuante">
-<div class="linha-float"><button onclick="toggleRolagem()" id="btnRolar" class="azul">▶ Rolar</button><button onclick="setRolagem(1)" id="r1">1</button><button onclick="setRolagem(2)" id="r2">2</button><button onclick="setRolagem(3)" id="r3">3</button><button onclick="setRolagem(4)" id="r4">4</button><button onclick="setRolagem(5)" id="r5">5</button><button onclick="setRolagem(6)" id="r6">6</button><button onclick="setRolagem(7)" id="r7">7</button><button onclick="fecharTelaCheia()" style="background:#ff3b30;color:#fff;margin-left:auto">✕ Sair</button></div>
-<div class="linha-float"><button onclick="mudarTom(-1)">- Tom</button><button id="tomCheia">Original</button><button onclick="mudarTom(1)">+ Tom</button><button onclick="toggleSimplificada()" id="btnSimpCheia">🎸 Simplificada</button><button onclick="mudarFonte(-2)">A-</button><button onclick="mudarFonte(2)">A+</button></div>
+<div class="linha-float"><button type="button" onclick="toggleRolagem()" id="btnRolar" class="azul">▶ Rolar</button><button type="button" onclick="setRolagem(1)" id="r1">1</button><button type="button" onclick="setRolagem(2)" id="r2">2</button><button type="button" onclick="setRolagem(3)" id="r3">3</button><button type="button" onclick="setRolagem(4)" id="r4">4</button><button type="button" onclick="setRolagem(5)" id="r5">5</button><button type="button" onclick="setRolagem(6)" id="r6">6</button><button type="button" onclick="setRolagem(7)" id="r7">7</button><button type="button" onclick="fecharTelaCheia()" style="background:#ff3b30;color:#fff;margin-left:auto">✕ Sair</button></div>
+<div class="linha-float"><button type="button" onclick="mudarTom(-1)">- Tom</button><button type="button" id="tomCheia">Original</button><button type="button" onclick="mudarTom(1)">+ Tom</button><button type="button" onclick="toggleSimplificada()" id="btnSimpCheia">🎸 Simplificada</button><button type="button" onclick="mudarFonte(-2)">A-</button><button type="button" onclick="mudarFonte(2)">A+</button></div>
 </div>
 </div>
 
 <div id="telaSetlist">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>🎤 Setlist do Show</h2><button onclick="fecharSetlist()" style="background:#1a6fc4;color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800;cursor:pointer">✕ Fechar</button></div>
-<div style="display:flex;gap:8px;margin-bottom:14px"><button onclick="limparSetlist()" style="background:#fff;color:#111;border:1px solid #ddd;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer">🗑️ Limpar tudo</button><button onclick="compartilharSetlist()" style="background:#00c853;color:#fff;border:0;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer">🔗 Compartilhar Setlist</button></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>🎤 Setlist do Show</h2><button type="button" onclick="fecharSetlist()" style="background:#1a6fc4;color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800;cursor:pointer">✕ Fechar</button></div>
+<div style="display:flex;gap:8px;margin-bottom:14px"><button type="button" onclick="limparSetlist()" style="background:#fff;color:#111;border:1px solid #ddd;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer">🗑️ Limpar tudo</button><button type="button" onclick="compartilharSetlist()" style="background:#00c853;color:#fff;border:0;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer">🔗 Compartilhar Setlist</button></div>
 <div id="lista-setlist"></div>
 </div>
 
 <div id="telaCriar">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>➕ Criar</h2><button onclick="fecharCriar()" style="background:#1a6fc4;color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800;cursor:pointer">✕ Fechar</button></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>➕ Criar</h2><button type="button" onclick="fecharCriar()" style="background:#1a6fc4;color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800;cursor:pointer">✕ Fechar</button></div>
 <div class="criarCard" onclick="criarTipo('Repertório')"><div><b>📚 Criar Repertório</b><br><small style="color:#888">Monte um repertório de músicas</small></div><span>›</span></div>
 <div class="criarCard" onclick="criarTipo('Show')"><div><b>🎤 Criar Show</b><br><small style="color:#888">Prepare o setlist para o show</small></div><span>›</span></div>
 <div class="criarCard" onclick="criarTipo('Ensaio')"><div><b>🥁 Criar Ensaio</b><br><small style="color:#888">Organize o ensaio da banda</small></div><span>›</span></div>
 <h3 style="margin:16px 0 10px">Setlists salvos</h3>
 <div id="lista-criados"></div>
 <h3 style="margin:16px 0 10px">Ações rápidas</h3>
-<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btnAcao" onclick="editarCifra()">✏️ Editar Cifra</button><button class="btnAcao" onclick="alert('Importar da Internet - em breve')">🌐 Importar da Internet</button><button class="btnAcao" onclick="document.getElementById('inputImportar').click()">📥 Importar de Outros Sistemas</button></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btnAcao" onclick="editarCifra()">✏️ Editar Cifra</button><button type="button" class="btnAcao" onclick="alert('Importar da Internet - em breve')">🌐 Importar da Internet</button></div>
 </div>
 
 <div id="telaTreino">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>🎸 Treinar Acordes</h2><button onclick="fecharTreino()" style="background:#1a6fc4;color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800;cursor:pointer">✕ Fechar</button></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>🎸 Treinar Acordes</h2><button type="button" onclick="fecharTreino()" style="background:#1a6fc4;color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800;cursor:pointer">✕ Fechar</button></div>
 <p style="color:#888;font-size:13px;margin-bottom:12px">Toca num acorde pra ver como faz.</p>
 <div id="lista-acordes" style="display:flex;gap:8px;flex-wrap:wrap"></div>
 </div>
@@ -208,9 +228,146 @@ header button{background:#fff;border:0;padding:9px 13px;border-radius:10px;font-
 <p id="descAcorde" style="color:#888;font-size:13px">Toca assim no violão</p>
 <div class="casa" id="diagramaAcorde"></div>
 <p id="dicaAcorde" style="font-size:13px;line-height:1.5"></p>
-<button onclick="fecharAcorde()" style="background:#1a6fc4;color:#fff;border:0;padding:12px 20px;border-radius:12px;font-weight:800;cursor:pointer;margin-top:10px;width:100%">Fechar</button>
+<button type="button" onclick="fecharAcorde()" style="background:#1a6fc4;color:#fff;border:0;padding:12px 20px;border-radius:12px;font-weight:800;cursor:pointer;margin-top:10px;width:100%">Fechar</button>
 </div>
 </div>
-<script src="app.js"></script>
+
+<script>
+let biblioteca=[
+{artista:"Caetano Veloso",emoji:"🎤",musicas:[
+{title:"Oração ao Tempo",tipo:"vs",lines:[{chords:[{chord:"G",pos:0},{chord:"D",pos:12}],text:"És um senhor tão bonito"},{chords:[{chord:"Em",pos:0}],text:"Quanto a cara do meu filho"}]},
+{title:"Sozinho",tipo:"playback",lines:[{chords:[{chord:"C",pos:0},{chord:"G",pos:10}],text:"Às vezes no silêncio da noite"}]}
+]},
+{artista:"Gilberto Gil",emoji:"🎤",musicas:[{title:"Andar Com Fé",tipo:"vs",lines:[{chords:[{chord:"A",pos:0}],text:"Andar com fé eu vou"}]}]},
+{artista:"Legião Urbana",emoji:"🎸",musicas:[
+{title:"Tempo Perdido",tipo:"vs",lines:[{chords:[{chord:"G",pos:0}],text:"Todos os dias quando acordo"}]},
+{title:"Faroeste Caboclo",tipo:"playback",lines:[{chords:[{chord:"Em",pos:0}],text:"Não tinha medo o tal João de Santo Cristo"}]}
+]},
+{artista:"Jorge Ben Jor",emoji:"🎤",musicas:[{title:"Mas Que Nada",tipo:"vs",lines:[{chords:[{chord:"Am",pos:0}],text:"Oariá raiô, obá obá obá"}]}]}
+];
+let pastaAberta=-1, filtroAtual='todas', musicaAtual=null, tomAtual=0, simplificada=false, setlist=[], criados=[], config={};
+try{ setlist=JSON.parse(localStorage.getItem('cf_setlist')||'[]'); criados=JSON.parse(localStorage.getItem('cf_criados')||'[{"nome":"Domingo Igreja 08/09","tipo":"Show"},{"nome":"Ensaio Quinta","tipo":"Ensaio"}]'); config=JSON.parse(localStorage.getItem('cf_config')||'{}'); }catch(e){}
+let fonteGeral=config.fonte||22, modoAtual=config.modo||'dia', corFundo=config.corFundo||'#eef4fb', corLetra=config.corLetra||'#111111';
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;});
+const CORES_FUNDO=['#eef4fb','#ffffff','#fef3c7','#dcfce7','#fce7f3','#e0e7ff','#f3e8ff','#fee2e2','#ecfeff','#f5f5f4'];
+const CORES_LETRA=['#111111','#1a6fc4','#065f46','#7c2d12','#7f1d1d','#4c1d95','#831843','#0f766e','#000000','#334155'];
+const TEMAS=['Clássico','Claro','Escuro','Azul','Verde','Rosa','Minimal','Contraste','Suave','Noturno'];
+const ACORDES_BASE=['C','D','E','F','G','A','B','Cm','Dm','Em','Fm','Gm','Am','Bm','C7','D7','E7','F7','G7','A7','B7','Cmaj7','Dmaj7','Emaj7','Fmaj7','Gmaj7','Amaj7','Bmaj7','C#','D#','F#','G#','A#','C#m','D#m','F#m','G#m','A#m','Bb','Eb','Ab','Db','Gb','Bbm','Ebm','Abm','Dbm','Gbm','Bb7','Eb7','Ab7','Db7','Gb7','Csus4','Dsus4','Esus4','Fsus4','Gsus4','Asus4','Bsus4','Cadd9','Dadd9','Eadd9','Fadd9','Gadd9','Aadd9','C6','D6','E6','F6','G6','A6','Cdim','Ddim','Edim','Fdim','Gdim','Adim','Bdim','Caug','Daug','Eaug','Faug','Gaug','Aaug','Baug','C9','D9','E9','F9','G9','A9','B9','Cm7','Dm7','Em7','Fm7','Gm7','Am7','Bm7','C7M','D7M','E7M','F7M','G7M','A7M','B7M','C5','D5','E5','F5','G5','A5','B5'];
+const DIAGRAMAS={C:{cordas:['X','3','2','0','1','0'],dica:'Dedo 1 na 2ª corda, 1ª casa. Dedo 2 na 4ª corda, 2ª casa. Dedo 3 na 5ª corda, 3ª casa.'},G:{cordas:['3','2','0','0','0','3'],dica:'Dedo 2 na 5ª corda, 2ª casa. Dedo 1 na 6ª corda, 3ª casa. Dedo 3 na 1ª corda, 3ª casa.'},D:{cordas:['X','X','0','2','3','2'],dica:'Dedo 1 na 3ª corda, 2ª casa. Dedo 2 na 1ª corda, 2ª casa. Dedo 3 na 2ª corda, 3ª casa.'},Em:{cordas:['0','2','2','0','0','0'],dica:'Dedo 2 na 5ª corda, 2ª casa. Dedo 3 na 4ª corda, 2ª casa.'},Am:{cordas:['X','0','2','2','1','0'],dica:'Dedo 1 na 2ª corda, 1ª casa. Dedo 2 na 4ª corda, 2ª casa. Dedo 3 na 3ª corda, 2ª casa.'},A:{cordas:['X','0','2','2','2','0'],dica:'Três dedos juntos na 2ª casa.'},E:{cordas:['0','2','2','1','0','0'],dica:'Dedo 1 na 3ª corda, 1ª casa. Dedo 2 e 3 na 2ª casa.'},F:{cordas:['1','3','3','2','1','1'],dica:'Pestana na 1ª casa. Força no indicador.'},B:{cordas:['X','2','4','4','4','2'],dica:'Pestana na 2ª casa.'},Dm:{cordas:['X','X','0','2','3','1'],dica:'Dedo 1 na 1ª corda, 1ª casa. Dedo 2 na 3ª corda, 2ª casa. Dedo 3 na 2ª corda, 3ª casa.'}};
+function salvarLocal(){try{localStorage.setItem('cf_setlist',JSON.stringify(setlist));localStorage.setItem('cf_criados',JSON.stringify(criados));localStorage.setItem('cf_config',JSON.stringify(config));}catch(e){}}
+function renderizarPastas(filtroBusca){
+  filtroBusca=filtroBusca||"";
+  var lista=document.getElementById('lista-pastas'); lista.innerHTML="";
+  biblioteca.forEach(function(pasta,idx){
+    var musicas=pasta.musicas.filter(function(m){return filtroAtual==='todas'||m.tipo===filtroAtual;});
+    musicas=musicas.filter(function(m){return (m.title+" "+pasta.artista).toLowerCase().indexOf(filtroBusca.toLowerCase())>=0;});
+    if(!musicas.length) return;
+    var div=document.createElement('div'); div.className='pasta';
+    div.innerHTML='<div onclick="abrirPasta('+idx+')"><div class="pasta-folder"><div class="pasta-tab"></div><div class="pasta-back"></div><div class="pasta-front"><b>'+pasta.emoji+' '+pasta.artista+'</b><small>'+musicas.length+' música'+(musicas.length>1?'s':'')+'</small></div></div></div>';
+    lista.appendChild(div);
+    if(pastaAberta===idx){ var dentro=document.createElement('div'); dentro.className='musicas-dentro'; dentro.innerHTML=musicas.map(function(m){ var realIdx=pasta.musicas.indexOf(m); return '<div class="musica-item" onclick="abrirMusica('+idx+','+realIdx+')"><span>🎵 '+m.title+' <small style="color:#888">• '+(m.tipo==='vs'?'VS':'Playback')+'</small></span><button type="button" class="btnSet" onclick="event.stopPropagation();adicionarNaSetlist('+idx+','+realIdx+')">+ Setlist</button></div>'; }).join(''); lista.appendChild(dentro); }
+  });
+  if(!lista.innerHTML) lista.innerHTML='<p style="color:#888">Nenhuma cifra aqui ainda. Aperta + Adicionar Nova Cifra.</p>';
+}
+function abrirPasta(i){ pastaAberta=pastaAberta===i?-1:i; renderizarPastas(document.getElementById('busca').value); }
+function filtrar(){ renderizarPastas(document.getElementById('busca').value); }
+function abrirMusica(pi,mi){ var m=biblioteca[pi].musicas[mi]; musicaAtual={pi:pi,mi:mi,title:m.title,tipo:m.tipo,lines:m.lines,artista:biblioteca[pi].artista}; tomAtual=0; document.getElementById('viewer').classList.add('mostrar'); document.getElementById('song-title').textContent=musicaAtual.title; document.getElementById('song-artist').textContent=musicaAtual.artista+' • '+(musicaAtual.tipo==='vs'?'VS':'Playback'); renderLetra(); document.getElementById('viewer').scrollIntoView({behavior:'smooth'}); }
+function voltarPastas(){ document.getElementById('viewer').classList.remove('mostrar'); }
+function renderLetra(){
+  if(!musicaAtual) return;
+  var html=musicaAtual.lines.map(function(l){ var ch=l.chords.map(function(c){ return '<span class="chord" style="left:'+(c.pos*8)+'px" onclick="mostrarAcorde(\''+c.chord+'\')">'+transpor(c.chord,tomAtual)+'</span>'; }).join(''); return '<div><div class="chord-line">'+ch+'</div><div class="text-line">'+l.text+'</div></div>'; }).join('');
+  document.getElementById('lyrics-container').innerHTML=html;
+  document.getElementById('lyrics-cheia').innerHTML=html;
+  document.getElementById('tituloCheia').textContent=musicaAtual.title;
+  document.getElementById('artistaCheia').textContent=musicaAtual.artista;
+  var t=tomAtual===0?'Original':(tomAtual>0?'+'+tomAtual:tomAtual);
+  document.getElementById('tomAtual').textContent=t;
+  document.getElementById('tomCheia').textContent=t;
+}
+var NOTAS=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+function transpor(acorde,semi){ if(!semi) return acorde; var m=acorde.match(/^([A-G]#?)(.*)$/); if(!m) return acorde; var i=NOTAS.indexOf(m[1]); if(i<0) return acorde; return NOTAS[(i+semi+12)%12]+m[2]; }
+function mudarTom(d){ tomAtual+=d; renderLetra(); }
+function toggleSimplificada(){ simplificada=!simplificada; document.getElementById('btnSimp').classList.toggle('on',simplificada); alert(simplificada?'Modo Simplificada ligado':'Modo Simplificada desligado'); }
+function salvarConfiguracao(){ alert('Setup salvo!'); }
+function toggleReverb(){ var b=document.getElementById('reverbBtn'); var on=b.textContent.indexOf('LIGADO')>=0; b.textContent=on?'REVERB: DESLIGADO':'REVERB: LIGADO'; b.classList.toggle('on',!on); }
+
+// AUDIO VS / PLAYBACK
+function carregarAudio(e,tipo){
+  var f=e.target.files[0]; if(!f) return;
+  var player=document.getElementById('playerAudio');
+  player.src=URL.createObjectURL(f); player.style.display='block'; player.play();
+  var box=document.getElementById('audioBox'); box.style.display='block';
+  box.innerHTML='✅ <b>'+tipo+' carregado:</b> '+f.name+'<br><small>Tocando agora. Use Volume / Pitch / BPM acima.</small>';
+  if(musicaAtual){ musicaAtual.tipo=tipo==='VS'?'vs':'playback'; }
+  alert(tipo+' "'+f.name+'" carregado e tocando!');
+}
+function abrirMenu(){ document.getElementById('menuLateral').classList.add('show'); document.getElementById('menuFundo').classList.add('show'); atualizarContadores(); }
+function fecharMenu(){ document.getElementById('menuLateral').classList.remove('show'); document.getElementById('menuFundo').classList.remove('show'); }
+function atualizarContadores(){ var vs=0,pb=0; biblioteca.forEach(function(p){ p.musicas.forEach(function(m){ if(m.tipo==='vs') vs++; else pb++; }); }); document.getElementById('count-vs').textContent=vs+' cifras'; document.getElementById('count-playback').textContent=pb+' cifras'; document.getElementById('count-todas').textContent=(vs+pb)+' cifras'; document.getElementById('count-setlist').textContent=setlist.length+' músicas'; }
+function irPara(tipo){ filtroAtual=tipo; pastaAberta=-1; document.getElementById('tituloSecao').textContent=tipo==='vs'?'Cifras Salvas com VS':tipo==='playback'?'Cifras Salvas com Playback':'Pastas dos Cantores'; fecharMenu(); renderizarPastas(); window.scrollTo({top:0,behavior:'smooth'}); }
+function abrirSetlist(){ fecharMenu(); document.getElementById('telaSetlist').classList.add('show'); renderSetlist(); }
+function fecharSetlist(){ document.getElementById('telaSetlist').classList.remove('show'); }
+function renderSetlist(){ var el=document.getElementById('lista-setlist'); if(!setlist.length){ el.innerHTML='<p style="color:#888">Setlist vazio. Abre uma música e aperta + Setlist.</p>'; return; } el.innerHTML=setlist.map(function(s,i){ return '<div class="set-item"><div><b>'+(i+1)+'. '+s.title+'</b><br><small style="color:#888">'+s.artista+'</small></div><button type="button" onclick="removerSetlist('+i+')" style="background:#ff3b30;color:#fff;border:0;padding:8px 12px;border-radius:20px;cursor:pointer">✕</button></div>'; }).join(''); }
+function adicionarNaSetlist(pi,mi){ var m=biblioteca[pi].musicas[mi]; setlist.push({title:m.title,artista:biblioteca[pi].artista}); salvarLocal(); atualizarContadores(); alert(m.title+' adicionada na Setlist!'); }
+function adicionarAtualNaSetlist(){ if(!musicaAtual) return; setlist.push({title:musicaAtual.title,artista:musicaAtual.artista}); salvarLocal(); atualizarContadores(); alert('Adicionada na Setlist!'); }
+function removerSetlist(i){ setlist.splice(i,1); salvarLocal(); renderSetlist(); atualizarContadores(); }
+function limparSetlist(){ if(confirm('Limpar toda a Setlist?')){ setlist=[]; salvarLocal(); renderSetlist(); atualizarContadores(); } }
+function compartilharSetlist(){ var txt='🎤 SETLIST DO SHOW\n\n'+setlist.map(function(s,i){ return (i+1)+'. '+s.title+' - '+s.artista; }).join('\n'); if(navigator.share) navigator.share({text:txt}); else { navigator.clipboard.writeText(txt); alert('Setlist copiada!'); } }
+function abrirConfig(){ document.getElementById('telaConfig').classList.add('show'); renderConfig(); }
+function fecharConfig(){ document.getElementById('telaConfig').classList.remove('show'); }
+function renderConfig(){
+  document.getElementById('coresFundo').innerHTML=CORES_FUNDO.map(function(c){ return '<div class="corBtn '+(c===corFundo?'sel':'')+'" style="background:'+c+';border-color:#ddd" onclick="setCorFundo(\''+c+'\')"></div>'; }).join('');
+  document.getElementById('coresLetra').innerHTML=CORES_LETRA.map(function(c){ return '<div class="corBtn '+(c===corLetra?'sel':'')+'" style="background:'+c+';border-color:#ddd" onclick="setCorLetra(\''+c+'\')"></div>'; }).join('');
+  document.getElementById('listaTemas').innerHTML=TEMAS.map(function(t){ return '<button type="button" class="btnAcao" onclick="setTema(\''+t+'\')">'+t+'</button>'; }).join('');
+  document.getElementById('cfgNomeMusico').value=config.nomeMusico||'';
+  document.getElementById('cfgLogin').value=config.login||'';
+  document.getElementById('fonteGeralVal').textContent=fonteGeral+'px';
+  document.getElementById('btnDia').classList.toggle('on',modoAtual==='dia');
+  document.getElementById('btnNoite').classList.toggle('on',modoAtual==='noite');
+  aplicarConfig();
+}
+function setCorFundo(c){ corFundo=c; config.corFundo=c; renderConfig(); }
+function setCorLetra(c){ corLetra=c; config.corLetra=c; renderConfig(); }
+function setTema(t){ alert('Tema '+t+' aplicado!'); if(t==='Escuro'||t==='Noturno') setModo('noite'); else if(t==='Claro') setModo('dia'); }
+function setModo(m){ modoAtual=m; config.modo=m; if(m==='noite'){ corFundo='#0f0f0f'; corLetra='#ffffff'; } else { corFundo='#eef4fb'; corLetra='#111111'; } config.corFundo=corFundo; config.corLetra=corLetra; renderConfig(); }
+function mudarFonteGeral(d){ fonteGeral=Math.max(14,Math.min(36,fonteGeral+d)); config.fonte=fonteGeral; document.getElementById('fonteGeralVal').textContent=fonteGeral+'px'; aplicarConfig(); }
+function mudarFonte(d){ mudarFonteGeral(d); }
+function aplicarConfig(){
+  document.body.style.background=corFundo; document.body.style.color=corLetra;
+  document.getElementById('lyrics-cheia').style.fontSize=fonteGeral+'px';
+  document.getElementById('viewer').style.fontSize=(fonteGeral-4)+'px';
+  var nome=config.nomeMusico||''; document.getElementById('nomeMusicoTopo').textContent=nome?'• '+nome:'';
+  document.getElementById('nomeMenuTopo').textContent=nome||'Taki Artesanal';
+  document.getElementById('avatarTopo').textContent=(nome||'TA').substring(0,2).toUpperCase();
+  var tc=document.getElementById('telaCheia'); if(tc){ tc.style.background=corFundo; tc.style.color=corLetra; }
+}
+function salvarConfigGeral(){ config.nomeMusico=document.getElementById('cfgNomeMusico').value; config.login=document.getElementById('cfgLogin').value; config.senha=document.getElementById('cfgSenha').value; salvarLocal(); aplicarConfig(); alert('Configurações salvas!'); fecharConfig(); }
+function abrirCriar(){ fecharMenu(); document.getElementById('telaCriar').classList.add('show'); renderCriados(); }
+function fecharCriar(){ document.getElementById('telaCriar').classList.remove('show'); }
+function renderCriados(){ document.getElementById('lista-criados').innerHTML=criados.map(function(c,i){ return '<div class="set-item"><div><b>'+c.nome+'</b><br><small style="color:#888">'+c.tipo+'</small></div><button type="button" onclick="removerCriado('+i+')" style="background:#ff3b30;color:#fff;border:0;padding:8px 12px;border-radius:20px;cursor:pointer">✕</button></div>'; }).join('')||'<p style="color:#888">Nenhum ainda.</p>'; }
+function criarTipo(tipo){ var nome=prompt('Nome do '+tipo+':'); if(!nome) return; criados.push({nome:nome,tipo:tipo}); salvarLocal(); renderCriados(); alert(tipo+' "'+nome+'" criado!'); }
+function removerCriado(i){ criados.splice(i,1); salvarLocal(); renderCriados(); }
+function abrirTreino(){ fecharMenu(); document.getElementById('telaTreino').classList.add('show'); document.getElementById('lista-acordes').innerHTML=ACORDES_BASE.map(function(a){ return '<button type="button" class="btnAcao" onclick="mostrarAcorde(\''+a+'\')">'+a+'</button>'; }).join(''); }
+function fecharTreino(){ document.getElementById('telaTreino').classList.remove('show'); }
+function mostrarAcorde(nome){ var d=DIAGRAMAS[nome]||DIAGRAMAS['C']; document.getElementById('nomeAcorde').textContent=nome; document.getElementById('diagramaAcorde').innerHTML=['E','A','D','G','B','e'].map(function(corda,i){ var v=d.cordas[i]; return '<div class="corda"><b>'+corda+'</b><div class="bolinha '+(v==='X'||v==='0'?'vazia':'')+'">'+(v==='X'?'✕':v==='0'?'○':v)+'</div><div style="height:30px"></div></div>'; }).join(''); document.getElementById('dicaAcorde').textContent=d.dica; document.getElementById('modalAcorde').classList.add('show'); }
+function fecharAcorde(){ document.getElementById('modalAcorde').classList.remove('show'); }
+var rolando=false, rolagemTimer=null, velRolagem=3;
+function abrirTelaCheia(){ if(!musicaAtual){ alert('Abre uma música primeiro!'); return; } document.getElementById('telaCheia').classList.add('show'); renderLetra(); }
+function fecharTelaCheia(){ document.getElementById('telaCheia').classList.remove('show'); pararRolagem(); }
+function toggleRolagem(){ rolando?pararRolagem():iniciarRolagem(); }
+function iniciarRolagem(){ rolando=true; document.getElementById('btnRolar').textContent='⏸ Pausar'; rolagemTimer=setInterval(function(){ document.getElementById('telaCheia').scrollTop+=velRolagem; },50); }
+function pararRolagem(){ rolando=false; document.getElementById('btnRolar').textContent='▶ Rolar'; clearInterval(rolagemTimer); }
+function setRolagem(v){ velRolagem=v; for(var i=1;i<=7;i++) document.getElementById('r'+i).classList.toggle('ativo',i===v); }
+function adicionarCifra(){ var titulo=prompt('Nome da música:'); if(!titulo) return; var artista=prompt('Cantor:'); if(!artista) return; var ex=null; for(var i=0;i<biblioteca.length;i++){ if(biblioteca[i].artista.toLowerCase()===artista.toLowerCase()) ex=biblioteca[i]; } if(!ex){ ex={artista:artista,emoji:'🎤',musicas:[]}; biblioteca.push(ex); } ex.musicas.push({title:titulo,tipo:'vs',lines:[{chords:[{chord:'C',pos:0}],text:'Edita essa letra depois em Editar'}]}); renderizarPastas(); alert('Cifra "'+titulo+'" criada na pasta '+artista+'!'); }
+function editarCifra(){ if(!musicaAtual){ alert('Abre uma música primeiro pra editar!'); return; } var nova=prompt('Nova letra (uma linha por vez):',musicaAtual.lines.map(function(l){return l.text;}).join('\n')); if(nova!==null){ musicaAtual.lines=nova.split('\n').map(function(t){return {chords:[{chord:'C',pos:0}],text:t};}); renderLetra(); alert('Salvo!'); } }
+function instalarApp(){ if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(function(){ deferredPrompt=null; }); } else { alert('Pra instalar: no Chrome, 3 pontinhos > Adicionar à tela inicial.'); } }
+function compartilharApp(){ var txt='🎵 Cifra Flow - Seu repertório no bolso!'; if(navigator.share) navigator.share({text:txt,url:location.href}); else { navigator.clipboard.writeText(location.href); alert('Link copiado!'); } }
+function abrirWhats(){ window.open('https://chat.whatsapp.com/','_blank'); }
+function exportarDados(){ var dados={biblioteca:biblioteca,setlist:setlist,criados:criados,config:config}; var blob=new Blob([JSON.stringify(dados,null,2)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='cifra-flow-backup.json'; a.click(); }
+function importarDados(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ try{ var d=JSON.parse(r.result); if(d.biblioteca) biblioteca=d.biblioteca; if(d.setlist) setlist=d.setlist; if(d.criados) criados=d.criados; if(d.config) config=d.config; salvarLocal(); renderizarPastas(); aplicarConfig(); alert('Importado com sucesso!'); }catch(err){ alert('Arquivo inválido!'); } }; r.readAsText(f); }
+['volume','pitch','bpm','bass','treble'].forEach(function(id){ var el=document.getElementById(id); if(!el) return; el.addEventListener('input',function(){ var v=el.value; var lab=document.getElementById(id+'-val'); if(lab) lab.textContent=id==='volume'?v+'%':id==='pitch'?(v>0?'+'+v:v)+' st':id==='bpm'?v:(v>0?'+'+v:v)+' dB'; var player=document.getElementById('playerAudio'); if(player && id==='volume') player.volume=v/100; }); });
+renderizarPastas(); atualizarContadores(); aplicarConfig();
+</script>
 </body>
 </html>
