@@ -331,10 +331,31 @@ function desenharBraco(nome){
   }
   for(var n=1;n<=5;n++){ svg+='<text x="'+(x0+boardW+28)+'" y="'+(y0+n*ch-ch/2+4)+'" font-size="12" font-weight="700" fill="#9ca3af">'+n+'</text>'; }
   var corPorDedo={1:'#1a6fc4',2:'#16a34a',3:'#db2777',4:'#7c3aed'};
+  var pestanaCasa=-1; var countDedo1=0; var primeiraCordaPestana=-1; var ultimaCordaPestana=-1;
+  frets.forEach(function(f,i){
+    var d=(s.dedos && s.dedos[i]) ? s.dedos[i] : 0;
+    if(d===1 && f>0){
+      countDedo1++;
+      if(pestanaCasa===-1) pestanaCasa=f;
+      if(pestanaCasa===f){
+        if(primeiraCordaPestana===-1) primeiraCordaPestana=i;
+        ultimaCordaPestana=i;
+      }
+    }
+  });
+  var ehPestana=(countDedo1>=3 && pestanaCasa>0);
+  if(ehPestana){
+    var xIni=x0+primeiraCordaPestana*cw;
+    var xFim=x0+ultimaCordaPestana*cw;
+    var yPest=y0+(pestanaCasa-1)*ch+ch/2;
+    svg+='<rect x="'+(xIni-14)+'" y="'+(yPest-10)+'" width="'+((xFim-xIni)+28)+'" height="20" rx="10" fill="#111827" stroke="#fff" stroke-width="1.5"/>';
+    svg+='<text x="'+((xIni+xFim)/2)+'" y="'+(yPest+4)+'" font-size="11" font-weight="900" fill="#fff" text-anchor="middle">1 PESTANA</text>';
+  }
   frets.forEach(function(f,i){
     if(f>0 && f<=5){
-      var x=x0+i*cw; var y=y0+(f-1)*ch+ch/2;
       var dedo=(s.dedos && s.dedos[i]) ? s.dedos[i] : 1;
+      if(ehPestana && dedo===1 && f===pestanaCasa) return;
+      var x=x0+i*cw; var y=y0+(f-1)*ch+ch/2;
       var cor=corPorDedo[dedo]||'#1a6fc4';
       svg+='<circle cx="'+(x+1)+'" cy="'+(y+2)+'" r="15" fill="#000" opacity="0.18"/>';
       svg+='<circle cx="'+x+'" cy="'+y+'" r="15" fill="'+cor+'" stroke="#fff" stroke-width="2"/>';
