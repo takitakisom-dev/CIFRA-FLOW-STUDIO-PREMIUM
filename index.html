@@ -246,7 +246,7 @@ audio{width:100%;margin-top:8px}
 <button type="button" onclick="salvarConfigGeral()" style="width:100%;background:#00c853;color:#fff;border:0;padding:16px;border-radius:14px;font-weight:900;cursor:pointer">💾 SALVAR CONFIGURAÇÕES</button>
 </div>
 
-<div id="telaCheia"><h1 id="tituloCheia"></h1><p id="artistaCheia" style="opacity:.7;margin-bottom:16px"></p><div id="lyrics-cheia"></div><div class="barra-flutuante"><div class="linha-float"><button type="button" onclick="toggleRolagem()" id="btnRolar" class="azul">▶ Rolar</button><button type="button" onclick="setRolagem(1)" id="r1">1</button><button type="button" onclick="setRolagem(2)" id="r2">2</button><button type="button" onclick="setRolagem(3)" id="r3">3</button><button type="button" onclick="setRolagem(4)" id="r4">4</button><button type="button" onclick="setRolagem(5)" id="r5">5</button><button type="button" onclick="setRolagem(6)" id="r6">6</button><button type="button" onclick="setRolagem(7)" id="r7">7</button><button type="button" onclick="fecharTelaCheia()" style="background:#ff3b30;color:#fff;margin-left:auto">✕ Sair</button></div><div class="linha-float"><button type="button" onclick="mudarTom(-1)">- Tom</button><button type="button" id="tomCheia">Original</button><button type="button" onclick="mudarTom(1)">+ Tom</button><button type="button" onclick="mudarFonteCifra(-2)">A-</button><button type="button" onclick="mudarFonteCifra(2)">A+</button><button type="button" onclick="mudarEspaco(-2)">⬆ Colar</button><button type="button" onclick="mudarEspaco(2)">⬇ Afastar</button></div></div></div>
+<div id="telaCheia"><h1 id="tituloCheia"></h1><p id="artistaCheia" style="opacity:.7;margin-bottom:16px"></p><div id="lyrics-cheia"></div><div class="barra-flutuante"><div class="linha-float"><button type="button" onclick="toggleRolagem()" id="btnRolar" class="azul">▶ Rolar</button><button type="button" onclick="setRolagem(1)" id="r1">1</button><button type="button" onclick="setRolagem(2)" id="r2">2</button><button type="button" onclick="setRolagem(3)" id="r3">3</button><button type="button" onclick="setRolagem(4)" id="r4">4</button><button type="button" onclick="setRolagem(5)" id="r5">5</button><button type="button" onclick="setRolagem(6)" id="r6">6</button><button type="button" onclick="setRolagem(7)" id="r7">7</button><button type="button" onclick="toggleModoPalco()" id="btnPalco" style="background:#7c3aed;color:#fff">🎤 MODO PALCO</button><button type="button" onclick="fecharTelaCheia()" style="background:#ff3b30;color:#fff;margin-left:auto">✕ Sair</button></div><div class="linha-float"><button type="button" onclick="mudarTom(-1)">- Tom</button><button type="button" id="tomCheia">Original</button><button type="button" onclick="mudarTom(1)">+ Tom</button><button type="button" onclick="mudarFonteCifra(-2)">A-</button><button type="button" onclick="mudarFonteCifra(2)">A+</button><button type="button" onclick="mudarEspaco(-2)">⬆ Colar</button><button type="button" onclick="mudarEspaco(2)">⬇ Afastar</button></div></div></div>
 <div id="telaSetlist"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>🎤 Setlist do Show</h2><button type="button" onclick="fecharSetlist()" style="background:var(--azul);color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800;cursor:pointer">✕ Fechar</button></div><div style="display:flex;gap:8px;margin-bottom:12px"><button type="button" onclick="limparSetlist()" style="background:var(--card);padding:10px 14px;border-radius:12px;font-weight:700">🗑️ Limpar tudo</button><button type="button" onclick="compartilharSetlist()" style="background:#00c853;color:#fff;border:0;padding:10px 14px;border-radius:12px;font-weight:700">🔗 Compartilhar</button></div><div id="lista-setlist"></div></div>
 <div id="telaCriar"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>➕ Criar</h2><button type="button" onclick="fecharCriar()" style="background:var(--azul);color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800">✕ Fechar</button></div><div id="lista-criados2"></div></div>
 <div id="telaTreino"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>🎸 Treinar Acordes</h2><button type="button" onclick="fecharTreino()" style="background:var(--azul);color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800">✕ Fechar</button></div><div id="lista-acordes" style="display:flex;gap:8px;flex-wrap:wrap"></div></div>
@@ -343,7 +343,11 @@ function desenharBraco(nome){
       }
     }
   });
-  var ehPestana=(countDedo1>=3 && pestanaCasa>0);
+  var ehPestana=false;
+  if(pestanaCasa>0 && primeiraCordaPestana>=0 && ultimaCordaPestana>=0){
+    if(countDedo1>=3) ehPestana=true;
+    if(countDedo1>=2 && (ultimaCordaPestana-primeiraCordaPestana)>=3) ehPestana=true;
+  }
   if(ehPestana){
     var xIni=x0+primeiraCordaPestana*cw;
     var xFim=x0+ultimaCordaPestana*cw;
@@ -399,10 +403,10 @@ function abrirMusica(pi,mi){
   if(m.vsId){ pegarDoBanco(m.vsId,function(blob){ if(blob){ var p=document.getElementById('playerAudio'); p.src=URL.createObjectURL(blob); p.style.display='block'; document.getElementById('audioBox').style.display='block'; document.getElementById('audioBox').innerHTML='🎹 VS ligado com essa cifra. Vai pra Página 2 e aperta ▶.'; } }); }
 }
 function voltarPastas(){ document.getElementById('viewer').classList.remove('mostrar'); musicaAtual=null; salvarEstado(); }
-function renderLetra(){ if(!musicaAtual) return; var html=musicaAtual.lines.map(function(l){ var ch=l.chords.map(function(c){ return '<span class="chord" style="left:'+(c.pos*8)+'px" onclick="mostrarAcorde(\''+c.chord+'\')">'+transpor(c.chord,tomAtual)+'</span>'; }).join(''); return '<div class="linha-cifra"><div class="chord-line">'+ch+'</div><div class="text-line">'+l.text+'</div></div>'; }).join(''); document.getElementById('lyrics-container').innerHTML=html; document.getElementById('lyrics-cheia').innerHTML=html; document.getElementById('tituloCheia').textContent=musicaAtual.title; document.getElementById('artistaCheia').textContent=musicaAtual.artista; var t=tomAtual===0?'Original':(tomAtual>0?'+'+tomAtual:tomAtual); document.getElementById('tomAtual').textContent=t; document.getElementById('tomCheia').textContent=t; }
+function renderLetra(){ if(!musicaAtual) return; var html=musicaAtual.lines.map(function(l){ var ch=l.chords.map(function(c){ var novo=transpor(c.chord,tomAtual); return '<span class="chord" style="left:'+(c.pos*8)+'px" onclick="mostrarAcorde(\''+novo+'\')">'+novo+'</span>'; }).join(''); return '<div class="linha-cifra"><div class="chord-line">'+ch+'</div><div class="text-line">'+l.text+'</div></div>'; }).join(''); var a=document.getElementById('lyrics-container'); if(a) a.innerHTML=html; var b=document.getElementById('lyrics-cheia'); if(b) b.innerHTML=html; document.getElementById('tituloCheia').textContent=musicaAtual.title; document.getElementById('artistaCheia').textContent=musicaAtual.artista; var t=tomAtual===0?'Original':(tomAtual>0?'+'+tomAtual:tomAtual); var e1=document.getElementById('tomAtual'); if(e1) e1.textContent=t; var e2=document.getElementById('tomCheia'); if(e2) e2.textContent=t; }
 var NOTAS=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 function transpor(a,s){ if(!s) return a; var m=a.match(/^([A-G]#?)(.*)$/); if(!m) return a; var i=NOTAS.indexOf(m[1]); if(i<0) return a; return NOTAS[(i+s+12)%12]+m[2]; }
-function mudarTom(d){ tomAtual+=d; renderLetra(); }
+function mudarTom(d){ tomAtual+=d; if(tomAtual>11) tomAtual=-11; if(tomAtual<-11) tomAtual=11; renderLetra(); }
 function toggleSimplificada(){ simplificada=!simplificada; alert(simplificada?'Modo Simplificada ligado':'Modo Simplificada desligado'); }
 function salvarConfiguracao(){ config.volume=audioVals.volume; config.pitch=audioVals.pitch; config.bpm=audioVals.bpm; config.bass=audioVals.bass; config.treble=audioVals.treble; salvarLocal(); alert('Setup salvo!'); }
 function aplicarFonteCifra(){ var r=document.documentElement.style; r.setProperty('--letraCifra',fonteCifra+'px'); r.setProperty('--espacoCifra',espacoCifra+'px'); var v=document.getElementById('fonteCifraVal'); if(v) v.textContent=fonteCifra+'px'; var e=document.getElementById('espacoVal'); if(e) e.textContent=espacoCifra+'px'; }
@@ -443,7 +447,32 @@ function mostrarAcorde(n){ document.getElementById('nomeAcorde').textContent=n; 
 function fecharAcorde(){ document.getElementById('modalAcorde').classList.remove('show'); }
 var rolando=false,rolagemTimer=null,velRolagem=3;
 function abrirTelaCheia(){ if(!musicaAtual){ alert('Abre uma música primeiro!'); return; } document.getElementById('telaCheia').classList.add('show'); renderLetra(); }
-function fecharTelaCheia(){ document.getElementById('telaCheia').classList.remove('show'); pararRolagem(); }
+function fecharTelaCheia(){ document.getElementById('telaCheia').classList.remove('show'); pararRolagem(); if(modoPalco) toggleModoPalco(); }
+var modoPalco=false;
+function toggleModoPalco(){
+  modoPalco=!modoPalco;
+  var barra=document.querySelector('#telaCheia .barra-flutuante');
+  var btn=document.getElementById('btnPalco');
+  if(modoPalco){
+    if(barra) barra.style.display='none';
+    if(btn) btn.textContent='👁️ MOSTRAR';
+    var nav=document.querySelector('.nav4'); if(nav) nav.style.display='none';
+    var tit=document.getElementById('tituloCheia'); if(tit) tit.style.display='none';
+    var art=document.getElementById('artistaCheia'); if(art) art.style.display='none';
+    document.getElementById('telaCheia').style.paddingTop='10px';
+    document.getElementById('telaCheia').onclick=function(e){
+      if(modoPalco && e.target.id==='lyrics-cheia'){ toggleModoPalco(); }
+    };
+  } else {
+    if(barra) barra.style.display='flex';
+    if(btn) btn.textContent='🎤 MODO PALCO';
+    var nav2=document.querySelector('.nav4'); if(nav2) nav2.style.display='flex';
+    var tit2=document.getElementById('tituloCheia'); if(tit2) tit2.style.display='block';
+    var art2=document.getElementById('artistaCheia'); if(art2) art2.style.display='block';
+    document.getElementById('telaCheia').style.paddingTop='22px';
+    document.getElementById('telaCheia').onclick=null;
+  }
+}
 function toggleRolagem(){ rolando?pararRolagem():iniciarRolagem(); }
 function iniciarRolagem(){ rolando=true; document.getElementById('btnRolar').textContent='⏸ Pausar'; rolagemTimer=setInterval(function(){ document.getElementById('telaCheia').scrollTop+=velRolagem; },50); }
 function pararRolagem(){ rolando=false; document.getElementById('btnRolar').textContent='▶ Rolar'; clearInterval(rolagemTimer); }
@@ -464,7 +493,11 @@ function bindSlider(id,key,fmt){ var el=document.getElementById(id); if(!el) ret
 bindSlider('volume','volume',function(v){return v+'%';});
 bindSlider('pitch','pitch',function(v){return (v>0?'+'+v:v)+' st';});
 bindSlider('bpm','bpm',function(v){return v;});
-bindSlider('bass','bass',function(v){return (v>0?'+'+v:v)+' dB';});
+bindSlider('Continuando de onde parou, Taki. É só colar esse finalzinho pra fechar o arquivo v15, não precisa colar tudo de novo.
+
+### Final do arquivo - cola depois do que já colou
+
+```javascript
 bindSlider('treble','treble',function(v){return (v>0?'+'+v:v)+' dB';});
 renderizarPastas(); atualizarContadores(); aplicarConfig(); aplicarFonteCifra(); aplicarAudio(); checarShare(); restaurarEstado();
 </script>
