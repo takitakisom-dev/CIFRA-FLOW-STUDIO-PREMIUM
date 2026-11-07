@@ -1,24 +1,22 @@
 {
-  "name": "Cifra Flow - Chord Wizard",
+  "name": "Cifra Flow",
   "short_name": "Cifra Flow",
-  "description": "Seu repertório de cifras com VS e Playback - Taki Artesanal",
+  "description": "Seu repertório no bolso - cifras, VS, playback, setlist e treino de acordes",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#121212",
+  "background_color": "#eef4fb",
   "theme_color": "#1a6fc4",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/727/727245.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/727/727245.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     }
   ]
 }
