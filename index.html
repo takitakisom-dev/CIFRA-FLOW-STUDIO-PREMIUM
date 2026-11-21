@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CIFRAFLOW</title>
+<title>CIFRAFLOW v2</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0B1E3A;font-family:Arial,sans-serif;color:#fff;padding-bottom:90px}
 .top{position:sticky;top:0;z-index:100;background:#0B1E3A;padding:14px;text-align:center;border-bottom:1px solid #1E3A5F}
 .top b{font-size:20px;letter-spacing:2px}
-.top small{display:block;font-size:10px;color:#94A3B8;letter-spacing:1px}
+.top small{display:block;font-size:10px;color:#94A3B8}
 .busca{margin:12px;background:#13294D;border:1px solid #1E3A5F;border-radius:12px;padding:12px;display:flex;gap:8px}
 .busca input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:14px}
 .busca input::placeholder{color:#94A3B8}
@@ -17,152 +17,202 @@ body{background:#0B1E3A;font-family:Arial,sans-serif;color:#fff;padding-bottom:9
 .chips button{white-space:nowrap;border:1px solid #1E3A5F;background:#13294D;color:#fff;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700}
 .chips button.on{background:#fff;color:#0B1E3A}
 .card{background:#13294D;margin:10px 12px;border:1px solid #1E3A5F;border-radius:14px;padding:14px;cursor:pointer}
-.card b{font-size:15px}
-.card span{display:block;font-size:12px;color:#94A3B8;margin-top:3px}
+.card b{font-size:15px}.card span{display:block;font-size:12px;color:#94A3B8;margin-top:3px}
 .card .row{display:flex;justify-content:space-between;align-items:center}
 .fav{font-size:20px;background:none;border:none;cursor:pointer}
 .toolbar{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px;position:sticky;top:68px;background:#0B1E3A;z-index:90}
 .toolbar button{background:#13294D;border:1px solid #1E3A5F;color:#fff;padding:9px 12px;border-radius:10px;font-weight:700;font-size:12px}
-.toolbar button.on{background:#fff;color:#0B1E3A}
+.toolbar button.on{background:#F59E0B;color:#000}
 .leitor{background:#0B1E3A;margin:8px 12px;padding:14px;border-radius:14px;border:1px solid #1E3A5F;min-height:300px}
-.leitor h2{font-size:20px;margin-bottom:2px}
-.leitor p{font-size:12px;color:#94A3B8;margin-bottom:14px}
-/* SÓ LETRA E CIFRA COM BORDA PRETA */
+.leitor h2{font-size:20px}.leitor p{font-size:12px;color:#94A3B8;margin-bottom:14px}
 .cifra-linha{margin:10px 0;line-height:1.2}
-.cifra{color:#fff;font-weight:900;font-size:15px;text-shadow:-1.5px -1.5px 0 #000,1.5px -1.5px 0 #000,-1.5px 1.5px 0 #000,1.5px 1.5px 0 #000,0 2px 0 #000,0 -2px 0 #000,2px 0 0 #000,-2px 0 0 #000;letter-spacing:.5px}
+.cifra{color:#fff;font-weight:900;font-size:15px;text-shadow:-1.5px -1.5px 0 #000,1.5px -1.5px 0 #000,-1.5px 1.5px 0 #000,1.5px 1.5px 0 #000,0 2px 0 #000,0 -2px 0 #000,2px 0 0 #000,-2px 0 0 #000}
 .letra{color:#fff;font-size:19px;font-weight:700;text-shadow:-1.5px -1.5px 0 #000,1.5px -1.5px 0 #000,-1.5px 1.5px 0 #000,1.5px 1.5px 0 #000,0 2px 0 #000,0 -2px 0 #000,2px 0 0 #000,-2px 0 0 #000}
 .tag{background:#F59E0B;color:#000;font-size:10px;font-weight:900;padding:3px 8px;border-radius:20px;display:inline-block;margin:10px 0}
 .box{background:#13294D;margin:10px 12px;padding:14px;border-radius:14px;border:1px solid #1E3A5F}
-.box b{font-size:13px}
-.box label{display:flex;justify-content:space-between;padding:10px 0;font-size:13px;border-bottom:1px solid #1E3A5F}
+.box b{font-size:13px}.box label{display:flex;justify-content:space-between;padding:10px 0;font-size:13px;border-bottom:1px solid #1E3A5F}
 .box input[type=range]{width:100%;margin:8px 0}
 .inp{width:100%;padding:11px;border:1px solid #1E3A5F;background:#0B1E3A;color:#fff;border-radius:10px;margin:6px 0}
 .btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:800;background:#fff;color:#0B1E3A;margin-top:8px}
-.btn2{background:#F59E0B}
+.btn2{background:#F59E0B}.btn3{background:#22C55E;color:#fff}
 .menu{position:fixed;bottom:0;left:0;right:0;background:#0B1E3A;display:flex;justify-content:space-around;padding:10px 0 12px;border-top:1px solid #1E3A5F;z-index:200}
 .menu button{flex:1;border:none;background:none;color:#94A3B8;font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px}
-.menu button span{font-size:20px}
-.menu button.on{color:#fff}
+.menu button span{font-size:20px}.menu button.on{color:#fff}
 .tab{display:none}.tab.on{display:block}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:300;padding:12px}
-.modal.on{display:flex}.mbox{background:#13294D;border-radius:14px;padding:16px;width:100%;max-width:420px;max-height:90vh;overflow:auto}
+.modal.on{display:flex}.mbox{background:#13294D;border-radius:14px;padding:16px;width:100%;max-width:440px;max-height:90vh;overflow:auto}
+.metronomo{background:#13294D;border:2px solid #F59E0B;border-radius:14px;padding:14px;margin:10px 12px;text-align:center}
+.metronomo b{font-size:32px}.bola{width:26px;height:26px;border-radius:50%;background:#334155;margin:8px auto}.bola.on{background:#F59E0B;box-shadow:0 0 20px #F59E0B}
+.resNet{background:#0B1E3A;border:1px solid #1E3A5F;border-radius:10px;padding:10px;margin:6px 0;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="top"><b>CIFRAFLOW</b><small>MISTURA CIFRAS + BANANA • SEU REPERTÓRIO</small></div>
+<div class="top"><b>CIFRAFLOW v2</b><small>METRÔNOMO + SIMPLIFICAR + BUSCAR NA INTERNET</small></div>
 
-<!-- INÍCIO -->
 <div id="tabInicio" class="tab on">
-  <div class="busca">🔍 <input id="busca" placeholder="Buscar música, artista..." oninput="filtrar()"></div>
+  <div class="busca">🔍 <input id="busca" placeholder="Buscar no meu repertório..." oninput="filtrar()"></div>
+  <div class="box" style="border-color:#22C55E"><b>🌐 BUSCAR NA INTERNET E BAIXAR CIFRA</b>
+    <input id="buscaNet" class="inp" placeholder="Ex: Evidências Chitãozinho">
+    <button class="btn btn3" onclick="buscarInternet()">🔍 Buscar na Internet</button>
+    <div id="resNet" style="margin-top:8px"></div>
+    <small style="color:#94A3B8">Ele busca no Cifras, você toca no resultado e ele já baixa e salva aqui.</small>
+  </div>
   <div class="chips">
     <button class="on" onclick="filtroCat('Todas',this)">Todas</button>
     <button onclick="filtroCat('Sertanejo',this)">Sertanejo</button>
     <button onclick="filtroCat('MPB',this)">MPB</button>
     <button onclick="filtroCat('Gospel',this)">Gospel</button>
     <button onclick="filtroCat('Rock',this)">Rock</button>
-    <button onclick="filtroCat('Forró',this)">Forró</button>
   </div>
   <div id="lista"></div>
 </div>
 
-<!-- CIFRAS / LEITOR -->
 <div id="tabCifras" class="tab">
   <div class="toolbar">
-    <button onclick="mudaTom(-1)">Tom -</button>
-    <button id="tomBtn">Tom: G</button>
-    <button onclick="mudaTom(1)">Tom +</button>
-    <button onclick="mudaFonte(-2)">A-</button>
-    <button onclick="mudaFonte(2)">A+</button>
+    <button onclick="mudaTom(-1)">Tom -</button><button id="tomBtn">Tom: G</button><button onclick="mudaTom(1)">Tom +</button>
+    <button onclick="mudaFonte(-2)">A-</button><button onclick="mudaFonte(2)">A+</button>
     <button id="scrollBtn" onclick="toggleScroll()">▶ Rolagem</button>
+    <button id="simpBtn" onclick="toggleSimp()">✨ Simplificar</button>
     <button onclick="favoritarAtual()">♡ Favoritar</button>
+    <button onclick="troca('Metronomo')">🥁 Metrônomo</button>
   </div>
   <div class="leitor" id="leitor"></div>
   <div style="padding:0 12px"><button class="btn btn2" onclick="abrirAdd()">+ Adicionar Minha Cifra</button></div>
 </div>
 
-<!-- FAVORITOS -->
-<div id="tabFavoritos" class="tab">
-  <div class="box"><b>⭐ MEUS FAVORITOS</b><div id="listaFav" style="margin-top:8px"></div></div>
-</div>
-
-<!-- LISTAS -->
-<div id="tabListas" class="tab">
-  <div class="box"><b>📋 MINHAS LISTAS / REPERTÓRIO</b>
-    <input id="novaLista" class="inp" placeholder="Nome da lista ex: Show Sábado">
-    <button class="btn" onclick="criarLista()">Criar Lista</button>
-    <div id="listaListas" style="margin-top:10px"></div>
+<div id="tabMetronomo" class="tab">
+  <div class="metronomo">
+    <div style="font-size:12px;color:#94A3B8">METRÔNOMO</div>
+    <b id="bpmLabel">90 BPM</b>
+    <div class="bola" id="bola"></div>
+    <input type="range" min="40" max="220" value="90" oninput="bpm=this.value;document.getElementById('bpmLabel').innerText=bpm+' BPM';reiniciaMetro()">
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="btn btn2" id="metroBtn" onclick="toggleMetro()">▶ Começar</button>
+      <button class="btn" onclick="tapMetro()">👆 Bater Ritmo (TAP)</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn" onclick="bpm=60;atualizaBpm()">Lento 60</button>
+      <button class="btn" onclick="bpm=90;atualizaBpm()">Médio 90</button>
+      <button class="btn" onclick="bpm=120;atualizaBpm()">Rápido 120</button>
+    </div>
+    <small style="color:#94A3B8">Deixa ligado enquanto toca, ele pisca e faz o clique.</small>
   </div>
+  <div class="box"><b>Como usar no show:</b><br>1. Escolhe o BPM da música<br>2. Aperta Começar<br>3. Deixa o celular do lado, ele marca o tempo pra você não acelerar.</div>
 </div>
 
-<!-- AJUSTES -->
+<div id="tabFavoritos" class="tab"><div class="box"><b>⭐ MEUS FAVORITOS</b><div id="listaFav" style="margin-top:8px"></div></div></div>
+<div id="tabListas" class="tab"><div class="box"><b>📋 MINHAS LISTAS</b><input id="novaLista" class="inp" placeholder="Nome da lista ex: Show Sábado"><button class="btn" onclick="criarLista()">Criar Lista</button><div id="listaListas" style="margin-top:10px"></div></div></div>
 <div id="tabAjustes" class="tab">
-  <div class="box"><b>⚙️ AJUSTES - IGUAL CIFRAS + BANANA</b>
-    <label>Tamanho da letra <span id="tamLabel">19</span></label>
-    <input type="range" min="14" max="32" value="19" oninput="ajustaFonte(this.value)">
+  <div class="box"><b>⚙️ AJUSTES</b>
+    <label>Tamanho da letra <span id="tamLabel">19</span></label><input type="range" min="14" max="32" value="19" oninput="ajustaFonte(this.value)">
     <label>Rolagem automática <input type="checkbox" id="autoScrollCheck" onchange="toggleScroll()"></label>
-    <label>Velocidade da rolagem <span id="velLabel">3</span></label>
-    <input type="range" min="1" max="8" value="3" oninput="vel=this.value;document.getElementById('velLabel').innerText=this.value">
-    <label>Modo Palco (fundo escuro) <input type="checkbox" checked></label>
-    <label>Borda preta na letra <input type="checkbox" checked onclick="alert('Sempre ligada no seu modelo!')"></label>
+    <label>Velocidade rolagem <span id="velLabel">3</span></label><input type="range" min="1" max="8" value="3" oninput="vel=this.value;document.getElementById('velLabel').innerText=this.value">
+    <label>Simplificar acordes automático <input type="checkbox" id="simpAuto" onchange="simpOn=this.checked;renderLeitor()"></label>
     <label>Mostrar cifra em cima da letra <input type="checkbox" checked></label>
-    <label>Simplificar acordes <input type="checkbox"></label>
+    <label>Borda preta na letra <input type="checkbox" checked></label>
   </div>
-  <div class="box"><b>📥 IMPORTAR / EXPORTAR</b>
-    <button class="btn" onclick="alert('Cole sua cifra em TXT que o CIFRAFLOW entende!')">Importar TXT</button>
-    <button class="btn btn2" onclick="exportar()">Exportar Todas (WhatsApp)</button>
-    <button class="btn" style="background:#EF4444;color:#fff" onclick="if(confirm('Limpar tudo?')){localStorage.removeItem('cifraflow');location.reload()}">Limpar Tudo</button>
-  </div>
+  <div class="box"><b>📥 IMPORTAR</b><button class="btn" onclick="exportar()">Exportar Todas (WhatsApp)</button><button class="btn" style="background:#EF4444;color:#fff" onclick="if(confirm('Limpar tudo?')){localStorage.removeItem('cifraflow2');location.reload()}">Limpar Tudo</button></div>
 </div>
 
 <div class="menu">
   <button class="on" id="mInicio" onclick="troca('Inicio')"><span>🏠</span>Início</button>
   <button id="mCifras" onclick="troca('Cifras')"><span>🎸</span>Cifras</button>
+  <button id="mMetronomo" onclick="troca('Metronomo')"><span>🥁</span>Metrônomo</button>
   <button id="mFavoritos" onclick="troca('Favoritos')"><span>⭐</span>Favoritos</button>
   <button id="mListas" onclick="troca('Listas')"><span>📋</span>Listas</button>
   <button id="mAjustes" onclick="troca('Ajustes')"><span>⚙️</span>Ajustes</button>
 </div>
 
 <div class="modal" id="modalAdd"><div class="mbox">
-<b>Adicionar Minha Cifra</b><br><br>
-<input id="aTitulo" class="inp" placeholder="Título ex: Evidências">
-<input id="aArtista" class="inp" placeholder="Artista ex: Chitãozinho">
-<input id="aCat" class="inp" placeholder="Categoria ex: Sertanejo">
-<textarea id="aTexto" class="inp" rows="8" placeholder="Cole assim:&#10;[G]Quando eu digo que deixei de te amar&#10;[C]É porque eu te amo..."></textarea>
+<b>Adicionar / Importar Cifra</b><br><br>
+<input id="aTitulo" class="inp" placeholder="Título">
+<input id="aArtista" class="inp" placeholder="Artista">
+<input id="aCat" class="inp" placeholder="Categoria">
+<textarea id="aTexto" class="inp" rows="9" placeholder="[G]Quando eu digo...&#10;[C]É porque eu te amo..."></textarea>
 <button class="btn" onclick="salvarNova()">Salvar</button>
 <button class="btn" style="background:#fff;color:#64748B;border:1px solid #E2E8F0" onclick="fecharAdd()">Cancelar</button>
 </div></div>
 
 <script>
 var tons=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-var tomIdx=7, fonte=19, vel=3, scrollOn=false, scrollTimer=null, catAtual='Todas', atual=null;
+var tomIdx=7, fonte=19, vel=3, scrollOn=false, scrollTimer=null, catAtual='Todas', atual=null, simpOn=false;
+var bpm=90, metroOn=false, metroTimer=null, audioCtx=null, taps=[];
 var musicas=[
 {id:1,titulo:'Evidências',artista:'Chitãozinho & Xororó',cat:'Sertanejo',tom:'G',fav:false,texto:'[G]Quando eu digo que deixei de te amar\n[C]É porque eu te amo\n[G]Quando eu digo que não quero mais você\n[D]É porque eu te quero'},
 {id:2,titulo:'Como É Grande O Meu Amor',artista:'Roberto Carlos',cat:'MPB',tom:'C',fav:false,texto:'[C]Como é grande o meu amor por você\n[F]Eu tenho tanto pra lhe falar\n[C]Mas com palavras não sei dizer\n[G]Como é grande o meu amor por você'},
 {id:3,titulo:'Deus de Promessas',artista:'Davi Sacer',cat:'Gospel',tom:'D',fav:false,texto:'[D]Sei que os Teus olhos\n[Bm]Sempre atentos permanecem em mim\n[G]E os Teus ouvidos\n[A]Estão sensíveis para ouvir meu clamor'}
 ];
 var listas=[];
-try{var s=localStorage.getItem('cifraflow');if(s){var o=JSON.parse(s);if(o.musicas)musicas=o.musicas;if(o.listas)listas=o.listas;}}catch(e){}
-function save(){try{localStorage.setItem('cifraflow',JSON.stringify({musicas:musicas,listas:listas}));}catch(e){}}
-function troca(t){document.querySelectorAll('.tab').forEach(e=>e.classList.remove('on'));document.querySelectorAll('.menu button').forEach(e=>e.classList.remove('on'));document.getElementById('tab'+t).classList.add('on');document.getElementById('m'+t).classList.add('on');if(t=='Favoritos')renderFav();if(t=='Listas')renderListas();}
+try{var s=localStorage.getItem('cifraflow2');if(s){var o=JSON.parse(s);if(o.musicas)musicas=o.musicas;if(o.listas)listas=o.listas;}}catch(e){}
+function save(){try{localStorage.setItem('cifraflow2',JSON.stringify({musicas:musicas,listas:listas}));}catch(e){}}
+function troca(t){document.querySelectorAll('.tab').forEach(e=>e.classList.remove('on'));document.querySelectorAll('.menu button').forEach(e=>e.classList.remove('on'));document.getElementById('tab'+t).classList.add('on');var b=document.getElementById('m'+t);if(b)b.classList.add('on');if(t=='Favoritos')renderFav();if(t=='Listas')renderListas();}
 function filtroCat(c,el){catAtual=c;document.querySelectorAll('.chips button').forEach(b=>b.classList.remove('on'));el.classList.add('on');filtrar();}
-function filtrar(){var q=document.getElementById('busca').value.toLowerCase();var f=musicas.filter(m=>(catAtual=='Todas'||m.cat==catAtual)&&((m.titulo+' '+m.artista).toLowerCase().includes(q)));var h='';f.forEach(m=>{h+='<div class="card"><div class="row"><div><b>'+m.titulo+'</b><span>'+m.artista+' • '+m.cat+' • Tom '+m.tom+'</span></div><button class="fav" onclick="event.stopPropagation();toggleFav('+m.id+')">'+(m.fav?'❤️':'🤍')+'</button></div></div>';});if(!f.length)h='<div class="box">Nenhuma encontrada. Adicione a sua!</div>';document.getElementById('lista').innerHTML=h;document.querySelectorAll('#lista .card').forEach((el,i)=>{el.onclick=()=>abrir(f[i].id)});}
+function filtrar(){var q=document.getElementById('busca').value.toLowerCase();var f=musicas.filter(m=>(catAtual=='Todas'||m.cat==catAtual)&&((m.titulo+' '+m.artista).toLowerCase().includes(q)));var h='';f.forEach(m=>{h+='<div class="card"><div class="row"><div><b>'+m.titulo+'</b><span>'+m.artista+' • '+m.cat+' • Tom '+m.tom+'</span></div><button class="fav" onclick="event.stopPropagation();toggleFav('+m.id+')">'+(m.fav?'❤️':'🤍')+'</button></div></div>';});if(!f.length)h='<div class="box">Nenhuma aqui. Busque na internet ali em cima!</div>';document.getElementById('lista').innerHTML=h;document.querySelectorAll('#lista .card').forEach((el,i)=>{el.onclick=()=>abrir(f[i].id)});}
 function abrir(id){atual=musicas.find(m=>m.id==id);tomIdx=tons.indexOf(atual.tom);if(tomIdx<0)tomIdx=7;renderLeitor();troca('Cifras');}
-function parseTexto(txt){return txt.split('\n').map(l=>{var m=l.match(/^\[(.*?)\](.*)$/);if(m)return '<div class="cifra-linha"><div class="cifra">'+m[1]+'</div><div class="letra" style="font-size:'+fonte+'px">'+(m[2]||'♪')+'</div></div>';if(l.trim().startsWith('['))return '<div class="tag">'+l+'</div>';return '<div class="cifra-linha"><div class="letra" style="font-size:'+fonte+'px">'+(l||'&nbsp;')+'</div></div>';}).join('');}
-function renderLeitor(){if(!atual){document.getElementById('leitor').innerHTML='<div class="box">Escolha uma música no Início</div>';return;}document.getElementById('tomBtn').innerText='Tom: '+tons[tomIdx];document.getElementById('leitor').innerHTML='<h2>'+atual.titulo+'</h2><p>'+atual.artista+' • '+atual.cat+' • Tom original '+atual.tom+' • Mostrando '+tons[tomIdx]+'</p>'+parseTexto(atual.texto);}
+// --- SIMPLIFICAR ---
+function simplificarAcorde(c){var base=c.match(/^[A-G](#|b)?m?/);if(!base)return c;var b=base[0];if(c.includes('m')&&!c.startsWith(b+'m')){}return b; }
+function simplificarTexto(txt){return txt.replace(/\[([^\]]+)\]/g,(m,c)=>'['+simplificarAcorde(c)+']');}
+function toggleSimp(){simpOn=!simpOn;document.getElementById('simpBtn').classList.toggle('on',simpOn);document.getElementById('simpAuto').checked=simpOn;renderLeitor();}
+function parseTexto(txt){if(simpOn)txt=simplificarTexto(txt);return txt.split('\n').map(l=>{var m=l.match(/^\[(.*?)\](.*)$/);if(m)return '<div class="cifra-linha"><div class="cifra">'+m[1]+'</div><div class="letra" style="font-size:'+fonte+'px">'+(m[2]||'♪')+'</div></div>';if(l.trim().startsWith('['))return '<div class="tag">'+l+'</div>';return '<div class="cifra-linha"><div class="letra" style="font-size:'+fonte+'px">'+(l||'&nbsp;')+'</div></div>';}).join('');}
+function renderLeitor(){if(!atual){document.getElementById('leitor').innerHTML='<div class="box">Escolha uma música no Início ou busque na internet</div>';return;}document.getElementById('tomBtn').innerText='Tom: '+tons[tomIdx];document.getElementById('leitor').innerHTML='<h2>'+atual.titulo+'</h2><p>'+atual.artista+' • '+atual.cat+' • Tom original '+atual.tom+' • Mostrando '+tons[tomIdx]+(simpOn?' • ✨ SIMPLIFICADA':'')+'</p>'+parseTexto(atual.texto);}
 function mudaTom(d){tomIdx=(tomIdx+d+tons.length)%tons.length;renderLeitor();}
 function mudaFonte(d){fonte=Math.max(14,Math.min(32,fonte+d));document.getElementById('tamLabel').innerText=fonte;renderLeitor();}
 function ajustaFonte(v){fonte=parseInt(v);document.getElementById('tamLabel').innerText=v;renderLeitor();}
 function toggleFav(id){var m=musicas.find(x=>x.id==id);m.fav=!m.fav;save();filtrar();renderFav();}
-function favoritarAtual(){if(!atual)return;atual.fav=!atual.fav;save();alert(atual.fav?'Adicionado aos Favoritos! ❤️':'Removido dos Favoritos');}
-function renderFav(){var f=musicas.filter(m=>m.fav);document.getElementById('listaFav').innerHTML=f.length?f.map(m=>'<div style="padding:8px 0;border-bottom:1px solid #1E3A5F;cursor:pointer" onclick="abrir('+m.id+')">❤️ <b>'+m.titulo+'</b> - '+m.artista+'</div>').join(''):'Nenhum favorito ainda. Toque no 🤍';}
+function favoritarAtual(){if(!atual)return;atual.fav=!atual.fav;save();alert(atual.fav?'Adicionado aos Favoritos! ❤️':'Removido');}
+function renderFav(){var f=musicas.filter(m=>m.fav);document.getElementById('listaFav').innerHTML=f.length?f.map(m=>'<div style="padding:8px 0;border-bottom:1px solid #1E3A5F;cursor:pointer" onclick="abrir('+m.id+')">❤️ <b>'+m.titulo+'</b> - '+m.artista+'</div>').join(''):'Nenhum favorito ainda.';}
 function toggleScroll(){scrollOn=!scrollOn;document.getElementById('scrollBtn').innerText=scrollOn?'⏸ Pausar':'▶ Rolagem';document.getElementById('autoScrollCheck').checked=scrollOn;if(scrollOn){scrollTimer=setInterval(()=>window.scrollBy(0,vel),60);}else{clearInterval(scrollTimer);}}
 function criarLista(){var n=document.getElementById('novaLista').value.trim();if(!n)return alert('Dê um nome pra lista');listas.push({nome:n,ids:[]});document.getElementById('novaLista').value='';save();renderListas();}
-function renderListas(){document.getElementById('listaListas').innerHTML=listas.length?listas.map((l,i)=>'<div style="padding:10px 0;border-bottom:1px solid #1E3A5F"><b>'+l.nome+'</b> - '+l.ids.length+' músicas <button style="background:#fff;border:none;padding:5px 10px;border-radius:6px;font-weight:800;margin-left:6px" onclick="addAtualLista('+i+')">+ Atual</button></div>').join(''):'Nenhuma lista ainda. Crie: Show Sábado, Igreja, Barzinho...';}
+function renderListas(){document.getElementById('listaListas').innerHTML=listas.length?listas.map((l,i)=>'<div style="padding:10px 0;border-bottom:1px solid #1E3A5F"><b>'+l.nome+'</b> - '+l.ids.length+' músicas <button style="background:#fff;border:none;padding:5px 10px;border-radius:6px;font-weight:800" onclick="addAtualLista('+i+')">+ Atual</button></div>').join(''):'Nenhuma lista ainda.';}
 function addAtualLista(i){if(!atual)return alert('Abra uma cifra primeiro!');if(!listas[i].ids.includes(atual.id))listas[i].ids.push(atual.id);save();renderListas();alert('Adicionada em '+listas[i].nome);}
 function abrirAdd(){document.getElementById('modalAdd').classList.add('on');}
 function fecharAdd(){document.getElementById('modalAdd').classList.remove('on');}
 function salvarNova(){var t=document.getElementById('aTitulo').value.trim();if(!t)return alert('Título!');musicas.push({id:Date.now(),titulo:t,artista:document.getElementById('aArtista').value||'Meu repertório',cat:document.getElementById('aCat').value||'Sertanejo',tom:'G',fav:false,texto:document.getElementById('aTexto').value||'[G]Sua letra aqui...'});save();fecharAdd();filtrar();alert('Salva!');}
-function exportar(){var txt='*CIFRAFLOW - MEU REPERTÓRIO*\n\n'+musicas.map(m=>m.titulo+' - '+m.artista+' (Tom '+m.tom+')').join('\n');window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');}
+function exportar(){var txt='*CIFRAFLOW*\n\n'+musicas.map(m=>m.titulo+' - '+m.artista+' (Tom '+m.tom+')').join('\n');window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');}
+// --- METRÔNOMO ---
+function beep(){try{if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();var o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=1000;o.type='square';g.gain.setValueAtTime(0.15,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.08);o.start();o.stop(audioCtx.currentTime+0.09);}catch(e){}}
+function tick(){beep();var b=document.getElementById('bola');b.classList.add('on');setTimeout(()=>b.classList.remove('on'),120);}
+function toggleMetro(){metroOn=!metroOn;document.getElementById('metroBtn').innerText=metroOn?'⏸ Parar':'▶ Começar';if(metroOn){tick();metroTimer=setInterval(tick,60000/bpm);}else{clearInterval(metroTimer);}}
+function reiniciaMetro(){if(metroOn){clearInterval(metroTimer);metroTimer=setInterval(tick,60000/bpm);}}
+function atualizaBpm(){document.getElementById('bpmLabel').innerText=bpm+' BPM';document.querySelector('#tabMetronomo input[type=range]').value=bpm;reiniciaMetro();}
+function tapMetro(){var now=Date.now();taps.push(now);taps=taps.filter(t=>now-t<2000);if(taps.length>=2){var diffs=[];for(var i=1;i<taps.length;i++)diffs.push(taps[i]-taps[i-1]);var media=diffs.reduce((a,b)=>a+b,0)/diffs.length;bpm=Math.round(60000/media);bpm=Math.max(40,Math.min(220,bpm));atualizaBpm();}}
+// --- BUSCAR NA INTERNET ---
+async function buscarInternet(){
+  var q=document.getElementById('buscaNet').value.trim();
+  if(!q)return alert('Digite artista ou música!');
+  document.getElementById('resNet').innerHTML='🔍 Buscando "'+q+'" na internet...';
+  try{
+    var url='https://api.allorigins.win/raw?url='+encodeURIComponent('https://www.cifras.com.br/busca/?q='+encodeURIComponent(q));
+    var res=await fetch(url); var html=await res.text();
+    var doc=new DOMParser().parseFromString(html,'text/html');
+    var links=[...doc.querySelectorAll('a[href*="/cifra/"], a[href*="cifras"]')].slice(0,5);
+    if(!links.length) throw new Error('sem resultado');
+    var h='<b>Encontrei, toca pra baixar:</b>';
+    links.forEach(a=>{var href=a.getAttribute('href');if(!href.startsWith('http'))href='https://www.cifras.com.br'+href;h+='<div class="resNet" onclick="baixarCifra(\''+href.replace(/'/g,'')+'\',\''+a.textContent.trim().replace(/'/g,'').slice(0,40)+'\')">🎸 '+a.textContent.trim()+'<br><small style="color:#94A3B8">Baixar e salvar no CIFRAFLOW</small></div>';});
+    document.getElementById('resNet').innerHTML=h;
+  }catch(e){
+    document.getElementById('resNet').innerHTML='<div class="resNet" onclick="window.open(\'https://www.cifras.com.br/busca/?q='+encodeURIComponent(q)+'\',\'_blank\')">🌐 Não consegui buscar direto. Toca aqui pra abrir no Cifras, copia a cifra e cola no botão + Adicionar.<br><b>Ou toca aqui pra abrir a busca</b></div>';
+  }
+}
+async function baixarCifra(url,titulo){
+  document.getElementById('resNet').innerHTML='⬇️ Baixando "'+titulo+'" ...';
+  try{
+    var res=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url));
+    var html=await res.text();
+    var doc=new DOMParser().parseFromString(html,'text/html');
+    var pre=doc.querySelector('pre, .cifra, [class*=cifra]');
+    var texto=pre?pre.innerText:'';
+    if(!texto||texto.length<20) throw new Error('vazio');
+    // Tenta converter: linhas com acordes em cima da letra já vêm prontas, salva como texto
+    var partes=titulo.split(' - ');
+    musicas.push({id:Date.now(),titulo:partes[0]||titulo,artista:partes[1]||'Internet',cat:'Internet',tom:'G',fav:false,texto:texto.slice(0,8000)});
+    save();filtrar();
+    document.getElementById('resNet').innerHTML='✅ Baixada e salva! Já está no seu repertório.';
+    alert('Baixada! ✅ Já está salva no seu CIFRAFLOW.');
+  }catch(e){
+    document.getElementById('resNet').innerHTML='⚠️ Não consegui baixar automático. <button class="btn btn3" onclick="window.open(\''+url+'\',\'_blank\')">Abrir cifra no Cifras e copiar</button><br><small>Depois cola no + Adicionar Minha Cifra</small>';
+  }
+}
 filtrar();renderLeitor();renderListas();
 </script>
 </body>
