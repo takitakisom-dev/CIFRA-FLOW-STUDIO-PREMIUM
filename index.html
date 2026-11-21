@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CIFRAFLOW v3</title>
+<title>CIFRAFLOW v5 - ROLAGEM 1 A 7</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0B1E3A;font-family:Arial,sans-serif;color:#fff;padding-bottom:90px}
-body.fullscreen{padding-bottom:0}
-body.fullscreen .top,body.fullscreen .menu,body.fullscreen #controles{display:none!important}
-body.fullscreen .leitor{margin:0;border:none;border-radius:0;min-height:100vh;padding:22px}
+body.tela-grande .leitor{padding:22px}
+body.tela-grande .letra{font-size:32px!important}
+body.tela-grande .cifra{font-size:24px!important}
+body.tela-grande .leitor h2{font-size:28px}
+body.controles-sumidos #controles{display:none!important}
 .top{position:sticky;top:0;z-index:100;background:#0B1E3A;padding:14px;text-align:center;border-bottom:1px solid #1E3A5F}
 .top b{font-size:20px;letter-spacing:2px}.top small{display:block;font-size:10px;color:#94A3B8}
 .busca{margin:12px;background:#13294D;border:1px solid #1E3A5F;border-radius:12px;padding:12px;display:flex;gap:8px}
@@ -27,7 +29,7 @@ body.fullscreen .leitor{margin:0;border:none;border-radius:0;min-height:100vh;pa
 .toolbar button.destaque{background:#F59E0B;color:#000}
 .leitor{background:#0B1E3A;margin:8px 12px;padding:14px;border-radius:14px;border:1px solid #1E3A5F;min-height:300px}
 .leitor h2{font-size:20px}.leitor p{font-size:12px;color:#94A3B8;margin-bottom:14px}
-.cifra-linha{margin:10px 0;line-height:1.2}
+.cifra-linha{margin:12px 0;line-height:1.2}
 .cifra{color:#fff;font-weight:900;font-size:15px;text-shadow:-1.5px -1.5px 0 #000,1.5px -1.5px 0 #000,-1.5px 1.5px 0 #000,1.5px 1.5px 0 #000,0 2px 0 #000,0 -2px 0 #000,2px 0 0 #000,-2px 0 0 #000}
 .letra{color:#fff;font-size:19px;font-weight:700;text-shadow:-1.5px -1.5px 0 #000,1.5px -1.5px 0 #000,-1.5px 1.5px 0 #000,1.5px 1.5px 0 #000,0 2px 0 #000,0 -2px 0 #000,2px 0 0 #000,-2px 0 0 #000}
 .tag{background:#F59E0B;color:#000;font-size:10px;font-weight:900;padding:3px 8px;border-radius:20px;display:inline-block;margin:10px 0}
@@ -43,22 +45,25 @@ body.fullscreen .leitor{margin:0;border:none;border-radius:0;min-height:100vh;pa
 .tab{display:none}.tab.on{display:block}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:300;padding:12px}
 .modal.on{display:flex}.mbox{background:#13294D;border-radius:14px;padding:16px;width:100%;max-width:440px;max-height:90vh;overflow:auto}
-/* NOVO: QUADRADÃO VAZIO VIRANDO BOTÃO DE COLAR */
 .vazio{border:2px dashed #F59E0B;border-radius:14px;padding:16px;text-align:center;background:#13294D}
 .vazio textarea{width:100%;min-height:140px;background:#0B1E3A;border:1px solid #1E3A5F;color:#fff;border-radius:10px;padding:12px;font-size:14px;margin:10px 0}
 .vazio .big{font-size:44px}
-/* BOTÃO FLUTUANTE TELA CHEIA - some e volta */
-#btnFullFloat{position:fixed;right:12px;bottom:100px;z-index:250;background:#F59E0B;color:#000;border:none;padding:12px 14px;border-radius:50px;font-weight:900;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.4)}
-body.fullscreen #btnFullFloat{bottom:16px;right:16px;opacity:.85}
-#hintFull{position:fixed;bottom:70px;left:0;right:0;text-align:center;font-size:11px;color:#94A3B8;z-index:250;display:none}
-body.fullscreen #hintFull{display:block}
+#floatBtns{position:fixed;right:12px;bottom:100px;z-index:250;display:flex;flex-direction:column;gap:8px}
+#floatBtns button{border:none;padding:12px 14px;border-radius:50px;font-weight:900;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+#btnTelaGrande{background:#F59E0B;color:#000}
+#btnSumir{background:#fff;color:#0B1E3A}
 .metronomo{background:#13294D;border:2px solid #F59E0B;border-radius:14px;padding:14px;margin:10px 12px;text-align:center}
 .metronomo b{font-size:32px}.bola{width:26px;height:26px;border-radius:50%;background:#334155;margin:8px auto}.bola.on{background:#F59E0B;box-shadow:0 0 20px #F59E0B}
 .resNet{background:#0B1E3A;border:1px solid #1E3A5F;border-radius:10px;padding:10px;margin:6px 0;cursor:pointer}
+/* NOVO: CONTROLE DE ROLAGEM 1 A 7 */
+.rolagemBox{background:#13294D;border:2px solid #22C55E;border-radius:14px;padding:12px;margin:0 12px 8px}
+.rolagemBox .velBtns{display:flex;gap:6px;justify-content:space-between;margin-top:8px}
+.rolagemBox .velBtns button{flex:1;padding:10px 0;border:1px solid #1E3A5F;background:#0B1E3A;color:#fff;border-radius:10px;font-weight:900;font-size:14px}
+.rolagemBox .velBtns button.on{background:#22C55E;color:#fff;border-color:#22C55E}
 </style>
 </head>
 <body>
-<div class="top"><b>CIFRAFLOW v3</b><small>COLAR DIRETO + TELA CHEIA</small></div>
+<div class="top"><b>CIFRAFLOW v5</b><small>ROLAGEM 1 A 7 - BEM LENTA NO 1</small></div>
 
 <div id="tabInicio" class="tab on">
   <div class="busca">🔍 <input id="busca" placeholder="Buscar no meu repertório..." oninput="filtrar()"></div>
@@ -86,18 +91,39 @@ body.fullscreen #hintFull{display:block}
       <button id="simpBtn" onclick="toggleSimp()">✨ Simplificar</button>
       <button onclick="favoritarAtual()">♡ Favoritar</button>
       <button onclick="troca('Metronomo')">🥁 Metrônomo</button>
-      <button class="destaque" onclick="toggleFull()">⛶ Tela Cheia</button>
+    </div>
+    <div style="display:flex;gap:8px;padding:0 12px 8px">
+      <button id="btnTelaGrandeTop" class="btn btn2" style="margin:0" onclick="toggleTelaGrande()">🔍 TELA GRANDE</button>
+      <button id="btnSumirTop" class="btn" style="margin:0" onclick="toggleControles()">🙈 SUMIR BOTÕES</button>
+    </div>
+    <!-- CONTROLE DE ROLAGEM 1 A 7 -->
+    <div class="rolagemBox">
+      <div style="display:flex;justify-content:space-between"><b>🐢 ROLAGEM AUTOMÁTICA</b><b id="velTxt">Velocidade 1 - Muito Lenta</b></div>
+      <div style="font-size:11px;color:#94A3B8;margin-top:4px">1 = muito lenta mesmo &nbsp;•&nbsp; 7 = muito rápida</div>
+      <div class="velBtns">
+        <button id="v1" class="on" onclick="setVel(1)">1</button>
+        <button id="v2" onclick="setVel(2)">2</button>
+        <button id="v3" onclick="setVel(3)">3</button>
+        <button id="v4" onclick="setVel(4)">4</button>
+        <button id="v5" onclick="setVel(5)">5</button>
+        <button id="v6" onclick="setVel(6)">6</button>
+        <button id="v7" onclick="setVel(7)">7</button>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn btn3" id="scrollBtn2" style="margin:0" onclick="toggleScroll()">▶ Ligar Rolagem</button>
+        <button class="btn" style="margin:0" onclick="pararScroll()">⏸ Parar</button>
+      </div>
     </div>
   </div>
-  <div class="leitor" id="leitor" onclick="if(document.body.classList.contains('fullscreen')) toggleFull()"></div>
+  <div id="mostrarNovamente" style="display:none;padding:0 12px"><button class="btn btn3" onclick="toggleControles()">👁️ MOSTRAR BOTÕES DE NOVO</button></div>
+  <div class="leitor" id="leitor"></div>
   <div id="areaAdd" style="padding:0 12px"><button class="btn btn2" onclick="abrirAdd()">+ Adicionar Minha Cifra</button></div>
 </div>
 
 <div id="tabMetronomo" class="tab">
   <div class="metronomo"><div style="font-size:12px;color:#94A3B8">METRÔNOMO</div><b id="bpmLabel">90 BPM</b><div class="bola" id="bola"></div>
   <input type="range" min="40" max="220" value="90" oninput="bpm=this.value;document.getElementById('bpmLabel').innerText=bpm+' BPM';reiniciaMetro()">
-  <div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn2" id="metroBtn" onclick="toggleMetro()">▶ Começar</button><button class="btn" onclick="tapMetro()">👆 Bater Ritmo (TAP)</button></div>
-  <div style="display:flex;gap:8px;margin-top:8px"><button class="btn" onclick="bpm=60;atualizaBpm()">Lento 60</button><button class="btn" onclick="bpm=90;atualizaBpm()">Médio 90</button><button class="btn" onclick="bpm=120;atualizaBpm()">Rápido 120</button></div></div>
+  <div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn2" id="metroBtn" onclick="toggleMetro()">▶ Começar</button><button class="btn" onclick="tapMetro()">👆 Bater Ritmo (TAP)</button></div></div>
 </div>
 
 <div id="tabFavoritos" class="tab"><div class="box"><b>⭐ MEUS FAVORITOS</b><div id="listaFav" style="margin-top:8px"></div></div></div>
@@ -106,16 +132,17 @@ body.fullscreen #hintFull{display:block}
   <div class="box"><b>⚙️ AJUSTES</b>
     <label>Tamanho da letra <span id="tamLabel">19</span></label><input type="range" min="14" max="32" value="19" oninput="ajustaFonte(this.value)">
     <label>Rolagem automática <input type="checkbox" id="autoScrollCheck" onchange="toggleScroll()"></label>
-    <label>Velocidade rolagem <span id="velLabel">3</span></label><input type="range" min="1" max="8" value="3" oninput="vel=this.value;document.getElementById('velLabel').innerText=this.value">
+    <label>Velocidade rolagem <span id="velLabel">1 - Muito Lenta</span></label>
+    <input type="range" min="1" max="7" step="1" value="1" oninput="setVel(parseInt(this.value))">
     <label>Simplificar acordes automático <input type="checkbox" id="simpAuto" onchange="simpOn=this.checked;renderLeitor()"></label>
-    <label>Mostrar cifra em cima da letra <input type="checkbox" checked></label>
-    <label>Borda preta na letra <input type="checkbox" checked></label>
   </div>
   <div class="box"><b>📥 IMPORTAR</b><button class="btn" onclick="exportar()">Exportar Todas (WhatsApp)</button></div>
 </div>
 
-<button id="btnFullFloat" onclick="toggleFull()">⛶ Tela Cheia</button>
-<div id="hintFull">Toque na tela para mostrar os controles</div>
+<div id="floatBtns">
+  <button id="btnTelaGrande" onclick="toggleTelaGrande()">🔍 TELA GRANDE</button>
+  <button id="btnSumir" onclick="toggleControles()">🙈 SUMIR BOTÕES</button>
+</div>
 
 <div class="menu">
   <button class="on" id="mInicio" onclick="troca('Inicio')"><span>🏠</span>Início</button>
@@ -138,74 +165,68 @@ body.fullscreen #hintFull{display:block}
 
 <script>
 var tons=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-var tomIdx=7, fonte=19, vel=3, scrollOn=false, scrollTimer=null, catAtual='Todas', atual=null, simpOn=false;
+var tomIdx=7, fonte=19, scrollOn=false, scrollTimer=null, catAtual='Todas', atual=null, simpOn=false;
 var bpm=90, metroOn=false, metroTimer=null, audioCtx=null, taps=[];
+var telaGrandeOn=false, controlesSumidos=false;
+// --- ROLAGEM 1 A 7 - CORRIGIDA, BEM LENTA NO 1 ---
+var vel=1;
+var nomesVel={1:'1 - Muito Lenta',2:'2 - Lenta',3:'3 - Devagar',4:'4 - Média',5:'5 - Normal',6:'6 - Rápida',7:'7 - Muito Rápida'};
+// quanto anda a cada 50ms - 1 é quase parado
+var passoVel={1:0.12,2:0.25,3:0.45,4:0.75,5:1.15,6:1.7,7:2.6};
+function setVel(v){
+  vel=v;
+  document.querySelectorAll('.velBtns button').forEach(b=>b.classList.remove('on'));
+  var b=document.getElementById('v'+v); if(b) b.classList.add('on');
+  document.getElementById('velTxt').innerText='Velocidade '+nomesVel[v];
+  document.getElementById('velLabel').innerText=nomesVel[v];
+  var range=document.querySelector('#tabAjustes input[type=range][max="7"]'); if(range) range.value=v;
+  if(scrollOn){ clearInterval(scrollTimer); scrollTimer=setInterval(()=>window.scrollBy(0,passoVel[vel]),50); }
+}
+function toggleScroll(){
+  scrollOn=!scrollOn;
+  document.getElementById('scrollBtn').innerText=scrollOn?'⏸ Pausar':'▶ Rolagem';
+  document.getElementById('scrollBtn2').innerText=scrollOn?'⏸ Pausar Rolagem':'▶ Ligar Rolagem';
+  document.getElementById('autoScrollCheck').checked=scrollOn;
+  if(scrollOn){ scrollTimer=setInterval(()=>window.scrollBy(0,passoVel[vel]),50); }
+  else{ clearInterval(scrollTimer); }
+}
+function pararScroll(){ scrollOn=false; clearInterval(scrollTimer); document.getElementById('scrollBtn').innerText='▶ Rolagem'; document.getElementById('scrollBtn2').innerText='▶ Ligar Rolagem'; document.getElementById('autoScrollCheck').checked=false; }
+
 var musicas=[
 {id:1,titulo:'Evidências',artista:'Chitãozinho & Xororó',cat:'Sertanejo',tom:'G',fav:false,texto:'[G]Quando eu digo que deixei de te amar\n[C]É porque eu te amo\n[G]Quando eu digo que não quero mais você\n[D]É porque eu te quero'},
 {id:2,titulo:'Como É Grande O Meu Amor',artista:'Roberto Carlos',cat:'MPB',tom:'C',fav:false,texto:'[C]Como é grande o meu amor por você\n[F]Eu tenho tanto pra lhe falar'},
 {id:3,titulo:'Deus de Promessas',artista:'Davi Sacer',cat:'Gospel',tom:'D',fav:false,texto:'[D]Sei que os Teus olhos\n[Bm]Sempre atentos permanecem em mim'}
 ];
 var listas=[];
-try{var s=localStorage.getItem('cifraflow3');if(s){var o=JSON.parse(s);if(o.musicas)musicas=o.musicas;if(o.listas)listas=o.listas;}}catch(e){}
-function save(){try{localStorage.setItem('cifraflow3',JSON.stringify({musicas:musicas,listas:listas}));}catch(e){}}
-function troca(t){document.body.classList.remove('fullscreen');document.querySelectorAll('.tab').forEach(e=>e.classList.remove('on'));document.querySelectorAll('.menu button').forEach(e=>e.classList.remove('on'));document.getElementById('tab'+t).classList.add('on');var b=document.getElementById('m'+t);if(b)b.classList.add('on');if(t=='Favoritos')renderFav();if(t=='Listas')renderListas();}
+try{var s=localStorage.getItem('cifraflow5');if(s){var o=JSON.parse(s);if(o.musicas)musicas=o.musicas;if(o.listas)listas=o.listas;}}catch(e){}
+function save(){try{localStorage.setItem('cifraflow5',JSON.stringify({musicas:musicas,listas:listas}));}catch(e){}}
+function troca(t){document.querySelectorAll('.tab').forEach(e=>e.classList.remove('on'));document.querySelectorAll('.menu button').forEach(e=>e.classList.remove('on'));document.getElementById('tab'+t).classList.add('on');var b=document.getElementById('m'+t);if(b)b.classList.add('on');document.getElementById('floatBtns').style.display=(t=='Cifras')?'flex':'none';if(t=='Favoritos')renderFav();if(t=='Listas')renderListas();}
+function toggleTelaGrande(){telaGrandeOn=!telaGrandeOn;document.body.classList.toggle('tela-grande',telaGrandeOn);var txt=telaGrandeOn?'🔍 TELA NORMAL':'🔍 TELA GRANDE';document.getElementById('btnTelaGrande').innerText=txt;document.getElementById('btnTelaGrandeTop').innerText=txt;if(telaGrandeOn)window.scrollTo(0,0);}
+function toggleControles(){controlesSumidos=!controlesSumidos;document.body.classList.toggle('controles-sumidos',controlesSumidos);document.getElementById('mostrarNovamente').style.display=controlesSumidos?'block':'none';var txt=controlesSumidos?'👁️ MOSTRAR BOTÕES':'🙈 SUMIR BOTÕES';document.getElementById('btnSumir').innerText=txt;document.getElementById('btnSumirTop').innerText=txt;if(controlesSumidos)window.scrollTo(0,0);}
 function filtroCat(c,el){catAtual=c;document.querySelectorAll('.chips button').forEach(b=>b.classList.remove('on'));el.classList.add('on');filtrar();}
-function filtrar(){var q=document.getElementById('busca').value.toLowerCase();var f=musicas.filter(m=>(catAtual=='Todas'||m.cat==catAtual)&&((m.titulo+' '+m.artista).toLowerCase().includes(q)));var h='';f.forEach(m=>{h+='<div class="card"><div class="row"><div><b>'+m.titulo+'</b><span>'+m.artista+' • '+m.cat+' • Tom '+m.tom+'</span></div><button class="fav" onclick="event.stopPropagation();toggleFav('+m.id+')">'+(m.fav?'❤️':'🤍')+'</button></div></div>';});if(!f.length)h='<div class="box">Nenhuma aqui. Busque na internet ou cole direto na tela de Cifras!</div>';document.getElementById('lista').innerHTML=h;document.querySelectorAll('#lista .card').forEach((el,i)=>{el.onclick=()=>abrir(f[i].id)});}
+function filtrar(){var q=document.getElementById('busca').value.toLowerCase();var f=musicas.filter(m=>(catAtual=='Todas'||m.cat==catAtual)&&((m.titulo+' '+m.artista).toLowerCase().includes(q)));var h='';f.forEach(m=>{h+='<div class="card"><div class="row"><div><b>'+m.titulo+'</b><span>'+m.artista+' • '+m.cat+' • Tom '+m.tom+'</span></div><button class="fav" onclick="event.stopPropagation();toggleFav('+m.id+')">'+(m.fav?'❤️':'🤍')+'</button></div></div>';});if(!f.length)h='<div class="box">Nenhuma aqui.</div>';document.getElementById('lista').innerHTML=h;document.querySelectorAll('#lista .card').forEach((el,i)=>{el.onclick=()=>abrir(f[i].id)});}
 function abrir(id){atual=musicas.find(m=>m.id==id);tomIdx=tons.indexOf(atual.tom);if(tomIdx<0)tomIdx=7;renderLeitor();troca('Cifras');}
 function simplificarAcorde(c){var base=c.match(/^[A-G](#|b)?m?/);return base?base[0]:c;}
 function simplificarTexto(txt){return txt.replace(/\[([^\]]+)\]/g,(m,c)=>'['+simplificarAcorde(c)+']');}
 function toggleSimp(){simpOn=!simpOn;document.getElementById('simpBtn').classList.toggle('on',simpOn);document.getElementById('simpAuto').checked=simpOn;renderLeitor();}
 function parseTexto(txt){if(simpOn)txt=simplificarTexto(txt);return txt.split('\n').map(l=>{var m=l.match(/^\[(.*?)\](.*)$/);if(m)return '<div class="cifra-linha"><div class="cifra">'+m[1]+'</div><div class="letra" style="font-size:'+fonte+'px">'+(m[2]||'♪')+'</div></div>';if(l.trim().startsWith('['))return '<div class="tag">'+l+'</div>';return '<div class="cifra-linha"><div class="letra" style="font-size:'+fonte+'px">'+(l||'&nbsp;')+'</div></div>';}).join('');}
-// NOVO: SE NÃO TEM MÚSICA, MOSTRA O QUADRADÃO DE COLAR
 function renderLeitor(){
-  if(!atual){
-    document.getElementById('leitor').innerHTML=
-    '<div class="vazio"><div class="big">📋</div><b>COLAR CIFRA DIRETO AQUI</b><br><small style="color:#94A3B8">Copiou do Cifras? Cola aqui embaixo e aperta salvar</small>'+
-    '<input id="tColar" class="inp" placeholder="Título da música (ex: Evidências)">'+
-    '<input id="aColar" class="inp" placeholder="Artista (ex: Chitãozinho)">'+
-    '<textarea id="txtColar" placeholder="👉 SEGURE AQUI E APERTE COLAR&#10;[G]Quando eu digo que deixei...&#10;[C]É porque eu te amo..."></textarea>'+
-    '<button class="btn btn3" onclick="salvarColado()">✅ Salvar Essa Cifra Colada</button>'+
-    '<button class="btn" onclick="colarArea()">📋 Colar da Área de Transferência</button>'+
-    '<small style="color:#94A3B8;display:block;margin-top:8px">Ou escolha uma música no Início</small></div>';
-    document.getElementById('areaAdd').style.display='none';
-    return;
-  }
-  document.getElementById('areaAdd').style.display='block';
-  document.getElementById('tomBtn').innerText='Tom: '+tons[tomIdx];
+  if(!atual){document.getElementById('leitor').innerHTML='<div class="vazio"><div class="big">📋</div><b>COLAR CIFRA DIRETO AQUI</b><br><small style="color:#94A3B8">Copiou do Cifras? Cola aqui</small><input id="tColar" class="inp" placeholder="Título (ex: Evidências)"><input id="aColar" class="inp" placeholder="Artista"><textarea id="txtColar" placeholder="👉 SEGURE AQUI E APERTE COLAR"></textarea><button class="btn btn3" onclick="salvarColado()">✅ Salvar Essa Cifra Colada</button><button class="btn" onclick="colarArea()">📋 Colar da Área de Transferência</button></div>';document.getElementById('areaAdd').style.display='none';return;}
+  document.getElementById('areaAdd').style.display='block';document.getElementById('tomBtn').innerText='Tom: '+tons[tomIdx];
   document.getElementById('leitor').innerHTML='<h2>'+atual.titulo+'</h2><p>'+atual.artista+' • '+atual.cat+' • Tom '+atual.tom+' • Mostrando '+tons[tomIdx]+(simpOn?' • ✨ SIMPLIFICADA':'')+'</p>'+parseTexto(atual.texto)+'<div class="vazio" style="margin-top:20px"><b>Quer colar outra cifra aqui?</b><textarea id="txtColar2" placeholder="Cole outra cifra aqui..."></textarea><button class="btn btn3" onclick="salvarColado2()">✅ Salvar Como Nova Música</button></div>';
 }
-async function colarArea(){try{var t=await navigator.clipboard.readText();document.getElementById('txtColar').value=t;alert('Colado! ✅ Agora aperta Salvar');}catch(e){alert('Segura no quadradão e aperta COLAR, Taki!');document.getElementById('txtColar').focus();}}
-function salvarColado(){
-  var txt=document.getElementById('txtColar').value.trim();
-  if(!txt) return alert('Cola a cifra primeiro no quadradão!');
-  var t=document.getElementById('tColar').value.trim()||'Nova Música';
-  var a=document.getElementById('aColar').value.trim()||'Meu repertório';
-  musicas.push({id:Date.now(),titulo:t,artista:a,cat:'Colada',tom:'G',fav:false,texto:txt});
-  save(); atual=musicas[musicas.length-1]; filtrar(); renderLeitor(); alert('Salva! ✅ Já está na sua lista');
-}
-function salvarColado2(){
-  var txt=document.getElementById('txtColar2').value.trim();
-  if(!txt) return alert('Cola a cifra primeiro!');
-  musicas.push({id:Date.now(),titulo:'Nova Música Colada',artista:'Meu repertório',cat:'Colada',tom:'G',fav:false,texto:txt});
-  save(); atual=musicas[musicas.length-1]; filtrar(); renderLeitor(); alert('Salva! ✅');
-}
-// NOVO: TELA CHEIA
-function toggleFull(){
-  var isFull=document.body.classList.toggle('fullscreen');
-  document.getElementById('btnFullFloat').innerText=isFull?'✕ Sair da Tela Cheia':'⛶ Tela Cheia';
-  if(isFull){try{if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();}catch(e){} window.scrollTo(0,0);}
-  else{try{if(document.exitFullscreen)document.exitFullscreen();}catch(e){}}
-}
+async function colarArea(){try{var t=await navigator.clipboard.readText();document.getElementById('txtColar').value=t;alert('Colado! ✅ Agora aperta Salvar');}catch(e){alert('Segura no quadradão e aperta COLAR!');document.getElementById('txtColar').focus();}}
+function salvarColado(){var txt=document.getElementById('txtColar').value.trim();if(!txt) return alert('Cola a cifra primeiro!');var t=document.getElementById('tColar').value.trim()||'Nova Música';var a=document.getElementById('aColar').value.trim()||'Meu repertório';musicas.push({id:Date.now(),titulo:t,artista:a,cat:'Colada',tom:'G',fav:false,texto:txt});save();atual=musicas[musicas.length-1];filtrar();renderLeitor();alert('Salva! ✅');}
+function salvarColado2(){var txt=document.getElementById('txtColar2').value.trim();if(!txt) return alert('Cola primeiro!');musicas.push({id:Date.now(),titulo:'Nova Música Colada',artista:'Meu repertório',cat:'Colada',tom:'G',fav:false,texto:txt});save();atual=musicas[musicas.length-1];filtrar();renderLeitor();alert('Salva! ✅');}
 function mudaTom(d){tomIdx=(tomIdx+d+tons.length)%tons.length;renderLeitor();}
 function mudaFonte(d){fonte=Math.max(14,Math.min(32,fonte+d));document.getElementById('tamLabel').innerText=fonte;renderLeitor();}
 function ajustaFonte(v){fonte=parseInt(v);document.getElementById('tamLabel').innerText=v;renderLeitor();}
 function toggleFav(id){var m=musicas.find(x=>x.id==id);m.fav=!m.fav;save();filtrar();renderFav();}
 function favoritarAtual(){if(!atual)return;atual.fav=!atual.fav;save();alert(atual.fav?'Adicionado! ❤️':'Removido');}
 function renderFav(){var f=musicas.filter(m=>m.fav);document.getElementById('listaFav').innerHTML=f.length?f.map(m=>'<div style="padding:8px 0;border-bottom:1px solid #1E3A5F;cursor:pointer" onclick="abrir('+m.id+')">❤️ <b>'+m.titulo+'</b> - '+m.artista+'</div>').join(''):'Nenhum favorito ainda.';}
-function toggleScroll(){scrollOn=!scrollOn;document.getElementById('scrollBtn').innerText=scrollOn?'⏸ Pausar':'▶ Rolagem';document.getElementById('autoScrollCheck').checked=scrollOn;if(scrollOn){scrollTimer=setInterval(()=>window.scrollBy(0,vel),60);}else{clearInterval(scrollTimer);}}
 function criarLista(){var n=document.getElementById('novaLista').value.trim();if(!n)return alert('Dê um nome');listas.push({nome:n,ids:[]});document.getElementById('novaLista').value='';save();renderListas();}
 function renderListas(){document.getElementById('listaListas').innerHTML=listas.length?listas.map((l,i)=>'<div style="padding:10px 0;border-bottom:1px solid #1E3A5F"><b>'+l.nome+'</b> - '+l.ids.length+' músicas <button style="background:#fff;border:none;padding:5px 10px;border-radius:6px;font-weight:800" onclick="addAtualLista('+i+')">+ Atual</button></div>').join(''):'Nenhuma lista ainda.';}
-function addAtualLista(i){if(!atual)return alert('Abra uma cifra primeiro!');if(!listas[i].ids.includes(atual.id))listas[i].ids.push(atual.id);save();renderListas();alert('Adicionada em '+listas[i].nome);}
+function addAtualLista(i){if(!atual)return alert('Abra uma cifra primeiro!');if(!listas[i].ids.includes(atual.id))listas[i].ids.push(atual.id);save();renderListas();alert('Adicionada!');}
 function abrirAdd(){document.getElementById('modalAdd').classList.add('on');}
 function fecharAdd(){document.getElementById('modalAdd').classList.remove('on');}
 function salvarNova(){var t=document.getElementById('aTitulo').value.trim();if(!t)return alert('Título!');musicas.push({id:Date.now(),titulo:t,artista:document.getElementById('aArtista').value||'Meu repertório',cat:document.getElementById('aCat').value||'Sertanejo',tom:'G',fav:false,texto:document.getElementById('aTexto').value||'[G]Sua letra aqui...'});save();fecharAdd();filtrar();alert('Salva!');}
@@ -214,27 +235,12 @@ function beep(){try{if(!audioCtx)audioCtx=new (window.AudioContext||window.webki
 function tick(){beep();var b=document.getElementById('bola');b.classList.add('on');setTimeout(()=>b.classList.remove('on'),120);}
 function toggleMetro(){metroOn=!metroOn;document.getElementById('metroBtn').innerText=metroOn?'⏸ Parar':'▶ Começar';if(metroOn){tick();metroTimer=setInterval(tick,60000/bpm);}else{clearInterval(metroTimer);}}
 function reiniciaMetro(){if(metroOn){clearInterval(metroTimer);metroTimer=setInterval(tick,60000/bpm);}}
-function atualizaBpm(){document.getElementById('bpmLabel').innerText=bpm+' BPM';document.querySelector('#tabMetronomo input[type=range]').value=bpm;reiniciaMetro();}
+function atualizaBpm(){document.getElementById('bpmLabel').innerText=bpm+' BPM';}
 function tapMetro(){var now=Date.now();taps.push(now);taps=taps.filter(t=>now-t<2000);if(taps.length>=2){var diffs=[];for(var i=1;i<taps.length;i++)diffs.push(taps[i]-taps[i-1]);var media=diffs.reduce((a,b)=>a+b,0)/diffs.length;bpm=Math.round(60000/media);bpm=Math.max(40,Math.min(220,bpm));atualizaBpm();}}
-async function buscarInternet(){
-  var q=document.getElementById('buscaNet').value.trim();if(!q)return alert('Digite artista ou música!');
-  document.getElementById('resNet').innerHTML='🔍 Buscando "'+q+'" ...';
-  try{
-    var url='https://api.allorigins.win/raw?url='+encodeURIComponent('https://www.cifras.com.br/busca/?q='+encodeURIComponent(q));
-    var res=await fetch(url); var html=await res.text();
-    var doc=new DOMParser().parseFromString(html,'text/html');
-    var links=[...doc.querySelectorAll('a[href*="/cifra/"]')].slice(0,5);
-    if(!links.length) throw new Error('sem');
-    var h='<b>Encontrei, toca pra baixar:</b>';
-    links.forEach(a=>{var href=a.getAttribute('href');if(!href.startsWith('http'))href='https://www.cifras.com.br'+href;h+='<div class="resNet" onclick="baixarCifra(\''+href.replace(/'/g,'')+'\',\''+a.textContent.trim().replace(/'/g,'').slice(0,40)+'\')">🎸 '+a.textContent.trim()+'<br><small style="color:#94A3B8">Baixar e salvar</small></div>';});
-    document.getElementById('resNet').innerHTML=h;
-  }catch(e){document.getElementById('resNet').innerHTML='<div class="resNet" onclick="window.open(\'https://www.cifras.com.br/busca/?q='+encodeURIComponent(q)+'\',\'_blank\')">🌐 Toca aqui pra abrir no Cifras, copia e cola no quadradão da tela de Cifras</div>';}
-}
-async function baixarCifra(url,titulo){
-  document.getElementById('resNet').innerHTML='⬇️ Baixando...';
-  try{var res=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url));var html=await res.text();var doc=new DOMParser().parseFromString(html,'text/html');var pre=doc.querySelector('pre');var texto=pre?pre.innerText:'';if(!texto||texto.length<20) throw new Error('vazio');var partes=titulo.split(' - ');musicas.push({id:Date.now(),titulo:partes[0]||titulo,artista:partes[1]||'Internet',cat:'Internet',tom:'G',fav:false,texto:texto.slice(0,8000)});save();filtrar();document.getElementById('resNet').innerHTML='✅ Baixada e salva!';alert('Baixada! ✅');}catch(e){document.getElementById('resNet').innerHTML='⚠️ <button class="btn btn3" onclick="window.open(\''+url+'\',\'_blank\')">Abrir cifra e copiar</button><br><small>Depois cola no quadradão</small>';}
-}
+async function buscarInternet(){var q=document.getElementById('buscaNet').value.trim();if(!q)return alert('Digite artista ou música!');document.getElementById('resNet').innerHTML='🔍 Buscando "'+q+'" ...';try{var url='https://api.allorigins.win/raw?url='+encodeURIComponent('https://www.cifras.com.br/busca/?q='+encodeURIComponent(q));var res=await fetch(url);var html=await res.text();var doc=new DOMParser().parseFromString(html,'text/html');var links=[...doc.querySelectorAll('a[href*="/cifra/"]')].slice(0,5);if(!links.length) throw new Error('sem');var h='<b>Encontrei, toca pra baixar:</b>';links.forEach(a=>{var href=a.getAttribute('href');if(!href.startsWith('http'))href='https://www.cifras.com.br'+href;h+='<div class="resNet" onclick="baixarCifra(\''+href.replace(/'/g,'')+'\',\''+a.textContent.trim().replace(/'/g,'').slice(0,40)+'\')">🎸 '+a.textContent.trim()+'</div>';});document.getElementById('resNet').innerHTML=h;}catch(e){document.getElementById('resNet').innerHTML='<div class="resNet" onclick="window.open(\'https://www.cifras.com.br/busca/?q='+encodeURIComponent(q)+'\',\'_blank\')">🌐 Toca aqui pra abrir no Cifras, copia e cola no quadradão</div>';}}
+async function baixarCifra(url,titulo){document.getElementById('resNet').innerHTML='⬇️ Baixando...';try{var res=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url));var html=await res.text();var doc=new DOMParser().parseFromString(html,'text/html');var pre=doc.querySelector('pre');var texto=pre?pre.innerText:'';if(!texto||texto.length<20) throw new Error('vazio');var partes=titulo.split(' - ');musicas.push({id:Date.now(),titulo:partes[0]||titulo,artista:partes[1]||'Internet',cat:'Internet',tom:'G',fav:false,texto:texto.slice(0,8000)});save();filtrar();document.getElementById('resNet').innerHTML='✅ Baixada e salva!';alert('Baixada! ✅');}catch(e){document.getElementById('resNet').innerHTML='⚠️ <button class="btn btn3" onclick="window.open(\''+url+'\',\'_blank\')">Abrir cifra e copiar</button>';}}
 filtrar();renderLeitor();renderListas();
+document.getElementById('floatBtns').style.display='none';
 </script>
 </body>
 </html>
